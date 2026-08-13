@@ -1,0 +1,207 @@
+/* A margem inferior é o vão por onde a paisagem fixa aparece no fim do scroll.
+   Ela precisa casar com a altura do FooterBackground. */
+.footer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-bottom: 25vh;
+  background: var(--color-forest-deep);
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+  color: var(--color-white);
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: clamp(48px, 7vw, 84px) var(--gutter) clamp(24px, 3vw, 34px);
+}
+
+/* ── BLOCO CENTRAL ─────────────────────────────────────── */
+.lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  max-width: 660px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.mark {
+  margin-bottom: var(--space-2);
+}
+
+.heading {
+  max-width: 18ch;
+  font-size: clamp(1.7rem, 3.8vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--color-white);
+  text-wrap: balance;
+}
+
+.text {
+  max-width: 46ch;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-on-dark);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: inherit;
+  font-weight: 700;
+  color: var(--color-lime);
+}
+
+.link span:first-child {
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(163, 194, 60, 0.45);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover span:first-child {
+  border-color: var(--color-lime);
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(163, 194, 60, 0.4);
+  background: rgba(163, 194, 60, 0.12);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.link:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* ── CONTATO ───────────────────────────────────────────── */
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4) var(--space-8);
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.contactItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+a.contactItem:hover {
+  color: var(--color-white);
+}
+
+/* ── BASE ──────────────────────────────────────────────── */
+.bottom {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-top: clamp(40px, 5vw, 68px);
+  padding-top: clamp(24px, 3vw, 34px);
+  border-top: 1px solid var(--color-on-dark-line);
+}
+
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3) var(--space-5);
+}
+
+.navLink {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.68);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.navLink:hover {
+  color: var(--color-lime);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.loginBtn,
+.signupBtn {
+  min-height: 38px;
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.loginBtn {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: var(--color-white);
+}
+
+.loginBtn:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.signupBtn {
+  border: 1px solid transparent;
+  background: var(--color-lime);
+  color: var(--color-forest-deep);
+}
+
+.signupBtn:hover {
+  background: var(--color-white);
+}
+
+.legal {
+  margin-top: clamp(20px, 2.5vw, 28px);
+  font-size: 12px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (min-width: 768px) {
+  .bottom {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .navList {
+    justify-content: flex-start;
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link:hover .arrow {
+    transform: none;
+  }
+}

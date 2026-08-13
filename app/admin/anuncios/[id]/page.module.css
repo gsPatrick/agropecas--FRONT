@@ -1,0 +1,563 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.voltar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+}
+
+.voltar:hover {
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.identidade {
+  flex: 1;
+  min-width: 0;
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricaoTopo {
+  margin: 3px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.etiquetasTopo {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── sinais ───────────────────────────────────────────── */
+/* antes da descrição: são eles que dizem onde olhar, e depois do conteúdo
+   viram justificativa de uma decisão já tomada */
+.sinais {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bone);
+}
+
+.sinaisGraves {
+  border-color: var(--color-warning);
+  background: var(--color-warning-soft);
+}
+
+.sinaisIcone {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-warning);
+}
+
+.sinaisTexto {
+  min-width: 0;
+}
+
+.sinaisTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.sinaisTexto ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sinaisTexto li {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.sinalGrave {
+  font-weight: 700;
+  color: var(--color-warning);
+}
+
+.sinaisNota {
+  display: block;
+  margin-top: 6px;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--color-ink-3);
+}
+
+/* ── grade ────────────────────────────────────────────── */
+.grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  align-items: start;
+  gap: var(--space-4);
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+/* ── conteúdo ─────────────────────────────────────────── */
+.fotos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.foto {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+  color: var(--color-line-strong);
+}
+
+.descricao {
+  max-width: 74ch;
+  margin: 0 0 var(--space-4);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.dados {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.dado {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.dado dt {
+  flex: none;
+  width: 88px;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.dado dd {
+  margin: 0;
+  min-width: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+
+/* ── métricas ─────────────────────────────────────────── */
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.metrica {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  color: var(--color-ink-3);
+}
+
+.metricaPerigo {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.metrica strong {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--color-ink);
+  line-height: 1.1;
+}
+
+.metricaPerigo strong {
+  color: var(--color-danger);
+}
+
+.metrica span {
+  font-family: var(--font-body);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+/* ── listas ───────────────────────────────────────────── */
+.itens,
+.linhaTempo {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item,
+.evento {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.itens li:first-child,
+.linhaTempo li:first-child {
+  border-top: 0;
+}
+
+.itemTexto {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-decoration: none;
+}
+
+.itemTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+a.itemTexto:hover strong {
+  color: var(--color-forest);
+}
+
+.itemTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+.eventoIcone {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+/* ── anunciante ───────────────────────────────────────── */
+.dono {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+  text-decoration: none;
+}
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.donoTexto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.donoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.dono:hover strong {
+  color: var(--color-forest);
+}
+
+.donoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.donoMarcas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.donoAtalhos {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.atalho {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  padding: 8px var(--space-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.atalho:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+/* ── ações ────────────────────────────────────────────── */
+.acoes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.acao {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.acao:hover {
+  border-color: var(--color-forest);
+  background: var(--color-green-tint);
+}
+
+.acao > span {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.acao strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.acao span span {
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--color-ink-3);
+}
+
+/* aprovar é o caminho esperado quando o anúncio está na fila */
+.acaoPrincipal {
+  border-color: var(--color-forest);
+  background: var(--color-green-soft);
+}
+
+.acaoAtiva {
+  border-color: var(--color-warning);
+  background: var(--color-warning-soft);
+}
+
+/* o que interrompe o trabalho de alguém se separa do que não interrompe */
+.acaoAlerta {
+  color: var(--color-warning);
+}
+
+.acaoAlerta:hover {
+  border-color: var(--color-warning);
+  background: var(--color-warning-soft);
+}
+
+.acaoPerigo {
+  color: var(--color-danger);
+}
+
+.acaoPerigo:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+.acaoPerigo strong,
+.acaoAlerta strong {
+  color: inherit;
+}
+
+/* ── carregando ───────────────────────────────────────── */
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── ausente ──────────────────────────────────────────── */
+.ausente {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-12) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+}
+
+.ausenteTitulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.ausenteAcao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 10px var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--color-forest);
+  color: var(--color-white);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .metricas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dados {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .topo {
+    flex-wrap: wrap;
+  }
+
+  .donoAtalhos {
+    flex-direction: column;
+  }
+}

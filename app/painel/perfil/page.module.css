@@ -1,0 +1,523 @@
+.verPublico {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 9px var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.verPublico:hover {
+  background: var(--color-green-tint);
+  border-color: var(--color-line-strong);
+  color: var(--color-forest);
+}
+
+/* ── completude ───────────────────────────────────────── */
+.completude {
+  margin-bottom: var(--space-4);
+  padding: var(--space-4);
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+}
+
+.completudeTopo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+
+  margin-bottom: var(--space-3);
+}
+
+.completudeTitulo {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.completudeTexto {
+  max-width: 62ch;
+  margin: 3px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+.completudeNumero {
+  flex: none;
+  margin-left: auto;
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.trilho {
+  display: block;
+  height: 8px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  overflow: hidden;
+}
+
+.preenchimento {
+  display: block;
+  width: var(--largura);
+  height: 100%;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+
+  transition: width var(--dur-base) var(--ease-out);
+}
+
+.faltando {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.falta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 4px 10px;
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+/* ── grade ────────────────────────────────────────────── */
+.grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  align-items: start;
+  gap: var(--space-4);
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+/* a prévia acompanha a rolagem: editar embaixo e conferir em cima exigiria
+   subir a página a cada campo */
+.grade > aside {
+  position: sticky;
+  top: 84px;
+}
+
+/* ── foto ─────────────────────────────────────────────── */
+.foto {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.avatar {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.avatar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.arquivoOculto {
+  display: none;
+}
+
+.fotoTexto {
+  min-width: 0;
+}
+
+.fotoTitulo {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.fotoDica {
+  max-width: 46ch;
+  margin: 2px 0 var(--space-3);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+/* ── campos ───────────────────────────────────────────── */
+/* Field não traz espaçamento próprio — sem este contêiner, um campo encosta
+   no seguinte e a dica de um parece rótulo do outro */
+.campos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.duplo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin: 0 0 var(--space-4);
+  padding: 10px var(--space-3);
+
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+/* ── barra de salvar ──────────────────────────────────── */
+.barraSalvar {
+  position: sticky;
+  bottom: var(--space-4);
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-md);
+}
+
+.barraAtiva {
+  border-color: var(--color-forest);
+}
+
+.estado {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink-3);
+}
+
+.barraAtiva .estado {
+  color: var(--color-forest);
+}
+
+.botoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+/* ── prévia do cartão público ─────────────────────────── */
+.cartaoPublico {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bone);
+}
+
+.publicoTopo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.publicoAvatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.publicoIdentidade {
+  min-width: 0;
+}
+
+.publicoNome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.selo {
+  display: grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.publicoTipo {
+  margin: 1px 0 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-forest);
+}
+
+.publicoLocal {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  margin: 4px 0 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.publicoSobre {
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+/* o que falta aparece como falta, não como espaço vazio: campo em branco na
+   prévia some, e a pessoa não percebe o buraco que o visitante vê */
+.faltaTexto {
+  font-style: italic;
+  color: var(--color-line-strong);
+}
+
+.publicoDados {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+
+  margin: 0;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.publicoDado {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.publicoDado dt {
+  flex: none;
+  width: 44%;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.publicoDado dd {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+
+.publicoNumeros {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.publicoNumero {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+  overflow-wrap: anywhere;
+}
+
+.publicoNumero strong {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+}
+
+.publicoAcoes {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* botões desenhados, não clicáveis: é uma prévia, e um botão que responde ao
+   clique aqui levaria a pessoa a testar o próprio WhatsApp */
+.publicoBotao,
+.publicoBotaoVazio {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 9px var(--space-3);
+  border-radius: var(--radius-md);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.publicoBotao {
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.publicoBotaoVazio {
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+}
+
+.nota {
+  margin: var(--space-3) 0 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+/* ── respostas ────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* a prévia deixa de acompanhar a rolagem: numa coluna só ela grudaria por
+     cima do formulário que está sendo editado */
+  .grade > aside {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .duplo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .completudeTopo {
+    flex-wrap: wrap;
+  }
+
+  .foto {
+    flex-direction: column;
+  }
+
+  .barraSalvar {
+    flex-wrap: wrap;
+    /* acima da barra de navegação inferior, que é fixa no celular */
+    bottom: calc(var(--altura-barra-inferior, 0px) + var(--space-3));
+  }
+
+  .botoes {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .botoes > * {
+    flex: 1;
+  }
+
+  .publicoNumeros {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .publicoAcoes {
+    flex-direction: column;
+  }
+}

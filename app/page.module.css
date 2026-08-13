@@ -1,0 +1,12 @@
+/* A "folha" opaca: cobre a paisagem fixa enquanto a página rola.
+   Sem background-color aqui, o desenho aparece atrás do site inteiro. */
+.page {
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-white);
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+}

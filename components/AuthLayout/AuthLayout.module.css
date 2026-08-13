@@ -1,0 +1,213 @@
+/* A tela de acesso não rola: o palco tem a altura exata da janela e o painel
+   se comprime para caber. */
+.root {
+  display: grid;
+  grid-template-columns: var(--split) 1fr;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--color-white);
+  transition: grid-template-columns 0.85s var(--ease-out);
+}
+
+/* ── COLUNA DA FOTO ────────────────────────────────────── */
+.media {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(24px, 3vw, 44px);
+  color: var(--color-white);
+}
+
+/* Intro do gate: o painel abre de um ponto central, como na hero.
+   48.5% e não 50% — a 50% o retângulo tem largura zero e o primeiro quadro
+   é uma tela vazia. */
+@keyframes introPanel {
+  from {
+    clip-path: inset(48.5% 48.5% 48.5% 48.5% round 80px);
+  }
+  to {
+    clip-path: inset(0% 0% 0% 0% round 0px);
+  }
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-forest-deep);
+}
+
+.intro {
+  animation: introPanel 1.5s var(--ease-out) both;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  background-color: #b8912f;
+  background-image: url('/hero-colheita.jpg');
+  background-size: cover;
+  background-position: center 42%;
+  transform: scaleX(-1);
+  filter: saturate(1.16) contrast(1.06);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 16, 8, 0.52) 0%,
+    rgba(6, 16, 8, 0.24) 42%,
+    rgba(6, 16, 8, 0.68) 100%
+  );
+}
+
+.mediaContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  /* o conteúdo não encolhe junto com a coluna: some por corte, não por
+     compressão — é o que mantém a marca legível durante a transição */
+  min-width: 260px;
+}
+
+.brand {
+  align-self: flex-start;
+}
+
+/* frase mais longa que o claim anterior: corpo menor e coluna de leitura
+   controlada, senão ela vira um bloco pesado no pé da foto */
+.claim {
+  max-width: 26ch;
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.7vw, 28px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  text-shadow: 0 2px 20px rgba(6, 16, 8, 0.6);
+}
+
+/* ── CONCLUSÃO ─────────────────────────────────────────── */
+/* mais lenta que as transições de passo: aqui o movimento é o próprio evento,
+   não uma resposta a um clique */
+.full {
+  transition: grid-template-columns 1.5s var(--ease-out);
+}
+
+.full .media {
+  opacity: 0;
+  transition: opacity 1s var(--ease-out);
+}
+
+/* ── COLUNA DO PAINEL ──────────────────────────────────── */
+/* A página nunca rola. Quando o passo é mais alto que a janela — o cadastro
+   com endereço, por exemplo — quem rola é só o painel, com a foto parada. */
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding: clamp(14px, 2vh, 28px) clamp(20px, 3vw, 48px) clamp(16px, 2.5vh, 36px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel::-webkit-scrollbar-thumb {
+  background: var(--color-line-strong);
+  border-radius: var(--radius-full);
+}
+
+.panelBar {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink-3);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.back:hover {
+  color: var(--color-forest);
+  background: var(--color-green-tint);
+}
+
+.backIcon {
+  transform: rotate(180deg);
+}
+
+/* margin-block auto centraliza quando sobra espaço e some quando falta — com
+   justify-content: center o topo do formulário seria cortado ao rolar. */
+.panelInner {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 440px;
+  margin: auto;
+  padding: clamp(8px, 2vh, 28px) 0;
+}
+
+/* ── RESPONSIVO ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* No celular a foto vira faixa e o painel ganha rolagem própria: forçar
+     tudo em 100dvh com teclado aberto esconderia campos. */
+  .root {
+    grid-template-columns: 1fr;
+    grid-template-rows: clamp(120px, 20vh, 200px) 1fr;
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+    transition: none;
+  }
+
+  .panel {
+    overflow: visible;
+  }
+
+  .media {
+    justify-content: flex-end;
+  }
+
+  .mediaContent {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    height: auto;
+    min-width: 0;
+  }
+
+  .claim {
+    font-size: 20px;
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition: none;
+  }
+
+  .intro {
+    animation: none;
+  }
+}

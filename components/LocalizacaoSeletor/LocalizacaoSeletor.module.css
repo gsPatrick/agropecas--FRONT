@@ -1,0 +1,376 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── abas ─────────────────────────────────────────────── */
+.abas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+
+  padding: 3px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+}
+
+.aba {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 9px 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.aba:not(.abaAtiva):hover {
+  color: var(--color-forest);
+}
+
+.abaAtiva {
+  background: var(--color-white);
+  color: var(--color-forest);
+  box-shadow: var(--shadow-sm);
+}
+
+.ajuda {
+  margin: calc(var(--space-2) * -1) 0 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-ink-3);
+}
+
+.corpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.estado {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-ink-3);
+}
+
+/* ── resultado do CEP ─────────────────────────────────── */
+.resultado {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-green-soft);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-ink-2);
+}
+
+.resultadoIcone {
+  color: var(--color-forest);
+  flex: 0 0 auto;
+}
+
+/* ── sugestões do texto livre ─────────────────────────── */
+.sugestoes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  margin: calc(var(--space-2) * -1) 0 0;
+  padding: var(--space-2);
+  list-style: none;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+}
+
+.sugestao {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+
+  padding: 9px var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-ink-2);
+  cursor: pointer;
+  text-align: left;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.sugestao:hover {
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.nota {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+/* ── busca dentro do mapa ─────────────────────────────── */
+.busca {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.buscaTopo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.buscaRotulo {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.buscaModos {
+  display: inline-flex;
+  gap: 2px;
+
+  padding: 3px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+}
+
+.buscaModo {
+  padding: 5px 14px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.buscaModo:not(.buscaModoAtivo):hover {
+  color: var(--color-forest);
+}
+
+.buscaModoAtivo {
+  background: var(--color-white);
+  color: var(--color-forest);
+  box-shadow: var(--shadow-sm);
+}
+
+/* âncora da lista flutuante */
+.buscaCampo {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  /* acima do mapa, que o Leaflet monta com planos próprios */
+  z-index: 500;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  max-height: 260px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  margin: 0;
+  padding: var(--space-2);
+  list-style: none;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  box-shadow: var(--shadow-lg);
+}
+
+.opcao {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+
+  padding: 10px var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.opcao:hover {
+  background: var(--color-green-tint);
+}
+
+.opcaoIcone {
+  flex: 0 0 auto;
+  color: var(--color-forest);
+}
+
+.opcaoTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.opcaoTexto strong {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.opcaoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.opcaoSeta {
+  flex: 0 0 auto;
+  color: var(--color-line-strong);
+}
+
+.opcao:hover .opcaoSeta {
+  color: var(--color-forest);
+}
+
+.semResultado {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.buscaAjuda {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+/* ── mapa ─────────────────────────────────────────────── */
+/* o mapa em si vive em `MapaPicker`; aqui ficam os controles ao redor dele */
+.botaoLocal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  padding: 11px var(--space-4);
+  border: 1px solid var(--color-forest);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-forest);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.botaoLocal:hover {
+  background: var(--color-green-tint);
+}
+
+/* ── privacidade ──────────────────────────────────────── */
+.privacidade {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-green-tint);
+  cursor: pointer;
+}
+
+.privacidade input {
+  margin-top: 2px;
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  accent-color: var(--color-forest);
+  cursor: pointer;
+}
+
+.privacidade span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-ink);
+}
+
+.privacidadeAjuda {
+  font-size: 12px;
+  color: var(--color-ink-2);
+  line-height: var(--leading-body);
+}
+
+@media (max-width: 560px) {
+  .abas {
+    grid-template-columns: 1fr;
+  }
+
+  .aba {
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aba,
+  .botaoLocal {
+    transition: none;
+  }
+}

@@ -1,0 +1,221 @@
+.root {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 60;
+
+  display: none;
+
+  background: color-mix(in srgb, var(--color-white) 90%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  backdrop-filter: saturate(180%) blur(18px);
+  border-top: 1px solid var(--color-line);
+
+  /* respeita a faixa do gesto no iPhone: sem isto o último item fica sob o
+     traço do sistema e vira intocável */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ── aba ──────────────────────────────────────────────── */
+.aba {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+
+  width: 100%;
+  min-height: var(--altura-barra-inferior, 56px);
+  padding: 8px 4px 6px;
+
+  border: 0;
+  background: transparent;
+  color: var(--color-ink-3);
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.abaAtiva {
+  color: var(--color-forest);
+}
+
+.icone {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.selo {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+
+  display: grid;
+  place-items: center;
+
+  border: 2px solid var(--color-white);
+  border-radius: var(--radius-full);
+  background: var(--color-danger);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.rotulo {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ── folha do “Mais” ──────────────────────────────────── */
+.folhaRaiz {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+
+.veu {
+  position: absolute;
+  inset: 0;
+
+  border: 0;
+  background: rgba(16, 24, 20, 0.42);
+  cursor: pointer;
+}
+
+/* sobe de baixo, como em aplicativo: vindo do topo, competiria com a barra
+   fixa do cabeçalho e pareceria outro componente */
+.folha {
+  position: absolute;
+  inset: auto 0 0 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
+  max-height: 78dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  padding: var(--space-3) var(--space-4)
+    calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+
+  background: var(--color-white);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+
+  animation: subir var(--dur-base) var(--ease-out);
+}
+
+@keyframes subir {
+  from {
+    translate: 0 100%;
+  }
+}
+
+.puxador {
+  width: 38px;
+  height: 4px;
+  margin: 0 auto var(--space-2);
+
+  border-radius: var(--radius-full);
+  background: var(--color-line-strong);
+}
+
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.grupoTitulo {
+  padding: 0 var(--space-2) 4px;
+
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-line-strong);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: 12px var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-ink-2);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.item > span {
+  flex: 1;
+}
+
+.itemAtivo {
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+.contador {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-danger);
+  color: var(--color-white);
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.saida {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 12px var(--space-3);
+  border-top: 1px solid var(--color-line);
+  color: var(--color-ink-3);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 1000px) {
+  .root {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folha {
+    animation: none;
+  }
+}

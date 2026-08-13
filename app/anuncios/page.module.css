@@ -1,0 +1,270 @@
+.main {
+  background: var(--color-white);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ── TOPO COM BUSCA ────────────────────────────────────── */
+.hero {
+  padding: clamp(40px, 5vw, 72px) 0 clamp(28px, 3.5vw, 44px);
+  background:
+    radial-gradient(90% 120% at 50% 0%, var(--color-green-tint) 0%, transparent 62%),
+    var(--color-white);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.title {
+  max-width: 20ch;
+  font-size: clamp(28px, 4vw, 46px);
+  color: var(--color-forest);
+}
+
+.title em {
+  font-style: normal;
+  color: #6f8c14;
+}
+
+.lead {
+  max-width: 52ch;
+  margin-top: var(--space-3);
+  font-size: 16px;
+  color: var(--color-ink-2);
+}
+
+.search {
+  margin-top: clamp(24px, 3vw, 36px);
+}
+
+.searchBar {
+  max-width: 760px;
+  box-shadow: var(--shadow-md);
+}
+
+.helper {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.helperLink {
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.helperLink:hover {
+  color: var(--color-green);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ── CATEGORIAS ────────────────────────────────────────── */
+.filters {
+  position: sticky;
+  top: 64px;
+  z-index: 20;
+  padding: var(--space-4) 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+  background: var(--color-white);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.chip:not(.chipOn):hover {
+  border-color: var(--color-green);
+  color: var(--color-forest);
+}
+
+.chipOn {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+/* ── RESULTADOS ────────────────────────────────────────── */
+.results {
+  padding: clamp(32px, 4vw, 56px) 0 clamp(48px, 6vw, 80px);
+}
+
+.resultsHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: clamp(20px, 2.5vw, 32px);
+}
+
+.resultsTitle {
+  font-size: clamp(19px, 2.2vw, 26px);
+  color: var(--color-forest);
+}
+
+.count {
+  font-size: 13px;
+  color: var(--color-ink-3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.cell {
+  height: 100%;
+}
+
+.empty {
+  padding: var(--space-16) 0;
+  text-align: center;
+  color: var(--color-ink-2);
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(32px, 4vw, 52px);
+}
+
+/* ── CHAMADA FINAL ─────────────────────────────────────── */
+.cta {
+  padding: 0 var(--gutter) clamp(48px, 6vw, 80px);
+}
+
+.ctaInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: clamp(28px, 4vw, 48px);
+  background: var(--color-forest);
+  border-radius: var(--radius-2xl);
+}
+
+.ctaCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ctaTitle {
+  font-size: clamp(21px, 2.6vw, 30px);
+  color: var(--color-white);
+}
+
+.ctaText {
+  max-width: 46ch;
+  font-size: 15px;
+  color: var(--color-on-dark);
+}
+
+/* ── RESPONSIVO ────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .filters {
+    top: 64px;
+    padding: var(--space-3) 0;
+  }
+
+  .chips {
+    padding: 0 var(--gutter);
+    margin: 0 calc(-1 * var(--gutter));
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ctaInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ── ESQUELETO ─────────────────────────────────────────── */
+/* espelha a anatomia do AdCard (moldura, foto 4/3, corpo, rodapé) para que a
+   troca do esqueleto pelo card real não mova um pixel da grade */
+.esqueletoCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.esqueletoMedia {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.esqueletoBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+  padding: var(--space-5) var(--space-5) var(--space-4);
+}
+
+.esqueletoPlace {
+  margin-top: auto;
+}
+
+.esqueletoFoot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--color-line);
+}

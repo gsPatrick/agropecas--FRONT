@@ -1,0 +1,63 @@
+.root {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(32px, 3.8vw, 52px) 0 clamp(64px, 8vw, 108px);
+  background: #f4f5f0;
+}
+
+/* O desenho é ancorado pela base: o horizonte precisa cair sempre na mesma
+   linha, independente da altura da seção. */
+.landscape {
+  position: absolute;
+  inset: 0;
+  background-image: url('/campo-linha.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* o conteúdo não ocupa a largura toda: fica numa faixa central, deixando a
+   paisagem respirar nas laterais */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(16px, 2.4vw, 34px);
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 2.4vw, 34px);
+  text-align: center;
+}
+
+.icon {
+  color: var(--color-forest);
+}
+
+@media (max-width: 760px) {
+  .root {
+    padding-bottom: clamp(72px, 16vw, 120px);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-10) var(--space-6);
+  }
+
+  .cell {
+    gap: var(--space-6);
+  }
+}

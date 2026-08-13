@@ -1,0 +1,136 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.chip {
+  height: 96px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-line);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.root:hover .chip {
+  transform: translateY(-3px);
+}
+
+.forest {
+  background: var(--color-forest);
+  border-color: transparent;
+}
+
+.green {
+  background: var(--color-green);
+  border-color: transparent;
+}
+
+.lime {
+  background: var(--color-lime);
+  border-color: transparent;
+}
+
+.bone {
+  background: var(--color-bone);
+}
+
+.ink {
+  background: var(--color-ink);
+  border-color: transparent;
+}
+
+.forest-deep {
+  background: var(--color-forest-deep);
+  border-color: transparent;
+}
+
+.forest-soft {
+  background: var(--color-forest-soft);
+  border-color: transparent;
+}
+
+.green-soft {
+  background: var(--color-green-soft);
+}
+
+.green-tint {
+  background: var(--color-green-tint);
+}
+
+.ink-2 {
+  background: var(--color-ink-2);
+  border-color: transparent;
+}
+
+.ink-3 {
+  background: var(--color-ink-3);
+  border-color: transparent;
+}
+
+.line {
+  background: var(--color-line);
+}
+
+.line-strong {
+  background: var(--color-line-strong);
+}
+
+.success {
+  background: var(--color-success);
+  border-color: transparent;
+}
+
+.warning {
+  background: var(--color-warning);
+  border-color: transparent;
+}
+
+.danger {
+  background: var(--color-danger);
+  border-color: transparent;
+}
+
+.info {
+  background: var(--color-info);
+  border-color: transparent;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.token {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  color: var(--color-green);
+}
+
+.hex {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.note {
+  margin-top: var(--space-1);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-ink-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root:hover .chip {
+    transform: none;
+  }
+}

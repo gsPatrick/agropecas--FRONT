@@ -1,0 +1,287 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin: 4px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.emNome {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin-left: auto;
+  padding: 10px var(--space-4);
+
+  border-radius: var(--radius-md);
+  background: var(--color-forest);
+  color: var(--color-white);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.emNome:hover {
+  background: var(--color-forest-deep);
+}
+
+/* ── filtros ──────────────────────────────────────────── */
+.filtros {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.campoBusca {
+  width: 300px;
+  margin-left: auto;
+}
+
+/* ── quadro ───────────────────────────────────────────── */
+.quadro {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.linha {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 150px 120px 150px;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.lista li:first-child {
+  border-top: 0;
+}
+
+.linha:hover {
+  background: var(--color-green-tint);
+}
+
+.miniatura {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+  color: var(--color-line-strong);
+}
+
+.texto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* virou link: o sublinhado herdado atrapalharia a leitura da lista, então
+   fica só a mudança de cor no hover */
+.anuncioTitulo {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.anuncioTitulo:hover {
+  color: var(--color-forest);
+}
+
+.destaque {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-warning);
+  color: var(--color-white);
+}
+
+.meta {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dono {
+  color: var(--color-forest);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.dono:hover {
+  text-decoration: underline;
+}
+
+/* ── números ──────────────────────────────────────────── */
+.numeros {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.numeros > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink-3);
+}
+
+.denuncias {
+  color: var(--color-danger);
+}
+
+/* ── ações ────────────────────────────────────────────── */
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.acaoIcone {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-3);
+  cursor: pointer;
+}
+
+.acaoIcone:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+/* o destaque ligado precisa se ver de longe: é ele que define quem aparece
+   primeiro na busca, e ligar sem querer favorece um anunciante sem motivo */
+.acaoAtiva {
+  border-color: var(--color-warning);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.acaoPerigo:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.vazio {
+  margin: 0;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+/* ── respostas ────────────────────────────────────────── */
+@media (max-width: 1240px) {
+  .linha {
+    grid-template-columns: 40px minmax(0, 1fr) 120px 150px;
+  }
+
+  /* os números saem antes da situação: contagem é contexto, situação é o que
+     decide a próxima ação */
+  .numeros {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .linha {
+    grid-template-columns: 40px minmax(0, 1fr);
+    row-gap: var(--space-2);
+  }
+
+  .situacao {
+    grid-column: 2;
+  }
+
+  .acoes {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  .campoBusca {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .emNome {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .topo {
+    flex-wrap: wrap;
+  }
+}

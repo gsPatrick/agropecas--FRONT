@@ -1,0 +1,53 @@
+.root {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.icon {
+  margin-top: 2px;
+  color: var(--color-lime);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-lime);
+}
+
+.text {
+  max-width: 30ch;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-on-dark);
+}
+
+/* Empilhado no celular: ícone acima, texto centralizado. Em coluna estreita a
+   linha "ícone + texto à esquerda" deixa cada bloco começando num ponto
+   diferente e a lista fica torta. */
+@media (max-width: 900px) {
+  .root {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .icon {
+    margin-top: 0;
+  }
+
+  .body {
+    align-items: center;
+    text-align: center;
+  }
+
+  .text {
+    max-width: 34ch;
+  }
+}

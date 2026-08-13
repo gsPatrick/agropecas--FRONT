@@ -1,0 +1,472 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin: 4px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* ── aprovação prévia ─────────────────────────────────── */
+/* moldura própria, mais forte que a dos cartões: é a decisão que muda o
+   funcionamento do produto, não mais um campo de formulário */
+.destaque {
+  border: 1px solid var(--color-forest);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.destaqueTopo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  background: var(--color-green-tint);
+}
+
+.destaqueIcone {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.destaqueTexto {
+  flex: 1;
+  min-width: 0;
+}
+
+.destaqueTitulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.destaqueDescricao {
+  max-width: 76ch;
+  margin: 3px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.destaqueContagem {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.destaqueContagem strong {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--color-forest);
+  line-height: 1;
+}
+
+/* a regra que evita o susto */
+.regra {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin: 0;
+  padding: 10px var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-bone);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+/* ── os portões ───────────────────────────────────────── */
+.portoes {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.portao {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.portoes li:first-child {
+  border-top: 0;
+}
+
+/* ligado se distingue à primeira vista: numa lista de seis linhas iguais,
+   descobrir quais estão travando gente exige ler chave por chave */
+.portaoLigado {
+  background: var(--color-warning-soft);
+}
+
+.portaoIcone {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.portaoLigado .portaoIcone {
+  background: var(--color-white);
+  color: var(--color-warning);
+}
+
+.portaoTexto {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.portaoLinha {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.portaoLinha strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.fila {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  background: var(--color-warning);
+  color: var(--color-white);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.portaoDescricao {
+  max-width: 78ch;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+.portaoEspera {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-2);
+}
+
+/* ── demais grupos ────────────────────────────────────── */
+/* sem `align-items: start`: os três cartões esticam até a altura do mais alto.
+   Com alturas diferentes, a fileira fica escalonada e parece que o terceiro
+   grupo foi cortado no meio */
+.grupos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.cartao {
+  display: flex;
+  flex-direction: column;
+}
+
+/* o corpo do cartão ocupa a sobra da altura, e a lista dentro dele também —
+   assim o espaço extra vira linha mais alta, e não um vazio no rodapé */
+.cartao > :last-child {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.campos {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.campo {
+  /* as linhas dividem a altura sobrando em partes iguais */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.campos li:first-child {
+  border-top: 0;
+}
+
+/* o que fecha a porta de entrada não pode parecer mais uma linha */
+.campoGrave {
+  background: var(--color-bone);
+}
+
+.campoTexto {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.campoTexto strong {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.campoTexto span {
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--color-ink-3);
+}
+
+.campoNumero {
+  flex: none;
+  width: 84px;
+}
+
+/* ── manutenção ───────────────────────────────────────── */
+.manutencao {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.manutencaoAtiva {
+  border-color: var(--color-danger);
+}
+
+.manutencaoTopo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.manutencaoIcone {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+
+  border-radius: var(--radius-md);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.manutencaoTopo strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.manutencaoCampo {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+/* ── histórico ────────────────────────────────────────── */
+.historico {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.registro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 160px;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.historico li:first-child {
+  border-top: 0;
+}
+
+.registroChave {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.registroMudanca {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.de {
+  text-decoration: line-through;
+}
+
+.para {
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.registroQuem {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+  text-align: right;
+}
+
+/* ── modal ────────────────────────────────────────────── */
+.consequencias {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  list-style: none;
+
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+}
+
+.consequencias li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+/* ocupa a largura toda: como item flex dentro do rodapé do Modal, que é
+   space-between, os botões ficariam encostados na borda esquerda */
+.rodapeModal {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+/* ── respostas ────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .grupos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .grupos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .destaqueTopo {
+    flex-wrap: wrap;
+  }
+
+  .destaqueContagem {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .registro {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 4px;
+  }
+
+  .registroQuem {
+    text-align: left;
+  }
+
+  .portao {
+    flex-wrap: wrap;
+  }
+}

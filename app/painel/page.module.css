@@ -1,0 +1,787 @@
+/* ── ação no cabeçalho ────────────────────────────────── */
+.acaoTopo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 10px var(--space-4);
+  border-radius: var(--radius-md);
+
+  background: var(--color-forest);
+  color: var(--color-white);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.acaoTopo:hover {
+  background: var(--color-forest-soft);
+}
+
+/* no celular a ação já está no centro da barra inferior */
+@media (max-width: 900px) {
+  .acaoTopo {
+    display: none;
+  }
+}
+
+/* ── faixa de avisos ──────────────────────────────────── */
+.avisos {
+  /* 50/50 quando os dois existem. `auto-fit` faz o que sobrar ocupar a linha
+     inteira quando só um aparece — sem isso, um aviso sozinho ficaria numa
+     metade e a outra vazia */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-4);
+}
+
+.alerta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-lg);
+  background: var(--color-warning-soft);
+  text-decoration: none;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.alerta:hover {
+  background: color-mix(in srgb, var(--color-warning) 22%, transparent);
+}
+
+.alertaIcone {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: #8a6416;
+}
+
+.alertaTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #6d5012;
+}
+
+.alertaTexto strong {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: #5a4210;
+}
+
+.alertaSeta {
+  flex: 0 0 auto;
+  color: #8a6416;
+}
+
+/* ── seção com título e filtro ────────────────────────── */
+.secao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.secaoTopo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.secaoTitulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-ink);
+}
+
+.metricas {
+  display: grid;
+  /* `minmax(0, 1fr)` e não `1fr`: a trilha padrão tem largura mínima
+     automática, então um rótulo longo como «FAVORITADO POR» empurra a coluna
+     e a grade inteira estoura para fora do alinhamento das outras seções */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+/* ── grade principal ──────────────────────────────────── */
+.grade {
+  /* metade para cada um. `stretch` (padrão) deixa os dois com a mesma altura:
+     com `start`, o cartão de listas mais curtas terminaria no meio e a linha
+     ficaria com um degrau */
+  /* altura de linha compartilhada pelas duas listas.
+     
+     O valor vem da linha do CONTATO, que é a mais alta: avatar, nome, tipo,
+     cidade e a etiqueta do canal somam ~87px de conteúdo mais o recuo. A linha
+     do anúncio tinha ~90px e sobrava espaço no fim do cartão, já que os dois
+     são esticados para a mesma altura pela grade. */
+  --linha-lista: 116px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-4);
+  /* zero na vertical: é o que faz a barra encostar nos cartões em vez de
+     flutuar como um terceiro bloco */
+  row-gap: 0;
+}
+
+.principal,
+.secundario {
+  min-width: 0;
+  /* os cantos de baixo somem: quem fecha o bloco é a barra */
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* ── barra que une os dois cartões ────────────────────── */
+.barraPaginacao {
+  grid-column: 1 / -1;
+
+  /* -1px: a borda de cima da barra e a de baixo dos cartões viram uma linha
+     só, em vez de duas coladas formando um traço grosso */
+  margin-top: -1px;
+
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+
+  padding: var(--space-3) var(--space-5);
+}
+
+/* ── faixa de controles das duas listas ───────────────── */
+.filtros {
+  /* a MESMA faixa nos dois cartões: à esquerda leva os filtros de situação, à
+     direita o resumo. Compartilhar a classe é o que garante que as duas listas
+     comecem na mesma altura — com alturas calculadas à mão, bastaria trocar o
+     tamanho de um segmento para desalinhar de novo */
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: var(--space-4) var(--space-5) 0;
+}
+
+.resumoLista {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.resumoNumeros {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.resumoNumeros strong {
+  font-weight: 700;
+  color: var(--color-ink-2);
+}
+
+.resumoSeparador {
+  color: var(--color-line-strong);
+}
+
+.resumoNovos {
+  color: var(--color-forest);
+}
+
+/* ── lista de anúncios ────────────────────────────────── */
+.anuncios,
+.contatos {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.anuncios {
+  margin-top: var(--space-4);
+}
+
+.anuncio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+
+  min-height: var(--linha-lista);
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-line);
+  text-decoration: none;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.anuncio:hover {
+  background: var(--color-green-tint);
+}
+
+.miniatura {
+  display: grid;
+  place-items: center;
+  /* maior para preencher a linha mais alta: uma miniatura pequena numa caixa
+     de 116px deixava a lista com cara de espaço sobrando */
+  width: 68px;
+  height: 68px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-sm);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.anuncioTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* título e situação na MESMA linha: a situação era um bloco solto à direita
+   que empurrava o título e obrigava a ler em zigue-zague */
+.anuncioLinha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.anuncioTitulo {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+
+  /* uma linha só: título que quebra em três desalinha a lista inteira */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.anuncioMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.preco {
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+/* número com ícone em vez de "96 visualizações": lido de relance, e a linha
+   para de estourar quando o preço é longo */
+.numero {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.expira {
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-warning-soft);
+  color: #8a6416;
+  font-weight: 600;
+}
+
+.anuncioSeta {
+  flex: 0 0 auto;
+  color: var(--color-line-strong);
+  transition: color var(--dur-fast) var(--ease-out), translate var(--dur-fast) var(--ease-out);
+}
+
+.anuncio:hover .anuncioSeta {
+  color: var(--color-forest);
+  translate: 2px 0;
+}
+
+.status {
+  flex: 0 0 auto;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.publicado {
+  background: var(--color-success-soft);
+  color: #2f7a35;
+}
+
+.pausado {
+  background: var(--color-warning-soft);
+  color: #8a6416;
+}
+
+.rascunho {
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+/* ── estado vazio ─────────────────────────────────────── */
+.vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-10) var(--space-5);
+  margin-top: var(--space-4);
+  border-top: 1px solid var(--color-line);
+
+  color: var(--color-ink-3);
+  text-align: center;
+}
+
+.vazio p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+}
+
+.vazio strong {
+  color: var(--color-ink-2);
+}
+
+.vazioAcao {
+  padding: 8px 16px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-forest);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.vazioAcao:hover {
+  background: var(--color-green-tint);
+  border-color: var(--color-forest);
+}
+
+/* ── contatos: quem procurou → sobre qual anúncio ─────── */
+.contato {
+  /* metade para cada lado, com a seta no meio ligando os dois. A leitura vira
+     uma frase: «Carlos Menezes → Bomba hidráulica» */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: var(--space-3);
+
+  min-height: var(--linha-lista);
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-line);
+  text-decoration: none;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.contatos li:first-child .contato {
+  border-top: 0;
+}
+
+.contato:hover {
+  background: var(--color-green-tint);
+}
+
+.ladoContato,
+.ladoAnuncio {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+/* o lado do anúncio ganha fundo: separa visualmente as duas metades sem
+   precisar de uma linha divisória no meio da linha */
+.ladoAnuncio {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+}
+
+.contato:hover .ladoAnuncio {
+  background: var(--color-white);
+}
+
+.ladoTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.linhaTopo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+/* ── esquerda: o contato ──────────────────────────────── */
+.avatarContato {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.contatoNome {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novo {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-green);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.contatoQuem {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.canal {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 5px;
+
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* o canal em texto, não só ícone: responder no WhatsApp tira a pessoa da
+   plataforma, responder no chat não — e o ícone sozinho não diz isso */
+.canalZap {
+  background: rgba(37, 211, 102, 0.14);
+  color: #128c4a;
+}
+
+.canalChat {
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+/* ── meio: a seta ─────────────────────────────────────── */
+.ligacao {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  flex: 0 0 auto;
+
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink-3);
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.contato:hover .ligacao {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+/* ── direita: o anúncio ───────────────────────────────── */
+.miniaturaContato {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink-3);
+}
+
+.etiqueta {
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.quando {
+  margin-left: auto;
+  flex: 0 0 auto;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+  white-space: nowrap;
+}
+
+.anuncioNome {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+
+  /* duas linhas no máximo: título de peça é longo e uma linha só viraria
+     reticências cedo demais para identificar o anúncio */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.anuncioPreco {
+  margin-top: 2px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-forest);
+}
+
+/* ── aviso de mensagens ───────────────────────────────── */
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border: 1px solid var(--color-forest);
+  border-radius: var(--radius-lg);
+  background: var(--color-forest);
+  color: var(--color-white);
+  text-decoration: none;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.aviso:hover {
+  background: var(--color-forest-soft);
+}
+
+.avisoIcone {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--color-white);
+}
+
+.avisoTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-on-dark);
+}
+
+.avisoTexto strong {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.avisoSeta {
+  flex: 0 0 auto;
+  color: var(--color-on-dark);
+}
+
+/* ── responsivo ───────────────────────────────────────── */
+@media (max-width: 1000px) {
+  /* empilha: abaixo disso a metade não comporta o título do anúncio sem virar
+     reticências na terceira palavra */
+  .grade {
+    grid-template-columns: 1fr;
+  }
+
+  /* empilhados, a barra fecha só o ÚLTIMO cartão. O primeiro volta a ter
+     cantos próprios e ganha o respiro que o `row-gap` zerado tirou — zerar
+     continua necessário para a barra encostar embaixo */
+  .principal {
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-4);
+  }
+
+  /* empilhados, não há mais o que alinhar: a linha volta à altura natural em
+     vez de gastar 116px de uma tela que já é curta */
+  .anuncio {
+    min-height: 0;
+  }
+
+  .miniatura {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 860px) {
+  .metricas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* a linha 50/50 não cabe em coluna estreita: empilha e a seta vira vertical,
+   virando «de quem» em cima e «sobre o quê» embaixo */
+@media (max-width: 720px) {
+  /* cada contato vira um cartão com respiro entre eles. Empilhados e
+     separados só por um traço, os quatro blocos de um mesmo item (nome,
+     canal, seta, anúncio) ficavam com o mesmo peso dos blocos do item
+     seguinte — e a lista parecia uma coisa só */
+  .contatos {
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .contato,
+  .contatos li:first-child .contato {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+
+    padding: var(--space-4);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+  }
+
+  /* centralizada: encostada à esquerda ela parecia marcador de lista em vez
+     de ligação entre as duas partes */
+  .ligacao {
+    rotate: 90deg;
+    justify-self: center;
+  }
+
+  .ladoAnuncio {
+    background: var(--color-green-tint);
+  }
+
+  .contato:hover .ladoAnuncio {
+    background: var(--color-green-soft);
+  }
+}
+
+@media (max-width: 560px) {
+  .filtros {
+    padding: var(--space-4) var(--space-4) 0;
+  }
+
+  .anuncio,
+  .contato {
+    padding-inline: var(--space-4);
+  }
+
+  /* o selo de situação desce: em 360px ele espremeria o título */
+  .anuncio {
+    flex-wrap: wrap;
+  }
+
+  .status {
+    order: 3;
+    margin-left: 54px;
+  }
+
+  .alerta {
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acaoTopo,
+  .anuncio,
+  .aviso,
+  .alerta {
+    transition: none;
+  }
+}

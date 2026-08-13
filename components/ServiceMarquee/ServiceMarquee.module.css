@@ -1,0 +1,114 @@
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  /* as bordas somem em fade: o corte seco denuncia que a faixa é finita */
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.viewport {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: var(--space-2);
+  width: max-content;
+  animation: slide 46s linear infinite;
+  will-change: transform;
+}
+
+.reverse {
+  animation-direction: reverse;
+  animation-duration: 58s;
+}
+
+/* pausa nas DUAS faixas: parar só a de baixo enquanto a de cima corre parece
+   defeito, não intenção */
+.root:hover .track,
+.root:focus-within .track {
+  animation-play-state: paused;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-ink-2);
+  background: var(--color-white);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.chip:not(.chipOn):hover {
+  border-color: var(--color-green);
+  color: var(--color-forest);
+}
+
+.chipOn {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    width var(--dur-base) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out);
+}
+
+.chipOn .mark {
+  width: 14px;
+  opacity: 1;
+}
+
+/* Sem animação: a lista volta a ser uma grade que quebra linha, e nada se move */
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .viewport {
+    overflow: visible;
+  }
+
+  .track {
+    flex-wrap: wrap;
+    width: auto;
+    animation: none;
+  }
+
+  .track > [aria-hidden='true'] {
+    display: none;
+  }
+}

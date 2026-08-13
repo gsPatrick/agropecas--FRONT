@@ -1,0 +1,459 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── tipo do anúncio ──────────────────────────────────── */
+.tipos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.tipo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  cursor: pointer;
+  text-align: left;
+
+  transition: border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.tipo:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-green-tint);
+}
+
+.tipoAtivo {
+  border-color: var(--color-forest);
+  background: var(--color-green-soft);
+}
+
+.tipoIcone {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink-3);
+}
+
+.tipoAtivo .tipoIcone {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+.tipoTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.tipoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.tipoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-ink-3);
+}
+
+/* ── campos ───────────────────────────────────────────── */
+.campos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.linha {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.caixa {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: fit-content;
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+}
+
+.caixa input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--color-forest);
+  cursor: pointer;
+}
+
+/* ── fotos ────────────────────────────────────────────── */
+.fotos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: var(--space-3);
+}
+
+.foto,
+.adicionarFoto {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+}
+
+.foto {
+  overflow: hidden;
+  background: var(--color-bone);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink-3);
+}
+
+.foto img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.arquivoOculto {
+  display: none;
+}
+
+.capa {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.removerFoto {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.removerFoto:hover {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
+  color: var(--color-white);
+}
+
+.adicionarFoto {
+  border: 1px dashed var(--color-line-strong);
+  background: var(--color-white);
+  color: var(--color-forest);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.adicionarFoto:hover {
+  background: var(--color-green-tint);
+  border-color: var(--color-forest);
+}
+
+/* ── rodapé ───────────────────────────────────────────── */
+.rodape {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+
+  /* mais baixo que antes: a barra acompanha a página inteira, e cada pixel
+     dela é altura que o formulário perde */
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+
+  background: color-mix(in srgb, var(--color-white) 92%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── miolo que encolhe ────────────────────────────────── */
+/**
+ * A altura é animada por `grid-template-rows` de `1fr` a `0fr`.
+ *
+ * É a única forma de animar altura desconhecida sem medir nada em JavaScript —
+ * e era medir que quebrava antes, porque a altura muda conforme o número de
+ * pendências. `--aberto` é escrito pelo gesto enquanto o dedo está na tela;
+ * solto, volta a valer a classe e a transição faz o resto.
+ */
+.miolo {
+  display: grid;
+  grid-template-rows: var(--aberto, 1fr);
+  width: 100%;
+  min-width: 0;
+
+  /* a duração também é variável: durante o gesto ela vai a zero, para o miolo
+     grudar no dedo. Com a transição ligada, ele ficaria sempre uns quadros
+     atrás do movimento — é esse atraso que denuncia web em vez de aplicativo */
+  transition: grid-template-rows var(--dur-miolo, var(--dur-base)) var(--ease-out);
+}
+
+.rodapeRecolhido .miolo {
+  grid-template-rows: var(--aberto, 0fr);
+}
+
+.mioloInterno {
+  /* obrigatório para o `0fr` cortar de fato: sem isto o conteúdo transborda
+     da linha de altura zero e nada parece fechar */
+  overflow: hidden;
+  min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ── pega de arrastar ─────────────────────────────────── */
+.puxador {
+  display: none;
+  width: 100%;
+
+  border: 0;
+  background: transparent;
+  cursor: grab;
+  padding: 0;
+
+  /* impede o navegador de rolar a página enquanto o dedo arrasta a barra */
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.puxador:active {
+  cursor: grabbing;
+}
+
+.pega {
+  display: block;
+  width: 42px;
+  height: 4px;
+  margin: 0 auto;
+
+  border-radius: var(--radius-full);
+  background: var(--color-line-strong);
+}
+
+.puxadorTexto {
+  display: block;
+  margin-top: 6px;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+.pendencias {
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.falta {
+  color: var(--color-ink-2);
+}
+
+.falta strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.pronto {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-forest);
+  font-weight: 600;
+}
+
+.botoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+}
+
+.cancelar,
+.rascunho {
+  padding: 8px var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.cancelar:hover,
+.rascunho:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.publicar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 8px var(--space-4);
+  border: 1px solid var(--color-forest);
+  border-radius: var(--radius-md);
+  background: var(--color-forest);
+  color: var(--color-white);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.publicar:hover:not(:disabled) {
+  background: var(--color-forest-soft);
+}
+
+.publicar:disabled {
+  /* desabilitado e não escondido: a pessoa vê o destino e sabe o que falta
+     pela lista ao lado */
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── responsivo ───────────────────────────────────────── */
+@media (max-width: 860px) {
+  .tipos {
+    grid-template-columns: 1fr;
+  }
+
+  .linha {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  /* sobe acima da barra de navegação: com `bottom: 0` o rodapé ficava ATRÁS
+     dela e o botão de publicar aparecia cortado pela metade */
+  .rodape {
+    bottom: calc(var(--altura-barra-inferior, 56px) + env(safe-area-inset-bottom, 0px) + var(--space-2));
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3) var(--space-3);
+  }
+
+  .puxador {
+    display: block;
+    order: -1;
+  }
+
+  /* recolhida, quem encolhe é o MIOLO — a barra e a pega ficam no lugar.
+     
+     Deslizar a barra inteira a levava para trás da navegação inferior: ela
+     aparecia cortada e não sobrava de onde puxá-la de volta. */
+  .rodapeRecolhido .mioloInterno {
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .rodape {
+    /* espaço apertado: empilhar evita os botões saírem da tela */
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mioloInterno {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .botoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .publicar {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rodape,
+  .tipo,
+  .removerFoto,
+  .adicionarFoto,
+  .publicar {
+    transition: none;
+  }
+}

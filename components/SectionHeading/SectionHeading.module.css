@@ -1,0 +1,53 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+}
+
+.left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.eyebrow {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.title {
+  max-width: 20ch;
+  font-size: var(--text-h2);
+  color: var(--color-forest);
+}
+
+.rule {
+  width: 48px;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--color-lime);
+}
+
+.description {
+  max-width: 58ch;
+  color: var(--color-ink-2);
+}
+
+.dark .title {
+  color: var(--color-white);
+}
+
+.dark .eyebrow {
+  color: var(--color-lime);
+}
+
+.dark .description {
+  color: var(--color-on-dark);
+}

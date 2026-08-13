@@ -1,0 +1,117 @@
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.resumo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.nomePlano {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.origem {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.selo {
+  flex: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.nota {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-4) 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.usos {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.uso {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.usos li:first-child {
+  border-top: 0;
+}
+
+.usoTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.usoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.usoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.usoValor {
+  flex: none;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.ilimitado,
+.limite {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-ink-3);
+}
+
+.ilimitado {
+  color: var(--color-forest);
+}

@@ -1,0 +1,156 @@
+.root {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 60;
+
+  background: color-mix(in srgb, var(--color-white) 88%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  backdrop-filter: saturate(180%) blur(18px);
+  border-top: 1px solid var(--color-line);
+
+  /* respeita a faixa do gesto no iPhone: sem isto a barra fica sob o traço
+     do sistema e o último item vira intocável */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+
+  display: none;
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.celula,
+.celulaAcao {
+  display: flex;
+  justify-content: center;
+}
+
+/* ── aba ──────────────────────────────────────────────── */
+.aba {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+
+  width: 100%;
+  /* altura útil vinda do shell: abaixo de ~56px o toque erra com frequência */
+  min-height: var(--altura-barra-inferior, 56px);
+  padding: 8px 4px 6px;
+
+  color: var(--color-ink-3);
+  text-decoration: none;
+
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.aba:active {
+  /* devolutiva imediata ao toque, como em aplicativo nativo */
+  transform: scale(0.94);
+}
+
+.abaAtiva {
+  color: var(--color-forest);
+}
+
+.icone {
+  position: relative;
+  display: grid;
+  place-items: center;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.abaAtiva .icone {
+  transform: translateY(-1px);
+}
+
+.rotulo {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.abaAtiva .rotulo {
+  font-weight: 700;
+}
+
+.selo {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--radius-full);
+
+  display: grid;
+  place-items: center;
+
+  background: var(--color-danger);
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ── ação central ─────────────────────────────────────── */
+.acao {
+  display: grid;
+  place-items: center;
+
+  width: 52px;
+  height: 52px;
+  /* sobe acima da barra: fica óbvio que não é mais uma aba, é A ação */
+  margin-top: -18px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+  text-decoration: none;
+
+  border: 3px solid var(--color-white);
+  box-shadow: var(--shadow-cta);
+
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.acao:active {
+  transform: scale(0.92);
+  background: var(--color-forest-deep);
+}
+
+@media (max-width: 900px) {
+  .root {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aba,
+  .icone,
+  .acao {
+    transition: none;
+  }
+
+  .aba:active,
+  .acao:active {
+    transform: none;
+  }
+}

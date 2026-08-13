@@ -1,0 +1,59 @@
+.root {
+  padding: clamp(30px, 3.6vw, 46px) 0 clamp(32px, 3.8vw, 50px);
+  background: #1c4423;
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.title {
+  margin-bottom: clamp(24px, 2.8vw, 38px);
+  font-size: clamp(22px, 2.6vw, 33px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--color-white);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+/* divisores entre as colunas — hairline claro, nunca borda cheia */
+.cell {
+  padding: 0 clamp(16px, 2.2vw, 34px);
+}
+
+.cell + .cell {
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8) 0;
+  }
+
+  .cell:nth-child(odd) {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .cell,
+  .cell + .cell {
+    padding: 0;
+    border-left: none;
+  }
+}

@@ -1,0 +1,259 @@
+/* Enquanto a moldura da hero está recolhida, o header vive DENTRO dela: o
+   recuo lê o mesmo --frame-inset. Ao rolar, a moldura estoura para full-bleed
+   e o header acompanha, na mesma duração e no mesmo easing. */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: calc(var(--frame-inset) + 10px) calc(var(--frame-inset) + 14px);
+  transition: padding 0.7s var(--ease-out);
+}
+
+.over.scrolled {
+  padding: clamp(10px, 1.4vw, 18px) var(--gutter);
+}
+
+/* É o .inner que ganha o vidro — no header externo a pílula grudaria
+   nas bordas da tela. */
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    backdrop-filter var(--dur-base) var(--ease-out);
+}
+
+/* ── TEMA CLARO (páginas de fundo branco) ──────────────── */
+.light {
+  padding: var(--space-3) var(--gutter);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-line);
+  transition: none;
+}
+
+.light .inner,
+.light.scrolled .inner {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.light .menuItem {
+  color: var(--color-ink);
+  text-shadow: none;
+}
+
+.light .menuItem:hover {
+  color: var(--color-forest);
+}
+
+.light .login {
+  color: var(--color-forest);
+  background: var(--color-white);
+  border-color: var(--color-line-strong);
+}
+
+.light .login:hover {
+  background: var(--color-green-tint);
+  border-color: var(--color-green);
+}
+
+.light .burger span {
+  background: var(--color-forest);
+}
+
+/* Vidro fumê, nunca branco: escuro e translúcido, o header funciona sobre a
+   foto sem virar barra sólida. */
+.over.scrolled .inner {
+  background: rgba(14, 30, 16, 0.34);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 2px 18px rgba(6, 16, 8, 0.16);
+}
+
+.menuOpen .inner {
+  background: transparent;
+  border-color: transparent;
+}
+
+.logo {
+  flex-shrink: 0;
+  margin-top: 6px;
+  border-radius: var(--radius-md);
+}
+
+/* ── NAVEGAÇÃO ─────────────────────────────────────────── */
+.nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.8vw, 30px);
+}
+
+.menuItem {
+  display: inline-block;
+  padding: var(--space-2) 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-white);
+  /* duas sombras: a curta crava a borda da letra, a longa dá corpo atrás */
+  text-shadow:
+    0 1px 2px rgba(6, 16, 8, 0.55),
+    0 2px 16px rgba(6, 16, 8, 0.7);
+}
+
+/* ── AÇÕES ─────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.login {
+  color: var(--color-white);
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.login:hover {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── BURGER ────────────────────────────────────────────── */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0 9px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.burger span {
+  display: block;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+
+.burger span:nth-child(2) {
+  width: 70%;
+}
+
+.menuOpen .burger span {
+  background: var(--color-forest);
+}
+
+.burgerOpen span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burgerOpen span:nth-child(2) {
+  opacity: 0;
+}
+
+.burgerOpen span:nth-child(3) {
+  width: 100%;
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── MENU MOBILE ───────────────────────────────────────── */
+.popup {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-10);
+  padding: calc(var(--space-24) + var(--space-4)) var(--gutter) var(--space-16);
+  background: var(--color-white);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    visibility var(--dur-base) var(--ease-out);
+}
+
+.popupOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.popupMenu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.popupItem {
+  display: block;
+  padding: var(--space-3) 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 7vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--color-forest);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.popupActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── RESPONSIVO ────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .nav,
+  .actions {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+    margin-left: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .inner,
+  .popup,
+  .burger span {
+    transition: none;
+  }
+}

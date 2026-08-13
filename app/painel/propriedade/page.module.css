@@ -1,0 +1,208 @@
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── pendências ───────────────────────────────────────── */
+.pendencias {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin-bottom: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+
+  border: 1px solid var(--color-warning-soft);
+  border-radius: var(--radius-lg);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--leading-body);
+}
+
+/* ── campos ───────────────────────────────────────────── */
+/* Field não traz espaçamento próprio — sem contêiner, um campo encosta no
+   seguinte e a dica de um parece rótulo do outro */
+.campos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.duplo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+/* ── fichas (culturas) ────────────────────────────────── */
+.fichas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.ficha {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.ficha:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-green-tint);
+}
+
+.fichaAtiva {
+  border-color: var(--color-forest);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+/* ── maquinário ───────────────────────────────────────── */
+.maquinas {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.maquina {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.maquinas li:first-child {
+  border-top: 0;
+}
+
+.maquinaIcone {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+
+  border-radius: var(--radius-md);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+.maquinaTexto {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.maquinaNome {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.maquinaDados {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.remover {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-line-strong);
+  cursor: pointer;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.remover:hover {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.vazio {
+  max-width: 60ch;
+  margin: 0;
+  padding: var(--space-5) var(--space-4);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+/* ── nova máquina ─────────────────────────────────────── */
+.novaMaquina {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-line);
+  background: var(--color-bone);
+}
+
+.novaLinha {
+  display: grid;
+  /* o tipo é um menu curto, o modelo é o campo mais longo — daí a proporção */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) 90px;
+  gap: var(--space-3);
+
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .novaLinha {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .duplo,
+  .novaLinha {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .novaMaquina > button {
+    width: 100%;
+  }
+}

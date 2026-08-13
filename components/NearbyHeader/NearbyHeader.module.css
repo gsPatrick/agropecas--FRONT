@@ -1,0 +1,289 @@
+@keyframes piscar {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.topo {
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 360px);
+  align-items: start;
+  gap: clamp(24px, 4vw, 64px);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.eyebrow {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+/* teto de duas linhas: a frase encolhe quando há cidade, e o tamanho é
+   calibrado para "Veja o que está disponível agora" caber em duas */
+.title {
+  max-width: 17ch;
+  font-size: clamp(27px, 3.6vw, 42px);
+  line-height: 1.12;
+  color: var(--color-forest);
+}
+
+.title em {
+  font-style: normal;
+  color: #6f8c14;
+}
+
+.linha {
+  display: inline-block;
+  min-height: 1.1em;
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.8em;
+  margin-left: 0.08em;
+  vertical-align: -0.05em;
+  border-radius: 2px;
+  background: #6f8c14;
+  animation: piscar 1.1s steps(1) infinite;
+}
+
+.lead {
+  max-width: 46ch;
+  margin-top: var(--space-4);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-ink-2);
+}
+
+.search {
+  margin-top: clamp(24px, 3vw, 36px);
+}
+
+.searchBar {
+  max-width: 720px;
+  box-shadow: var(--shadow-md);
+}
+
+.helper {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.helperLink {
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.helperLink:hover {
+  color: var(--color-green);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ── CARTÃO ────────────────────────────────────────────── */
+.cartao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: clamp(22px, 2.4vw, 30px);
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
+}
+
+.selo {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+  box-shadow: 0 0 0 6px var(--color-green-tint);
+}
+
+.cartaoTitulo {
+  font-size: 19px;
+  line-height: 1.25;
+  color: var(--color-forest);
+}
+
+.cartaoTexto {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-ink-2);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.campo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 48px;
+  padding: 0 var(--space-4);
+  background: var(--color-bone);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.campo:focus-within {
+  background: var(--color-white);
+  border-color: var(--color-green);
+}
+
+.campoIcone {
+  flex-shrink: 0;
+  color: var(--color-ink-3);
+}
+
+.input {
+  width: 100%;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+}
+
+/* o anel de foco é do container, não do campo */
+.input:focus,
+.input:focus-visible {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* ── ALTERNATIVA: GPS ──────────────────────────────────── */
+.ou {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-ink-3);
+}
+
+.ou span {
+  flex: 1;
+  height: 1px;
+  background: var(--color-line);
+}
+
+.gps {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  height: 42px;
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-forest);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.gps:hover:not(:disabled) {
+  border-color: var(--color-green);
+  background: var(--color-green-tint);
+}
+
+.gps:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.erro {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-danger);
+}
+
+.nota {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-ink-3);
+}
+
+/* ── ENDEREÇO RESOLVIDO ────────────────────────────────── */
+.cartaoPronto {
+  gap: var(--space-2);
+  background: var(--color-green-tint);
+  border-color: var(--color-green-soft);
+  box-shadow: none;
+}
+
+.seloPronto {
+  background: var(--color-forest);
+  color: var(--color-white);
+  box-shadow: 0 0 0 6px rgba(31, 94, 45, 0.08);
+}
+
+.prontoRotulo {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.prontoCidade {
+  font-family: var(--font-display);
+  font-size: clamp(21px, 2.2vw, 27px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-forest);
+}
+
+.prontoUf {
+  font-size: 13px;
+  color: var(--color-ink-2);
+}
+
+.mudar {
+  margin-top: var(--space-4);
+  background: var(--color-white);
+}
+
+/* ── RESPONSIVO ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .topo {
+    grid-template-columns: 1fr;
+  }
+
+  .cartao {
+    max-width: 460px;
+  }
+}

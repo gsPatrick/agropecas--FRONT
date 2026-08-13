@@ -1,0 +1,224 @@
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── pendências ───────────────────────────────────────── */
+.pendencias {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin-bottom: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+
+  border: 1px solid var(--color-warning-soft);
+  border-radius: var(--radius-lg);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--leading-body);
+}
+
+/* ── campos ───────────────────────────────────────────── */
+.campos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.duplo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.extra {
+  margin-top: var(--space-4);
+}
+
+/* ── dias da semana ───────────────────────────────────── */
+.dias {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dia {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.dias li:first-child {
+  border-top: 0;
+}
+
+/* dia fechado recua: continua legível, sem competir com os que importam */
+.diaFechado {
+  background: var(--color-bone);
+}
+
+.diaNome {
+  flex: 1;
+  min-width: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.diaFechado .diaNome {
+  color: var(--color-ink-3);
+}
+
+/* ── horas ────────────────────────────────────────────── */
+.horas {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hora {
+  width: 108px;
+  padding: 7px var(--space-3);
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+}
+
+.hora:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 1px;
+}
+
+.ate {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.fechado {
+  flex: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* ── opções (entrega) ─────────────────────────────────── */
+.opcoes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.opcao {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  cursor: pointer;
+  text-align: left;
+
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.opcao:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-green-tint);
+}
+
+.opcaoAtiva {
+  border-color: var(--color-forest);
+  background: var(--color-green-tint);
+}
+
+.marca {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  color: var(--color-white);
+}
+
+.opcaoAtiva .marca {
+  border-color: var(--color-forest);
+  background: var(--color-forest);
+}
+
+.opcaoTexto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.opcaoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.opcaoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+@media (max-width: 760px) {
+  .opcoes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .duplo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dia {
+    flex-wrap: wrap;
+  }
+
+  .horas {
+    /* abaixo do nome do dia: espremidos na mesma linha, os dois campos de hora
+       encolhiam a ponto de o relógio do sistema não caber */
+    width: 100%;
+    margin-left: 52px;
+  }
+
+  .hora {
+    flex: 1;
+    width: auto;
+  }
+}

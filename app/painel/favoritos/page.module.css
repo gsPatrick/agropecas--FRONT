@@ -1,0 +1,263 @@
+.busca {
+  max-width: 420px;
+  margin-bottom: var(--space-4);
+}
+
+/* ── lista ────────────────────────────────────────────── */
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  /* o coração flutua por cima da linha; como coluna irmã, ele tiraria largura
+     do link e o realce de hover pararia antes da borda */
+  position: relative;
+  display: flex;
+  border-top: 1px solid var(--color-line);
+}
+
+.lista li:first-child {
+  border-top: 0;
+}
+
+.contato {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4) 52px var(--space-4) var(--space-4);
+  text-decoration: none;
+  color: inherit;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.contato:hover {
+  background: var(--color-green-tint);
+}
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.texto {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.linhaTopo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nome {
+  min-width: 0;
+
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 700;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contador {
+  flex: none;
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.origem {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── resumo do que já foi tratado ─────────────────────── */
+.resumo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin-top: 3px;
+}
+
+.marcaAtiva,
+.marcaHistorico {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.marcaAtiva {
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+.marcaHistorico {
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.seta {
+  flex: none;
+  color: var(--color-line-strong);
+}
+
+/* ── tirar dos favoritos ──────────────────────────────── */
+.dicaTirar {
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  transform: translateY(-50%);
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+}
+
+.tirar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  /* preenchido: nesta tela todo mundo é favorito, e um coração vazado sugeriria
+     que ainda falta marcar */
+  color: var(--color-danger);
+  cursor: pointer;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.tirar:hover {
+  background: var(--color-danger-soft);
+}
+
+/* ── vazio ────────────────────────────────────────────── */
+.vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  padding: var(--space-8) var(--space-5);
+}
+
+.vazioIcone {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: var(--space-3);
+
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  color: var(--color-line-strong);
+}
+
+.vazioTitulo {
+  margin: 0 0 var(--space-2);
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.vazioTexto {
+  max-width: 40ch;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+.vazioAcao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin-top: var(--space-4);
+  padding: 10px var(--space-5);
+
+  border-radius: var(--radius-md);
+  background: var(--color-forest);
+  color: var(--color-white);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.vazioAcao:hover {
+  background: var(--color-forest-deep);
+}
+
+@media (max-width: 620px) {
+  .contato {
+    padding: var(--space-3) 48px var(--space-3) var(--space-3);
+  }
+
+  .seta {
+    display: none;
+  }
+}

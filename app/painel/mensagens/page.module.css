@@ -1,0 +1,688 @@
+/* ── grade ────────────────────────────────────────────── */
+/**
+ * Uma coisa de cada vez, em qualquer largura.
+ *
+ * A lista de conversas ocupa a tela; ao abrir uma, a conversa toma o lugar
+ * dela e o botão de voltar traz a lista de volta. Painel dividido colocava
+ * duas colunas laterais lado a lado — a barra do painel e a lista — e sobrava
+ * pouco para o que importa: ler e responder.
+ *
+ * A altura acompanha o conteúdo: quem rola é a página, não uma caixa por
+ * dentro. Presa à janela, uma conversa curta deixava um vazio enorme até o
+ * campo de resposta, e uma longa ganhava um segundo scroll dentro do primeiro.
+ */
+.grade {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.caixa,
+.painel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* a conversa só entra quando há uma aberta; aí a lista sai de cena */
+.painel {
+  display: none;
+}
+
+.comConversa .caixa {
+  display: none;
+}
+
+.comConversa .painel {
+  display: flex;
+}
+
+/* ── filtros ──────────────────────────────────────────── */
+.filtros {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.linhaFiltro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.campoBusca,
+.campoAnuncio {
+  min-width: 0;
+}
+
+/* ── lista ────────────────────────────────────────────── */
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  border-top: 1px solid var(--color-line);
+}
+
+.lista li:first-child {
+  border-top: 0;
+}
+
+/* ocupa a linha inteira: o realce de hover precisa cobrir tudo, senão sobra
+   uma faixa branca à direita, onde ficava a coluna do coração */
+.conversa {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  /* a direita reserva o lugar do coração, que flutua por cima */
+  padding: var(--space-3) 46px var(--space-3) var(--space-4);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.conversa:hover {
+  background: var(--color-green-tint);
+}
+
+.conversaAtiva {
+  background: var(--color-green-soft);
+}
+
+.avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.conversaAtiva .avatar {
+  background: var(--color-white);
+}
+
+/* coração no avatar: marca o favorito na lista inteira sem depender do botão,
+   que fica na borda e some da vista ao rolar */
+.selo {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-danger);
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
+}
+
+.texto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.linhaTopo {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.nome {
+  flex: 1;
+  min-width: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quando {
+  flex: 0 0 auto;
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.anuncio {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-forest);
+}
+
+.anuncio svg {
+  flex: 0 0 auto;
+}
+
+.anuncio,
+.previa {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.previa {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.marcas {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.nova {
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-warning-soft);
+  color: #8a6416;
+
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.contador {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ── favorito ─────────────────────────────────────────── */
+/**
+ * O coração flutua sobre a linha, não ao lado dela.
+ *
+ * Como coluna irmã, ele tirava um pedaço da largura do botão da conversa e o
+ * realce de hover parava antes da borda — ficava uma faixa branca à direita,
+ * como se a linha terminasse ali. Sobreposto, a linha é uma peça só.
+ */
+.dicaFavorito {
+  position: absolute;
+  top: 50%;
+  right: var(--space-2);
+  transform: translateY(-50%);
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+}
+
+.favorito {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-line-strong);
+  cursor: pointer;
+
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.favorito:hover {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.favoritoAtivo {
+  color: var(--color-danger);
+}
+
+/* ── painel da conversa ───────────────────────────────── */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* sempre visível: é a única volta para a lista, que saiu de cena */
+.voltar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+}
+
+.cabecalhoTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.cabecalhoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cabecalhoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.cabecalhoAcoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 0 0 auto;
+}
+
+.iconeBotao {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.iconeBotao:hover {
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.iconeAtivo {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/* ── sobre qual anúncio ───────────────────────────────── */
+.sobre {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-green-tint);
+  text-decoration: none;
+}
+
+.sobre:hover {
+  background: var(--color-green-soft);
+}
+
+.sobreMiniatura {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink-3);
+}
+
+.sobreTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sobreTexto span {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.sobreTexto strong {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sobrePreco {
+  flex: 0 0 auto;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+/* ── fio de mensagens ─────────────────────────────────── */
+/* cresce com a conversa; quem rola é a página */
+.fio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  /* um piso para a conversa de uma mensagem só não virar uma tira */
+  min-height: 260px;
+
+  padding: var(--space-5) var(--space-4);
+  background: var(--color-bone);
+}
+
+.balao {
+  max-width: min(78%, 460px);
+  padding: 10px var(--space-3);
+  border-radius: var(--radius-lg);
+}
+
+.balao p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.hora {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-body);
+  font-size: 10px;
+}
+
+.dela {
+  align-self: flex-start;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+  border-bottom-left-radius: var(--radius-sm);
+}
+
+.dela .hora {
+  color: var(--color-ink-3);
+}
+
+.meu {
+  align-self: flex-end;
+  background: var(--color-forest);
+  color: var(--color-white);
+  border-bottom-right-radius: var(--radius-sm);
+}
+
+.meu .hora {
+  color: var(--color-on-dark);
+  text-align: right;
+}
+
+/* ── responder ────────────────────────────────────────── */
+.responder {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.responder > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.enviar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+
+  padding: 11px var(--space-4);
+  border: 1px solid var(--color-forest);
+  border-radius: var(--radius-md);
+  background: var(--color-forest);
+  color: var(--color-white);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.enviar:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── vazios ───────────────────────────────────────────── */
+.vazio,
+.semConversa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex: 1;
+
+  padding: var(--space-12) var(--space-5);
+  text-align: center;
+}
+
+.vazioIcone {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.vazioTexto {
+  margin: 0;
+  max-width: 40ch;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+.vazioDica {
+  margin: 0;
+  max-width: 42ch;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+/* ── histórico ────────────────────────────────────────── */
+.historicoResumo {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-ink-3);
+}
+
+.historico {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.historicoItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  cursor: pointer;
+  text-align: left;
+
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.historicoItem:hover {
+  background: var(--color-green-tint);
+  border-color: var(--color-forest);
+}
+
+.historicoMiniatura {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-sm);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.historicoTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.historicoTexto strong {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.historicoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.historicoSeta {
+  flex: 0 0 auto;
+  color: var(--color-line-strong);
+}
+
+/* ── responsivo ───────────────────────────────────────── */
+/* a lista tem a largura toda: os filtros cabem lado a lado */
+@media (min-width: 720px) {
+  .linhaFiltro {
+    flex-direction: row;
+  }
+
+  .campoBusca {
+    flex: 1;
+  }
+
+  .campoAnuncio {
+    flex: 0 0 300px;
+  }
+}
+
+@media (max-width: 720px) {
+  .comConversa .painel {
+    min-height: 70vh;
+  }
+
+  .enviarRotulo {
+    display: none;
+  }
+
+  .enviar {
+    padding: 11px;
+  }
+}

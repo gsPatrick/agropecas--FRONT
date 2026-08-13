@@ -1,0 +1,164 @@
+.consequencias {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  list-style: none;
+
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+}
+
+/* o que não tem volta é dito em vermelho, não em cinza */
+.graves {
+  background: var(--color-danger-soft);
+}
+
+.consequencias li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.graves li {
+  color: var(--color-danger);
+}
+
+/* ── sugestões de motivo ──────────────────────────────── */
+.sugestoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+
+  margin-bottom: var(--space-3);
+}
+
+.sugestao {
+  padding: 6px 11px;
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-ink-3);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  text-align: left;
+
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.sugestao:hover {
+  border-style: solid;
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.sugestaoAtiva {
+  border-style: solid;
+  border-color: var(--color-forest);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+/* ── avisar ───────────────────────────────────────────── */
+.avisar {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+
+  margin: var(--space-3) 0 var(--space-4);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.avisar input {
+  margin-top: 2px;
+  accent-color: var(--color-forest);
+}
+
+.avisarDica {
+  display: block;
+
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--color-ink-3);
+}
+
+.rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+/* ── prazo ────────────────────────────────────────────── */
+.prazo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+
+  margin-bottom: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+}
+
+.prazoRotulo {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.prazos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.opcaoPrazo {
+  padding: 7px var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.opcaoPrazo:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-green-tint);
+}
+
+.opcaoPrazoAtiva {
+  border-color: var(--color-forest);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+/* diz o efeito da escolha em uma frase: “30 dias” e “indeterminado” têm
+   consequências diferentes para quem está do outro lado */
+.prazoDica {
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--color-ink-3);
+}

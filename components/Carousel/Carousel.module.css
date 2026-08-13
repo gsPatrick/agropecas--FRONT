@@ -1,0 +1,97 @@
+.root {
+  position: relative;
+}
+
+/* ── SETAS ─────────────────────────────────────────────── */
+.controls {
+  position: absolute;
+  top: calc(-1 * var(--space-12));
+  right: 0;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-forest);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out);
+}
+
+.arrow:hover:not(:disabled) {
+  border-color: var(--color-green);
+  background: var(--color-green-tint);
+}
+
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.left {
+  transform: rotate(180deg);
+}
+
+/* ── TRILHO ────────────────────────────────────────────── */
+.track {
+  display: flex;
+  gap: clamp(16px, 2vw, 26px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* o padding evita que a sombra dos cards seja cortada pelo overflow */
+  padding: 4px 4px 8px;
+  margin: -4px -4px -8px;
+  scroll-padding-left: 4px;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus);
+  border-radius: var(--radius-lg);
+}
+
+/* cada filho ocupa uma fatia fixa: sem isso o flex encolhe os cards para
+   caberem todos e o trilho deixa de rolar */
+.track > * {
+  flex: 0 0 clamp(252px, 30%, 320px);
+  scroll-snap-align: start;
+}
+
+/* fade nas bordas, some quando não há mais conteúdo daquele lado */
+.track:not(.atStart) {
+  mask-image: linear-gradient(90deg, transparent, #000 4%);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%);
+}
+
+.track:not(.atEnd):not(.atStart) {
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.track:not(.atEnd).atStart {
+  mask-image: linear-gradient(90deg, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, #000 96%, transparent);
+}
+
+@media (max-width: 640px) {
+  .controls {
+    display: none;
+  }
+
+  .track > * {
+    flex: 0 0 min(78%, 300px);
+  }
+}

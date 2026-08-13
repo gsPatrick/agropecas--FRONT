@@ -1,0 +1,340 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.voltar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+}
+
+.voltar:hover {
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.identidade {
+  flex: 1;
+  min-width: 0;
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin: 3px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.atalho {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 9px var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.atalho:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+/* ── lista ────────────────────────────────────────────── */
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cartao {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.corpo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+
+  padding: var(--space-4);
+}
+
+.miniatura {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  overflow: hidden;
+
+  width: 76px;
+  height: 76px;
+}
+
+.miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+  color: var(--color-line-strong);
+}
+
+.miniatura span {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.dados {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.linhaTitulo {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.anuncioTitulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.preco {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.numeros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.numeros span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+/* ── ações ────────────────────────────────────────────── */
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+  background: var(--color-bone);
+}
+
+.ver,
+.secundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px var(--space-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ver {
+  border: 0;
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.ver:hover {
+  background: var(--color-forest-deep);
+}
+
+.secundario {
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+}
+
+.secundario:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.icone {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-3);
+  cursor: pointer;
+}
+
+.icone:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+/* o destaque ligado precisa se ver de longe: é ele que define quem aparece
+   primeiro na busca */
+.iconeAtivo {
+  border-color: var(--color-warning);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.iconePerigo:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+/* remover fica isolado à direita: encostado no “ocultar”, o clique errado
+   troca uma ação reversível por uma definitiva */
+.acoes > :last-child {
+  margin-left: auto;
+}
+
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── vazios ───────────────────────────────────────────── */
+.vazio,
+.ausente {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+
+  padding: var(--space-12) var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+}
+
+.vazioTitulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.vazioTexto {
+  max-width: 44ch;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.ausente a {
+  color: var(--color-forest);
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .corpo {
+    flex-direction: column;
+  }
+
+  .miniatura {
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    gap: var(--space-2);
+  }
+
+  .ver,
+  .secundario {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .topo {
+    flex-wrap: wrap;
+  }
+
+  .atalho {
+    width: 100%;
+    justify-content: center;
+  }
+}

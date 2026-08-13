@@ -1,0 +1,303 @@
+.main {
+  min-height: 60vh;
+  background: var(--color-bone);
+}
+
+.inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter) var(--space-12);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.subtitulo {
+  margin: 2px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.abas {
+  display: flex;
+}
+
+/* ── formulário de dados ──────────────────────────────── */
+.campos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.duplo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.esqueletoCampos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── listas (favoritos e mensagens) ───────────────────── */
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  border-top: 1px solid var(--color-line);
+}
+
+.lista li:first-child {
+  border-top: 0;
+}
+
+.itemLink {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  /* espaço à direita para o coração, que flutua por cima da linha — como
+     coluna irmã ele tiraria largura do link e o realce de hover pararia
+     antes da borda */
+  padding: var(--space-3) 52px var(--space-3) var(--space-4);
+  text-decoration: none;
+  color: inherit;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.itemLink:hover {
+  background: var(--color-green-tint);
+}
+
+.itemIndisponivel {
+  opacity: 0.6;
+}
+
+.itemFoto {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+  color: var(--color-line-strong);
+}
+
+.itemFoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemTexto {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.itemTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemContador {
+  flex: none;
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  margin-right: var(--space-3);
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.itemRemover {
+  position: absolute;
+  top: 50%;
+  right: var(--space-3);
+  transform: translateY(-50%);
+  z-index: 1;
+
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-danger);
+  cursor: pointer;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.itemRemover:hover {
+  background: var(--color-danger-soft);
+}
+
+.listaEsqueleto {
+  display: flex;
+  flex-direction: column;
+}
+
+.linhaEsqueleto {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.listaEsqueleto > *:first-child {
+  border-top: 0;
+}
+
+.linhaEsqueletoTexto {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── vazio ────────────────────────────────────────────── */
+.vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  padding: var(--space-7) var(--space-5);
+}
+
+.vazioTitulo {
+  margin: 0 0 var(--space-2);
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.vazioTexto {
+  max-width: 40ch;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+.vazioAcao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin-top: var(--space-4);
+  padding: 10px var(--space-5);
+
+  border-radius: var(--radius-md);
+  background: var(--color-forest);
+  color: var(--color-white);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.vazioAcao:hover {
+  background: var(--color-forest-deep);
+}
+
+@media (max-width: 620px) {
+  .duplo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .inner {
+    padding-top: var(--space-6);
+  }
+}

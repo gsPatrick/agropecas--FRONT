@@ -1,0 +1,293 @@
+@keyframes heroUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes introPanel {
+  from {
+    clip-path: inset(48.5% 48.5% 48.5% 48.5% round 80px);
+  }
+  to {
+    clip-path: inset(0% 0% 0% 0% round 0px);
+  }
+}
+
+.experience {
+  position: relative;
+  background: var(--color-white);
+}
+
+/* ── FUNDO FIXADO ──────────────────────────────────────── */
+.imageBg {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 0;
+}
+
+/* Moldura quase cheia: o estouro é um movimento curto. */
+.frame {
+  position: absolute;
+  inset: var(--frame-inset);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  will-change: inset, border-radius;
+  transition:
+    inset 0.7s var(--ease-out),
+    border-radius 0.7s var(--ease-out);
+}
+
+.expanded {
+  inset: 0;
+  border-radius: 0;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-forest-deep);
+  animation: introPanel 2.2s var(--ease-out) both;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  background-color: #b8912f;
+  background-image: url('/hero-colheita.jpg');
+  background-size: cover;
+  background-position: center 42%;
+  background-repeat: no-repeat;
+  /* espelhada: as colheitadeiras nascem à esquerda no original e o texto mora
+     lá — invertendo, elas vão para a direita e param de disputar o espaço */
+  transform: scaleX(-1);
+  /* foto viva: o dourado da lavoura e o azul do céu puxados para cima */
+  filter: saturate(1.16) contrast(1.06) brightness(1.02);
+}
+
+/* O trigo é claro e ocupa quase todo o quadro — sem uma carga firme nas duas
+   pontas o texto branco desaparece nele. Miolo preservado. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 16, 8, 0.42) 0%,
+    rgba(6, 16, 8, 0.2) 30%,
+    rgba(6, 16, 8, 0.34) 62%,
+    rgba(6, 16, 8, 0.72) 100%
+  );
+}
+
+/* ── CONTEÚDO ──────────────────────────────────────────── */
+.overlay {
+  position: relative;
+  z-index: 1;
+  margin-top: -100vh;
+  color: var(--color-white);
+}
+
+.heroInner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: clamp(150px, 17vw, 230px) max(var(--gutter), calc(var(--frame-inset) + 20px))
+    clamp(28px, 3vw, 44px);
+}
+
+/* Acima desta largura o container do header e o da hero ficam ambos travados
+   em --max-width e centralizados: basta o mesmo recuo interno do header
+   (--space-4) para o texto nascer no eixo exato da logo. */
+@media (min-width: 1290px) {
+  .heroInner {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+}
+
+/* O bloco de texto é alinhado à esquerda; só a busca é centralizada.
+   O conteúdo ocupa a altura toda: texto no topo, busca ancorada embaixo —
+   assim não sobra vão abaixo dela. */
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  text-align: left;
+}
+
+/* Coluna de texto: todas as linhas terminam na mesma margem direita.
+   A largura é a do wordmark — os outros blocos quebram dentro dela. */
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: min(500px, 100%);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  animation: heroUp 0.9s var(--ease-out) 1.05s both;
+}
+
+.word {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 7.6vw, 92px);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  color: var(--color-white);
+  text-shadow: 0 2px 26px rgba(6, 16, 8, 0.62);
+  font-feature-settings: 'liga' 0;
+}
+
+.state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 1.6vw, 22px);
+  align-self: stretch;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.8vw, 36px);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-white);
+  text-shadow: 0 2px 20px rgba(6, 16, 8, 0.6);
+}
+
+.rule {
+  width: clamp(34px, 5.4vw, 76px);
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+  opacity: 0.85;
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: clamp(17px, 2.5vw, 32px);
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  color: var(--color-white);
+  text-shadow: 0 1px 16px rgba(6, 16, 8, 0.66);
+  animation: heroUp 0.9s var(--ease-out) 1.2s both;
+}
+
+.accent {
+  font-style: normal;
+  color: var(--color-lime);
+}
+
+.lead {
+  max-width: 100%;
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.94);
+  text-shadow: 0 1px 14px rgba(6, 16, 8, 0.7);
+  animation: heroUp 0.9s var(--ease-out) 1.32s both;
+}
+
+/* A seta vive na MESMA linha da busca: sai do vão à esquerda e entra na
+   barra pela lateral, em vez de apontar de cima para baixo. */
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1vw, 16px);
+  width: 100%;
+  margin-top: auto;
+  animation: heroUp 0.9s var(--ease-out) 1.44s both;
+}
+
+.hintArrow {
+  flex-shrink: 0;
+  width: clamp(84px, 8vw, 128px);
+  height: auto;
+  margin-bottom: clamp(24px, 3vw, 46px);
+  color: var(--color-lime);
+  filter: drop-shadow(0 1px 10px rgba(6, 16, 8, 0.55));
+}
+
+.searchBar {
+  flex: 1;
+  max-width: min(920px, 100%);
+}
+
+.helper {
+  align-self: center;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 12px rgba(6, 16, 8, 0.7);
+  animation: heroUp 0.9s var(--ease-out) 1.56s both;
+}
+
+.helperLink {
+  font-weight: 700;
+  color: var(--color-lime);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.helperLink:hover {
+  color: var(--color-white);
+}
+
+/* ── RESPONSIVO ────────────────────────────────────────── */
+@media (max-width: 720px) {
+  /* em coluna a busca entra logo abaixo do texto: não há vão para preencher */
+  .hintArrow {
+    display: none;
+  }
+
+  /* No celular o bloco desce e encosta na busca (vertical), e o texto passa a
+     ser centralizado na horizontal — encostado à esquerda ele ficava torto. */
+  .content {
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+  }
+
+  .copy {
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .brand {
+    align-items: center;
+  }
+
+  .search {
+    margin-top: var(--space-8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvas,
+  .brand,
+  .tagline,
+  .lead,
+  .hintArrow,
+  .search,
+  .helper {
+    animation: none;
+  }
+
+  .frame {
+    transition: none;
+  }
+}

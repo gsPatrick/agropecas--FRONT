@@ -1,0 +1,442 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  max-width: 72ch;
+  margin: 4px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* erro de carregamento: mesma faixa vermelha do alerta de prazo da LGPD */
+.alerta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-lg);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--leading-body);
+}
+
+.alerta span {
+  flex: 1;
+  min-width: 0;
+}
+
+.explicacao,
+.formato {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-green-tint);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.explicacao svg,
+.formato svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--color-forest);
+}
+
+.formato code {
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+
+  font-size: 12px;
+  color: var(--color-forest-deep);
+}
+
+/* ── lista de documentos e histórico ──────────────────── */
+.documentos,
+.historico {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.documento,
+.versaoLinha {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.documentos li:first-child,
+.historico li:first-child {
+  border-top: 0;
+}
+
+.documentoTexto {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.documentoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.versao {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-ink-3);
+}
+
+.quando {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.resumo {
+  max-width: 78ch;
+  margin: 2px 0 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.aceites {
+  flex: none;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.aceites strong {
+  color: var(--color-ink);
+}
+
+.documentoAcoes {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.verNoSite {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  color: var(--color-forest);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.verNoSite:hover {
+  text-decoration: underline;
+}
+
+/* o número da versão como selo: é o que se procura ao varrer o histórico */
+.selo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  min-width: 52px;
+  height: 36px;
+  padding: 0 var(--space-2);
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--color-ink);
+}
+
+.hash {
+  flex: none;
+
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.vazio {
+  margin: 0;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* ── editor ───────────────────────────────────────────── */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.identificacao {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+/* a prévia lado a lado: o texto à esquerda e o resultado à direita, para a
+   conferência ser um movimento de olho e não de rolagem */
+.lado {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.colunaRotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+/* o textarea recebe fonte monoespaçada: o formato depende de `## ` e `- ` no
+   começo da linha, e em fonte proporcional o alinhamento engana o olho */
+.editor textarea {
+  min-height: 420px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  resize: vertical;
+}
+
+.esqueletoTexto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  min-height: 420px;
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+}
+
+.contador {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+/* ── prévia ───────────────────────────────────────────── */
+.previa {
+  min-height: 420px;
+  max-height: 620px;
+  overflow-y: auto;
+
+  padding: var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+}
+
+.previaEtiqueta {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-forest);
+}
+
+.previaTitulo {
+  margin: var(--space-2) 0 var(--space-4);
+
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.previaIndice {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--color-ink-2);
+}
+
+.previaSecao {
+  margin-bottom: var(--space-5);
+}
+
+.previaSecaoTitulo {
+  margin: 0 0 var(--space-2);
+
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.previaParagrafo {
+  max-width: 72ch;
+  margin: 0 0 var(--space-3);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.previaLista {
+  margin: 0 0 var(--space-3);
+  padding-left: var(--space-5);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.previaLista li {
+  margin-bottom: 4px;
+}
+
+.previaVazia {
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* avisos de formatação: amarelo, não vermelho — não impedem publicar, só
+   dizem que o site vai mostrar diferente do que se imaginou */
+.avisosFormato {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-md);
+  background: var(--color-warning-soft);
+  list-style: none;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.avisosFormato li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.avisosFormato svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--color-warning);
+}
+
+/* ── celular e tablet ─────────────────────────────────── */
+@media (max-width: 960px) {
+  /* a prévia empilha embaixo do texto: em coluna estreita, lado a lado deixa
+     as duas ilegíveis e a conferência deixa de acontecer */
+  .lado,
+  .identificacao {
+    grid-template-columns: 1fr;
+  }
+
+  .editor textarea,
+  .esqueletoTexto,
+  .previa {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 860px) {
+  .documento,
+  .versaoLinha {
+    flex-wrap: wrap;
+  }
+
+  .documentoAcoes {
+    width: 100%;
+  }
+
+  .documentoAcoes > button {
+    flex: 1;
+    justify-content: center;
+  }
+}

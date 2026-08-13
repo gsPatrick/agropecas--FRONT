@@ -1,0 +1,183 @@
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulso {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+/* ── BALÃO ─────────────────────────────────────────────── */
+.balao {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+  box-shadow: var(--shadow-lg);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.balao:hover {
+  background: var(--color-green);
+  transform: translateY(-2px);
+}
+
+/* páginas com barra fixa de contato no rodapé (detalhe do anúncio em mobile):
+   o balão sobe para não cobrir o botão de WhatsApp */
+@media (max-width: 640px) {
+  .balao.acimaDaBarra {
+    bottom: calc(clamp(16px, 3vw, 28px) + 76px);
+  }
+
+  .painel.acimaDaBarra {
+    bottom: calc(clamp(16px, 3vw, 28px) + 62px);
+    height: min(620px, calc(100dvh - 158px));
+  }
+}
+
+/* contador com pulso curto: chama atenção uma vez, não fica piscando */
+.contador {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  display: grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-danger);
+  border: 2px solid var(--color-white);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-white);
+  animation: pulso 1.6s var(--ease-out) 3;
+}
+
+/* ── PAINEL ────────────────────────────────────────────── */
+/* colado no rodapé: o balão fica POR CIMA do painel, no canto, em vez de
+   empurrá-lo para cima — assim o painel usa a altura toda até a base */
+.painel {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  width: min(392px, calc(100vw - 32px));
+  /* ocupa quase toda a altura útil: com poucas conversas sobra ar, com muitas
+     a lista rola por dentro em vez de o painel crescer */
+  height: min(760px, calc(100dvh - 96px));
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: subir 0.28s var(--ease-out) both;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.headText {
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.sub {
+  font-size: 12px;
+  color: var(--color-on-dark);
+}
+
+.headActions {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.iconBtn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  color: var(--color-white);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.iconBtn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.corpo {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.corpo > * {
+  height: 100%;
+  min-height: 0;
+}
+
+/* rolagem da LISTA — a thread tem a dela, e duas barras aninhadas brigam */
+.rolagem {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.rolagem::-webkit-scrollbar {
+  width: 6px;
+}
+
+.rolagem::-webkit-scrollbar-thumb {
+  background: var(--color-line-strong);
+  border-radius: var(--radius-full);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .painel {
+    animation: none;
+  }
+
+  .contador {
+    animation: none;
+  }
+
+  .balao:hover {
+    transform: none;
+  }
+}

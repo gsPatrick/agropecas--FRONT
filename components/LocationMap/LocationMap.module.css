@@ -1,0 +1,123 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: clamp(20px, 2.5vw, 32px);
+  border-top: 1px solid var(--color-line);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.approx {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 3px var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+.address {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-ink-2);
+}
+
+.address strong {
+  color: var(--color-ink);
+}
+
+/* ── MAPA ──────────────────────────────────────────────── */
+.mapWrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-bone);
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* o mapa do Google chega saturado e disputa com a página: o filtro o coloca
+     no mesmo tom do resto sem esconder a informação */
+  filter: saturate(0.85) contrast(0.96);
+}
+
+/* ── AÇÕES ─────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.action svg {
+  color: var(--color-green);
+}
+
+.action:hover:not(:disabled) {
+  border-color: var(--color-green);
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.action:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.distance {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+.distance svg {
+  color: var(--color-lime);
+}
+
+.note {
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+@media (max-width: 640px) {
+  .mapWrap {
+    aspect-ratio: 4 / 3;
+  }
+}

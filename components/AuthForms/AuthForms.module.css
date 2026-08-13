@@ -1,0 +1,149 @@
+/* espaçamentos em vh: a tela de acesso não rola */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 3vh, 32px);
+}
+
+/* ── CABEÇALHO ─────────────────────────────────────────── */
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.eyebrow {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.title {
+  font-size: clamp(23px, 3.4vh, 34px);
+  color: var(--color-forest);
+}
+
+.text {
+  max-width: 42ch;
+  font-size: 15px;
+  color: var(--color-ink-2);
+}
+
+/* ── CAMPOS ────────────────────────────────────────────── */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vh, 22px);
+}
+
+.inlineLink {
+  align-self: flex-end;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-forest);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.inlineLink:hover {
+  color: var(--color-green);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ── PERFIL (cadastro) ─────────────────────────────────── */
+.profiles {
+  border: none;
+}
+
+.legend {
+  margin-bottom: var(--space-2);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.chip:not(.chipOn):hover {
+  border-color: var(--color-green);
+  color: var(--color-forest);
+}
+
+.chipOn {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+/* ── OTP ───────────────────────────────────────────────── */
+.otp {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(6px, 1.2vw, 12px);
+}
+
+.otpBox {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 76px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 700;
+  color: var(--color-forest);
+  background: var(--color-white);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.otpBox:focus {
+  border-color: var(--color-green);
+  box-shadow: var(--ring-focus);
+}
+
+/* ── RODAPÉ ────────────────────────────────────────────── */
+.footer {
+  font-size: 14px;
+  text-align: center;
+  color: var(--color-ink-2);
+}
+
+.footerLink {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-forest);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.footerLink:hover {
+  color: var(--color-green);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.timer {
+  font-size: 13px;
+  color: var(--color-ink-3);
+}

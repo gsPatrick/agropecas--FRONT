@@ -1,0 +1,134 @@
+.pilha {
+  position: fixed;
+  bottom: var(--space-5);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 90;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: center;
+
+  width: min(420px, calc(100vw - var(--space-8)));
+
+  /* a pilha não intercepta cliques; só os avisos dentro dela */
+  pointer-events: none;
+}
+
+.aviso {
+  pointer-events: auto;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+
+  padding: 11px var(--space-3) 11px var(--space-4);
+  border-radius: var(--radius-full);
+
+  background: var(--color-ink);
+  color: var(--color-white);
+  box-shadow: var(--shadow-lg);
+
+  animation: entrar var(--dur-base) var(--ease-out);
+}
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+}
+
+.icone {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.texto {
+  flex: 1;
+  min-width: 0;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.acao {
+  flex: 0 0 auto;
+  padding: 5px 11px;
+
+  border: 0;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--color-white);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.acao:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.fechar {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.fechar:hover {
+  color: var(--color-white);
+}
+
+/* ── tipos ────────────────────────────────────────────── */
+.sucesso .icone {
+  background: var(--color-green);
+}
+
+.erro {
+  background: #7a2b26;
+}
+
+.erro .icone {
+  background: var(--color-danger);
+}
+
+.info .icone {
+  background: var(--color-info);
+}
+
+/* no celular o painel tem barra de navegação fixa: o aviso sobe acima dela e
+   da faixa do gesto do iPhone. Fora do painel a variável não existe e o
+   recuo padrão vale */
+@media (max-width: 900px) {
+  .pilha {
+    bottom: calc(
+      var(--altura-barra-inferior, 0px) + env(safe-area-inset-bottom, 0px) + var(--space-4)
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aviso {
+    animation: none;
+  }
+}

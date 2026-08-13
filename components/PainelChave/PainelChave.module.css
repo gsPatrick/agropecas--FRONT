@@ -1,0 +1,50 @@
+.root {
+  flex: none;
+  position: relative;
+  width: 40px;
+  height: 23px;
+
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-line-strong);
+  cursor: pointer;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.ativa {
+  background: var(--color-forest);
+}
+
+.root:disabled {
+  /* obrigatória, não quebrada: o cursor de bloqueio explica por que não cede */
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.bolinha {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+
+  display: block;
+  width: 17px;
+  height: 17px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+
+  transition: translate var(--dur-fast) var(--ease-out);
+}
+
+.ativa .bolinha {
+  translate: 17px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .bolinha {
+    transition: none;
+  }
+}

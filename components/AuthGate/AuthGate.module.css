@@ -1,0 +1,118 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 4vh, 42px);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.title {
+  font-size: clamp(28px, 3vw, 38px);
+  color: var(--color-forest);
+}
+
+.text {
+  max-width: 42ch;
+  color: var(--color-ink-2);
+}
+
+/* grid com linhas iguais: os dois cartões acompanham o mais alto, mesmo quando
+   um deles quebra o texto em duas linhas */
+.options {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: var(--space-3);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-5);
+  text-align: left;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.option:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-green);
+  background: var(--color-green-tint);
+  box-shadow: var(--shadow-md);
+}
+
+.optionIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+.optionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.optionTitle {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.optionText {
+  font-size: 13px;
+  color: var(--color-ink-3);
+}
+
+.optionArrow {
+  flex-shrink: 0;
+  color: var(--color-green);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.option:hover .optionArrow {
+  transform: translateX(4px);
+}
+
+.note {
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--color-ink-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option:hover,
+  .option:hover .optionArrow {
+    transform: none;
+  }
+}

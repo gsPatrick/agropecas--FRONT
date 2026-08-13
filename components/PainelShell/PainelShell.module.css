@@ -1,0 +1,55 @@
+.root {
+  /* altura da barra de navegação inferior, lida por quem precisa desviar dela.
+     Vive aqui porque a barra e o rodapé do formulário estão em módulos
+     diferentes — com o número copiado nos dois, mudar a barra deixaria algum
+     botão escondido embaixo dela sem ninguém perceber */
+  --altura-barra-inferior: 56px;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  min-height: 100dvh;
+  background: var(--color-bone);
+}
+
+/* a sidebar anima a largura; a coluna acompanha por ser 1fr.
+   `pronto` evita a animação no primeiro render, quando a preferência
+   salva é aplicada — animar aqui pareceria falha de carregamento */
+.pronto .coluna {
+  transition: none;
+}
+
+.coluna {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.conteudo {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--gutter) var(--space-12);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* recolhida, o conteúdo ganha a largura de volta */
+.compacto .conteudo {
+  max-width: 1320px;
+}
+
+/* sem barra lateral: uma coluna só, e o conteúdo usa a tela inteira */
+@media (max-width: 900px) {
+  .root {
+    grid-template-columns: 1fr;
+  }
+
+  .conteudo {
+    padding-inline: var(--space-4);
+    /* espaço para a barra inferior + a faixa do gesto do iPhone:
+       sem isto o último cartão fica escondido sob a barra */
+    padding-bottom: calc(var(--altura-barra-inferior) + var(--space-8) + env(safe-area-inset-bottom, 0px));
+  }
+}

@@ -1,0 +1,113 @@
+.main {
+  background: var(--color-bone);
+}
+
+/* a caixa ocupa a janela inteira menos o header: o painel cresce até o pé da
+   tela e as colunas rolam por dentro */
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: var(--max-width);
+  height: calc(100dvh - 64px);
+  margin: 0 auto;
+  padding: clamp(14px, 2vh, 22px) var(--gutter) clamp(12px, 1.6vh, 20px);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.titulo {
+  font-size: clamp(20px, 2.2vw, 26px);
+  color: var(--color-forest);
+}
+
+.sub {
+  font-size: 13px;
+  color: var(--color-ink-3);
+}
+
+.som {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink-3);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.somOn {
+  border-color: var(--color-green);
+  color: var(--color-forest);
+}
+
+/* ── PAINEL ────────────────────────────────────────────── */
+/* o painel tem a altura da janela: quem rola é cada coluna por dentro, nunca
+   a página — caixa de entrada que empurra o rodapé para baixo é inutilizável */
+.painel {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.lista {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  border-right: 1px solid var(--color-line);
+}
+
+.lista::-webkit-scrollbar {
+  width: 6px;
+}
+
+.lista::-webkit-scrollbar-thumb {
+  background: var(--color-line-strong);
+  border-radius: var(--radius-full);
+}
+
+.conversa {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.conversa > * {
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── RESPONSIVO ────────────────────────────────────────── */
+@media (max-width: 860px) {
+  /* uma tela por vez: com conversa aberta a lista sai de cena */
+  .painel {
+    grid-template-columns: 1fr;
+  }
+
+  .comConversa .lista {
+    display: none;
+  }
+
+  .painel:not(.comConversa) .conversa {
+    display: none;
+  }
+}

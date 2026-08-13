@@ -1,0 +1,110 @@
+.root {
+  display: flex;
+  flex-direction: column;
+
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+
+  /* corta o que passa da borda para a lista não vazar o canto arredondado */
+  overflow: hidden;
+}
+
+/* cartão com dica dentro: o balão precisa sair da caixa. Quem usa isto não
+   pode ter lista encostada na borda, senão o hover da última linha some com
+   o canto arredondado */
+.semCorte {
+  overflow: visible;
+}
+
+.topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+
+  padding: var(--space-5) var(--space-5) 0;
+}
+
+.texto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  letter-spacing: var(--tracking-title);
+  color: var(--color-ink);
+}
+
+.icone {
+  color: var(--color-forest);
+  flex: 0 0 auto;
+}
+
+.descricao {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.acao {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+
+  color: var(--color-forest);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: gap var(--dur-fast) var(--ease-out);
+}
+
+.acao:hover {
+  gap: 8px;
+}
+
+.corpo {
+  padding: var(--space-5);
+}
+
+.corpoSemPadding {
+  padding: 0;
+}
+
+@media (max-width: 560px) {
+  .topo {
+    padding: var(--space-4) var(--space-4) 0;
+  }
+
+  .corpo {
+    padding: var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acao {
+    transition: none;
+  }
+}
+
+.controle {
+  flex: none;
+  /* encolhe se o título for longo, em vez de empurrar o cabeçalho para fora */
+  min-width: 0;
+}

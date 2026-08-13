@@ -1,0 +1,73 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+
+  padding: var(--space-3);
+  border: 1px dashed var(--color-warning);
+  border-radius: var(--radius-md);
+  background: var(--color-warning-soft);
+}
+
+.aviso {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: #8a6416;
+}
+
+.botoes {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 12px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.botao:not(.ativo):hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.ativo {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+@media (max-width: 560px) {
+  .rotulo {
+    display: none;
+  }
+
+  .botao {
+    padding: 8px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .botao {
+    transition: none;
+  }
+}

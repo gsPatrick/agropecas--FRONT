@@ -1,0 +1,88 @@
+/* fundo levemente acinzentado: separa a seção das vizinhas brancas */
+.root {
+  padding: clamp(48px, 6vw, 80px) 0 clamp(56px, 7vw, 96px);
+  background: #f2f3ef;
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.heading {
+  margin-bottom: clamp(28px, 3.5vw, 48px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(10px, 1.2vw, 18px);
+}
+
+.cell {
+  height: 100%;
+}
+
+/* régua de rolagem — só existe no trilho horizontal do mobile */
+.scrollbar {
+  display: none;
+  position: relative;
+  height: 4px;
+  margin: var(--space-5) var(--gutter) 0;
+  border-radius: var(--radius-full);
+  background: rgba(31, 94, 45, 0.14);
+  overflow: hidden;
+}
+
+.thumb {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--thumb-size, 40%);
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  /* o cursor percorre exatamente o vão que sobra da própria largura */
+  transform: translateX(calc(var(--thumb-offset, 0) * (100cqw - 100%)));
+  transition: transform 90ms linear;
+}
+
+.scrollbar {
+  container-type: inline-size;
+}
+
+/* No celular a grade vira uma fileira única que rola na horizontal: os
+   ladrilhos ficam maiores e o corte na borda direita é o que avisa que há
+   mais. O padding lateral entra no próprio trilho para o primeiro ladrilho
+   nascer alinhado com o título. */
+@media (max-width: 900px) {
+  .inner {
+    padding: 0;
+  }
+
+  .heading {
+    padding: 0 var(--gutter);
+  }
+
+  .grid {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-1) var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cell {
+    flex: 0 0 clamp(148px, 44vw, 190px);
+    scroll-snap-align: start;
+  }
+
+  .scrollbar {
+    display: block;
+  }
+}

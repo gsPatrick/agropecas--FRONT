@@ -1,0 +1,341 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin: 4px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.explicacao {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bone);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+/* ── grade ────────────────────────────────────────────── */
+.grade {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-4);
+}
+
+.colecoes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  padding: var(--space-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+
+  position: sticky;
+  top: 84px;
+}
+
+.colecao {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: 9px var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.colecao:hover {
+  background: var(--color-green-tint);
+}
+
+.colecaoAtiva {
+  background: var(--color-green-soft);
+}
+
+.colecaoIcone {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-3);
+}
+
+.colecaoAtiva .colecaoIcone {
+  color: var(--color-forest);
+}
+
+.colecaoTexto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.colecaoTexto strong {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+.colecaoAtiva .colecaoTexto strong {
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.colecaoTexto span {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.conteudo {
+  min-width: 0;
+}
+
+/* ── adicionar ────────────────────────────────────────── */
+.adicionar {
+  display: flex;
+  gap: var(--space-2);
+
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-bone);
+}
+
+.adicionar > div:first-child {
+  flex: 1;
+}
+
+/* ── itens ────────────────────────────────────────────── */
+.grupoNome {
+  display: block;
+
+  padding: var(--space-3) var(--space-4) 4px;
+  border-top: 1px solid var(--color-line);
+
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-3);
+}
+
+.itens {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.itens li:first-child {
+  border-top: 0;
+}
+
+/* fora das opções continua visível, mas recuado: sumido, ninguém lembraria de
+   reativar quando a categoria voltasse a fazer sentido */
+.itemInativo {
+  background: var(--color-bone);
+}
+
+.itemInativo .nome {
+  color: var(--color-ink-3);
+  text-decoration: line-through;
+}
+
+.ordem {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.ordem button {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 15px;
+
+  border: 0;
+  background: transparent;
+  color: var(--color-line-strong);
+  cursor: pointer;
+}
+
+.ordem button:hover {
+  color: var(--color-forest);
+}
+
+/* as setas do ícone são laterais; girar evita criar dois ícones novos só para
+   cima e para baixo */
+.paraCima {
+  rotate: 90deg;
+}
+
+.paraBaixo {
+  rotate: 90deg;
+}
+
+.nome {
+  flex: 1;
+  min-width: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.usos {
+  flex: none;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.acoes {
+  flex: none;
+  display: flex;
+  gap: 4px;
+}
+
+.icone {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-3);
+  cursor: pointer;
+}
+
+.icone:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.iconePerigo:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.edicao {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.edicao > div:first-child {
+  flex: 1;
+}
+
+.rodape {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+  background: var(--color-bone);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+@media (max-width: 1000px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .colecoes {
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .colecoes::-webkit-scrollbar {
+    display: none;
+  }
+
+  .colecao {
+    flex: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .item {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .nome {
+    /* o nome ocupa a linha inteira; ao lado das setas e do contador ele
+       quebrava em duas linhas curtas */
+    flex-basis: calc(100% - 32px);
+  }
+
+  .usos {
+    margin-left: 20px;
+  }
+
+  .acoes {
+    margin-left: auto;
+  }
+
+  .adicionar {
+    flex-direction: column;
+  }
+}

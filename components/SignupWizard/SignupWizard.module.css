@@ -1,0 +1,334 @@
+@keyframes stepSlide {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Todos os espaçamentos verticais são em vh: é a altura da janela que manda,
+   porque a tela inteira precisa caber sem rolagem. */
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.6vh, 30px);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.2vh, 26px);
+  animation: stepSlide 0.34s var(--ease-out) both;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.title {
+  font-size: clamp(21px, 3vh, 30px);
+  color: var(--color-forest);
+}
+
+.text {
+  max-width: 44ch;
+  font-size: 15px;
+  color: var(--color-ink-2);
+}
+
+/* ── PASSO 1 — PERFIL ──────────────────────────────────── */
+.profiles {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: clamp(8px, 1.4vh, 14px);
+}
+
+.profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: clamp(10px, 1.6vh, 18px) var(--space-5);
+  text-align: left;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+.profile:hover {
+  border-color: var(--color-green);
+  background: var(--color-green-tint);
+}
+
+.profileOn {
+  border-color: var(--color-forest);
+  background: var(--color-green-tint);
+  box-shadow: var(--shadow-sm);
+}
+
+.profileIcon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.profileOn .profileIcon {
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.profileBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.profileTitle {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.profileText {
+  font-size: 13px;
+  color: var(--color-ink-3);
+}
+
+.check {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+  opacity: 0;
+  transform: scale(0.7);
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.profileOn .check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── CAMPOS ────────────────────────────────────────────── */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.8vh, 20px);
+  min-width: 0;
+}
+
+.row {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.uf {
+  flex: 0 0 108px;
+}
+
+.city {
+  flex: 1;
+  min-width: 0;
+}
+
+/* fieldset tem min-width intrínseco: sem o 0 explícito ele se recusa a
+   encolher e a faixa do carrossel estica o painel inteiro */
+.services {
+  min-width: 0;
+  max-width: 100%;
+  padding: 0;
+  border: none;
+}
+
+.legend {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  margin-bottom: var(--space-3);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.count {
+  margin-left: var(--space-2);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-ink-3);
+}
+
+.seeAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-forest);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.seeAll:hover {
+  color: var(--color-green);
+}
+
+/* os escolhidos ficam à vista, cada um removível no próprio chip */
+.selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.selectedChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-4);
+  background: var(--color-forest);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-white);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.selectedChip:hover {
+  background: var(--color-danger);
+}
+
+.selectedChip svg {
+  opacity: 0.7;
+}
+
+.selectedChip:hover svg {
+  opacity: 1;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+/* só o chip NÃO selecionado reage: no selecionado a tinta escura do hover
+   caía sobre o fundo escuro e o rótulo sumia */
+.chip:not(.chipOn):hover {
+  border-color: var(--color-green);
+  color: var(--color-forest);
+}
+
+.chipOn {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-ink-2);
+  cursor: pointer;
+}
+
+.consentLink {
+  font-weight: 700;
+  color: var(--color-forest);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.consentLink:hover {
+  color: var(--color-green);
+}
+
+.blocked {
+  margin-top: calc(-1 * var(--space-2));
+  font-size: 12px;
+  text-align: center;
+  color: var(--color-ink-3);
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  flex-shrink: 0;
+  accent-color: var(--color-forest);
+  cursor: pointer;
+}
+
+/* ── AÇÕES ─────────────────────────────────────────────── */
+.actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.footer {
+  font-size: 14px;
+  text-align: center;
+  color: var(--color-ink-2);
+}
+
+.footerLink {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-forest);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.footerLink:hover {
+  color: var(--color-green);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .body {
+    animation: none;
+  }
+}

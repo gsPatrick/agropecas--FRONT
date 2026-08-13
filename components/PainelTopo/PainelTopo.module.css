@@ -1,0 +1,121 @@
+.root {
+  padding: var(--space-6) 0 var(--space-5);
+}
+
+.linha {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.texto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.chapeu {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.titulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  letter-spacing: var(--tracking-title);
+  line-height: var(--leading-tight);
+  color: var(--color-ink);
+}
+
+.descricao {
+  margin: 0;
+  max-width: 62ch;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 0 0 auto;
+}
+
+.sino {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  text-decoration: none;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.sino:hover {
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.ponto {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-danger);
+  border: 2px solid var(--color-white);
+}
+
+/* ── mobile: cabeçalho de aplicativo ──────────────────── */
+@media (max-width: 900px) {
+  .root {
+    padding: var(--space-5) 0 var(--space-4);
+  }
+
+  .linha {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .acoes {
+    justify-content: space-between;
+  }
+
+  .titulo {
+    font-size: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sino {
+    transition: none;
+  }
+}

@@ -1,0 +1,140 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--color-line);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.item:hover {
+  background: var(--color-bone);
+}
+
+.ativo {
+  background: var(--color-green-tint);
+}
+
+/* faixa que marca a conversa aberta sem depender só do fundo */
+.ativo::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-forest);
+}
+
+.avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-forest);
+}
+
+.online {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: var(--radius-full);
+  background: var(--color-green);
+  border: 2px solid var(--color-white);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.nome {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hora {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+/* o anúncio vem antes da prévia: é ele que dá contexto à conversa */
+.anuncio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-green);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.anuncio svg {
+  flex-shrink: 0;
+}
+
+.previa {
+  font-size: 13px;
+  color: var(--color-ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-green);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.compacto .item {
+  padding: var(--space-3);
+}
+
+.compacto .avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 13px;
+}

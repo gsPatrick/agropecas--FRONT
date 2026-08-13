@@ -1,0 +1,852 @@
+/* ── ação no cabeçalho ────────────────────────────────── */
+.acaoTopo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 10px var(--space-4);
+  border-radius: var(--radius-md);
+
+  background: var(--color-forest);
+  color: var(--color-white);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.acaoTopo:hover {
+  background: var(--color-forest-soft);
+}
+
+@media (max-width: 900px) {
+  .acaoTopo {
+    display: none;
+  }
+}
+
+/* ── situação ─────────────────────────────────────────── */
+.situacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.situacaoTexto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.selo {
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.publicado {
+  background: var(--color-success-soft);
+  color: #2f7a35;
+}
+
+.pausado {
+  background: var(--color-warning-soft);
+  color: #8a6416;
+}
+
+.expirado {
+  background: var(--color-danger-soft);
+  color: #a83a33;
+}
+
+.rascunho {
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.prazo {
+  margin: 0;
+  max-width: 56ch;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.prazo strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.alerta {
+  color: #8a6416;
+  font-weight: 600;
+}
+
+/* ── botões ───────────────────────────────────────────── */
+.botoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+
+.primario,
+.secundario,
+.perigo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 9px var(--space-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.primario {
+  border: 1px solid var(--color-forest);
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.primario:hover {
+  background: var(--color-forest-soft);
+}
+
+.secundario {
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+}
+
+.secundario:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.perigo {
+  padding: 9px;
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+  color: var(--color-ink-3);
+}
+
+.perigo:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/* «Editar» duplicaria o botão do cabeçalho no computador */
+.editarMobile {
+  display: none;
+}
+
+/* ── métricas ─────────────────────────────────────────── */
+.metricas {
+  display: grid;
+  /* `minmax(0, 1fr)` e não `1fr`: a trilha padrão tem largura mínima
+     automática, então um rótulo longo como «FAVORITADO POR» empurra a coluna
+     e a grade inteira estoura para fora do alinhamento das outras seções */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+/* ── grade ────────────────────────────────────────────── */
+.grade {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.coluna {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ── gráfico ──────────────────────────────────────────── */
+.grafico {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  align-items: end;
+  gap: var(--space-2);
+
+  height: 140px;
+}
+
+.coluna14 {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+}
+
+/* a dica envolve a barra e precisa ocupar a coluna inteira */
+.coluna14 > span {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+}
+
+.barra {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: var(--color-green);
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.coluna14:hover .barra {
+  background: var(--color-forest);
+}
+
+/**
+ * Altura em degraus de 10%.
+ *
+ * O valor exato exigiria estilo inline, que o projeto não usa. Em 14 barras de
+ * 140px, um degrau é 14px — a diferença entre 63% e 65% não é perceptível, mas
+ * a diferença entre inline e CSS Module é.
+ *
+ * `n0` mantém 2px em vez de zero: barra sem altura nenhuma some do gráfico e
+ * o dia parece não ter existido, em vez de ter tido zero visualizações.
+ */
+.n0 { height: 2px; }
+.n1 { height: 10%; }
+.n2 { height: 20%; }
+.n3 { height: 30%; }
+.n4 { height: 40%; }
+.n5 { height: 50%; }
+.n6 { height: 60%; }
+.n7 { height: 70%; }
+.n8 { height: 80%; }
+.n9 { height: 90%; }
+.n10 { height: 100%; }
+
+/* ── estado vazio ─────────────────────────────────────── */
+.vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+}
+
+/* dentro de cartão `semPadding` o bloco traz o próprio recuo, senão o texto
+   encosta na borda — e ainda ganha a linha que o separa do cabeçalho */
+.vazioComRecuo {
+  padding: var(--space-10) var(--space-5);
+  border-top: 1px solid var(--color-line);
+}
+
+.vazioIcone {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.vazioTexto {
+  margin: 0;
+  max-width: 42ch;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+/* a sugestão vem em segundo plano: informa sem competir com o fato */
+.vazioDica {
+  margin: 0;
+  max-width: 44ch;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+/* ── contatos ─────────────────────────────────────────── */
+.contatos {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contato {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--color-line);
+  text-decoration: none;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.contatos li:first-child .contato {
+  border-top: 0;
+}
+
+.contato:hover {
+  background: var(--color-green-tint);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.contatoTexto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.contatoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contatoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contatoLado {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex: 0 0 auto;
+}
+
+.canal {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.zap {
+  background: rgba(37, 211, 102, 0.14);
+  color: #128c4a;
+}
+
+.chat {
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+.quando {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+/* ── dados publicados ─────────────────────────────────── */
+.dados,
+.datas {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.dados {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.dados div,
+.datas div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dados dt,
+.datas dt {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.dados dd,
+.datas dd {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+}
+
+.preco {
+  font-weight: 700;
+  color: var(--color-forest) !important;
+}
+
+.nota {
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.destaqueAviso {
+  color: #8a6416 !important;
+  font-weight: 600;
+}
+
+.descricao {
+  margin: var(--space-4) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-line);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+/* ── histórico ────────────────────────────────────────── */
+.historico {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.evento {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--color-line);
+}
+
+.historico li:first-child {
+  border-top: 0;
+}
+
+.eventoIcone {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+.eventoTexto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.eventoTexto strong {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.eventoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+/* ── não encontrado ───────────────────────────────────── */
+.ausente {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+
+  padding: var(--space-16) var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+
+  color: var(--color-ink-3);
+  text-align: center;
+}
+
+.ausente p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.voltar {
+  padding: 10px var(--space-5);
+  border: 1px solid var(--color-forest);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-forest);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ── diálogo de remoção ───────────────────────────────── */
+.confirmacao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.aviso,
+.alternativa {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.aviso strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.alternativa {
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-green-tint);
+  font-size: 13px;
+}
+
+.linkAcao {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-forest);
+  cursor: pointer;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.armado {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+
+  padding: var(--space-3);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  background: var(--color-danger-soft);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: #a83a33;
+}
+
+/* o cancelar do diálogo tem classe própria: usando `.secundario`, a regra que
+   esconde rótulo na barra do celular apagaria o texto dele também */
+.cancelarModal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 10px var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.cancelarModal:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.rodapeModal {
+  /* ocupa o rodapé inteiro: sem isto ele é um item flexível do `Modal`, que
+     usa `space-between` — e os botões ficavam encolhidos à esquerda */
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* cheio e vermelho desde o começo: sem a segunda etapa, este botão executa —
+   e botão que executa não pode parecer o passo intermediário que era antes */
+.remover {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 10px var(--space-4);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  background: var(--color-danger);
+  color: var(--color-white);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.remover:hover {
+  background: #b83f38;
+}
+
+/* ── responsivo ───────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .grade {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  /**
+   * As ações viram a barra fixa do rodapé.
+   *
+   * É o padrão de aplicativo: a ação principal fica ao alcance do polegar em
+   * vez de exigir rolar até o cartão. E resolve um buraco real — o «Editar» do
+   * cabeçalho é escondido no celular, então sem esta barra não havia como
+   * editar pelo telefone.
+   */
+  .botoes {
+    position: fixed;
+    inset: auto 0 calc(var(--altura-barra-inferior, 56px) + env(safe-area-inset-bottom, 0px)) 0;
+    z-index: 30;
+
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: var(--space-2);
+
+    padding: var(--space-3) var(--space-4);
+
+    background: color-mix(in srgb, var(--color-white) 92%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .editarMobile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+
+    padding: 11px var(--space-4);
+    border: 1px solid var(--color-forest);
+    border-radius: var(--radius-md);
+    background: var(--color-forest);
+    color: var(--color-white);
+    text-decoration: none;
+
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  /* na barra, o que tem rótulo longo vira só ícone: «Ver como comprador» em
+     360px empurraria os outros para fora */
+  .secundario,
+  .primario {
+    padding: 11px;
+    justify-content: center;
+  }
+
+  .secundario span,
+  .primario span {
+    display: none;
+  }
+
+  /* o espaço que a barra ocupa, devolvido no fim da página */
+  .grade {
+    padding-bottom: var(--space-16);
+  }
+}
+
+@media (max-width: 760px) {
+  .metricas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .situacao {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* 14 barras em 360px ficam com 12px cada: ainda legíveis, mas o gráfico
+     precisa de menos espaço entre elas */
+  .grafico {
+    gap: 3px;
+    height: 110px;
+  }
+}
+
+@media (max-width: 560px) {
+  .contato,
+  .evento {
+    padding-inline: var(--space-4);
+  }
+
+  .rodapeModal {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .cancelarModal,
+  .remover {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primario,
+  .secundario,
+  .perigo,
+  .barra,
+  .contato,
+  .remover {
+    transition: none;
+  }
+}
+
+/* ── medida da administração ──────────────────────────── */
+.medida {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-lg);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.medidaTexto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.medidaTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.medidaMotivo {
+  max-width: 70ch;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+/* o prazo em destaque: é a informação que a pessoa veio buscar */
+.medidaPrazo {
+  max-width: 70ch;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.medidaPrazo strong {
+  font-size: 12px;
+  color: var(--color-ink);
+}

@@ -1,0 +1,608 @@
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+/* ── ação no cabeçalho ────────────────────────────────── */
+.acaoTopo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 10px var(--space-4);
+  border-radius: var(--radius-md);
+
+  background: var(--color-forest);
+  color: var(--color-white);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.acaoTopo:hover {
+  background: var(--color-forest-soft);
+}
+
+/* no celular a ação já está no centro da barra inferior */
+@media (max-width: 900px) {
+  .acaoTopo {
+    display: none;
+  }
+}
+
+/* ── abas e controles ─────────────────────────────────── */
+.abas {
+  padding: var(--space-5) var(--space-5) 0;
+}
+
+.controles {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4) var(--space-5);
+}
+
+.buscaCampo {
+  flex: 1;
+  min-width: 0;
+}
+
+.ordemCampo {
+  flex: 0 0 auto;
+  width: 190px;
+}
+
+/* ── lista ────────────────────────────────────────────── */
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--color-line);
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.item:hover {
+  background: var(--color-green-tint);
+}
+
+.principal {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.miniatura {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-sm);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.texto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.linhaTitulo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.titulo {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selo {
+  flex: 0 0 auto;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.publicado {
+  background: var(--color-success-soft);
+  color: #2f7a35;
+}
+
+.pausado {
+  background: var(--color-warning-soft);
+  color: #8a6416;
+}
+
+.expirado {
+  background: var(--color-danger-soft);
+  color: #a83a33;
+}
+
+.rascunho {
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.preco {
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+.numero {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.expira {
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-warning-soft);
+  color: #8a6416;
+  font-weight: 600;
+}
+
+/* ── ações por item ───────────────────────────────────── */
+/* no computador as ações estão sempre visíveis; no celular vêm atrás deste */
+.abrirAcoes {
+  display: none;
+
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+}
+
+.abrirAcoes[aria-expanded='true'] {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 0 0 auto;
+}
+
+.acaoBotao {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-ink-3);
+  cursor: pointer;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.acaoBotao:hover {
+  background: var(--color-white);
+  border-color: var(--color-line);
+  color: var(--color-forest);
+}
+
+.perigo:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/* o atalho para o detalhe só existe no celular, onde a linha não navega */
+.acaoDetalhe {
+  display: none;
+}
+
+/* o rótulo existe para leitor de tela e para o modo empilhado do celular */
+.acaoRotulo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── paginação ────────────────────────────────────────── */
+.paginacao {
+  padding: var(--space-3) var(--space-5) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+/* ── vazio ────────────────────────────────────────────── */
+.vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-16) var(--space-5);
+  border-top: 1px solid var(--color-line);
+  text-align: center;
+}
+
+.vazioIcone {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.vazioTexto {
+  margin: 0;
+  max-width: 42ch;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.vazioAcao {
+  padding: 9px var(--space-5);
+  border: 1px solid var(--color-forest);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-forest);
+  cursor: pointer;
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.vazioAcao:hover {
+  background: var(--color-green-tint);
+}
+
+/* ── responsivo ───────────────────────────────────────── */
+@media (max-width: 860px) {
+  .controles {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ordemCampo {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .abas,
+  .controles,
+  .item,
+  .paginacao,
+  .vazio {
+    padding-inline: var(--space-4);
+  }
+
+  /* a linha vira: miniatura + texto à esquerda, um botão de ações à direita.
+     Empilhar tudo fazia a lista crescer demais e obrigava a rolar muito para
+     ver poucos anúncios */
+  .item {
+    flex-wrap: wrap;
+  }
+
+  .principal {
+    /* deixa espaço para o botão de ações na mesma linha */
+    flex: 1 1 calc(100% - 52px);
+  }
+
+  .abrirAcoes {
+    display: grid;
+  }
+
+  /* fechadas por padrão: quatro alvos numa linha de 360px dão ~80px cada */
+  .acoes {
+    display: none;
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .acoesAbertas {
+    /* duas colunas: com quatro, cada botão fica estreito demais para o rótulo
+       caber sem cortar */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+
+    padding-top: var(--space-1);
+  }
+
+  /* o detalhe é o destino mais provável de quem abriu a linha: fica em cima e
+     ocupa a largura toda */
+  .acoesAbertas .acaoDetalhe {
+    display: inline-flex;
+    grid-column: 1 / -1;
+
+    border-color: var(--color-forest);
+    background: var(--color-green-tint);
+    color: var(--color-forest);
+  }
+
+  /* a linha inteira é o alvo: o botão só indica que há mais ali */
+  .principal {
+    cursor: pointer;
+  }
+
+  .acaoBotao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    width: 100%;
+    height: auto;
+    padding: 11px var(--space-2);
+
+    border-color: var(--color-line);
+    background: var(--color-white);
+
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .acaoRotulo {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acaoTopo,
+  .item,
+  .acaoBotao {
+    transition: none;
+  }
+}
+
+/* ── diálogo de remoção ───────────────────────────────── */
+.confirmacao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.alvo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+}
+
+.alvoMiniatura {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink-3);
+}
+
+.alvoTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.alvoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.alvoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.aviso,
+.alternativa {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+.aviso strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.alternativa {
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-green-tint);
+  font-size: 13px;
+}
+
+/* a saída menos destrutiva fica no meio do texto, no momento da dúvida */
+.linkAcao {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-forest);
+  cursor: pointer;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.armado {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+
+  padding: var(--space-3);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  background: var(--color-danger-soft);
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: #a83a33;
+}
+
+/* ── botões do diálogo ────────────────────────────────── */
+.rodapeModal {
+  /* ocupa o rodapé inteiro: sem isto ele é um item flexível do `Modal`, que
+     usa `space-between` — e os botões ficavam encolhidos à esquerda */
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.cancelar,
+.remover {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 10px var(--space-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.cancelar {
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+}
+
+.cancelar:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.remover {
+  border: 1px solid var(--color-danger);
+  background: var(--color-white);
+  color: var(--color-danger);
+}
+
+.remover:hover {
+  background: #b83f38;
+}
+
+@media (max-width: 480px) {
+  .rodapeModal {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .cancelar,
+  .remover {
+    justify-content: center;
+  }
+}
+
+/* a dica envolve o botão; no celular ela some e o botão ocupa a coluna */
+.dica {
+  display: inline-flex;
+}
+
+@media (max-width: 700px) {
+  .dica {
+    display: block;
+  }
+
+  .dica > button {
+    width: 100%;
+  }
+}

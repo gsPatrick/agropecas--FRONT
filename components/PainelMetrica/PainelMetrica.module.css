@@ -1,0 +1,123 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+
+  padding: var(--space-4);
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+
+  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.root:hover {
+  border-color: var(--color-line-strong);
+  transform: translateY(-1px);
+}
+
+/* ── topo: ícone e variação ───────────────────────────── */
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: 32px;
+}
+
+.icone {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-md);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+.variacao {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.seta {
+  /* a seta é a mesma; o giro é que diz o sentido */
+  rotate: -45deg;
+}
+
+.subiu {
+  background: var(--color-success-soft);
+  color: #2f7a35;
+}
+
+.caiu {
+  background: var(--color-danger-soft);
+  color: #a83a33;
+}
+
+.caiu .seta {
+  rotate: 45deg;
+}
+
+/* ── número ───────────────────────────────────────────── */
+.valor {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  margin-top: var(--space-1);
+
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4.5vw, 30px);
+  font-weight: 700;
+  letter-spacing: var(--tracking-title);
+  line-height: 1.05;
+  color: var(--color-ink);
+
+  font-variant-numeric: tabular-nums;
+}
+
+.sufixo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-3);
+}
+
+/* ── rótulo ───────────────────────────────────────────── */
+.rotulo {
+  /* recebe a largura inteira do cartão: era o ícone ao lado que fazia uma
+     palavra longa vazar. Sem maiúsculas forçadas, que somam ~15% de largura */
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--color-ink-2);
+
+  /* quebra por palavra; se ainda não couber, quebra dentro dela em vez de
+     escapar do cartão */
+  overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition: none;
+  }
+
+  .root:hover {
+    transform: none;
+  }
+}

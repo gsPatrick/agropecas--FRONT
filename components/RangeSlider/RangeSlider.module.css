@@ -1,0 +1,89 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.valores {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+/* ── PISTA ─────────────────────────────────────────────── */
+.pista {
+  position: relative;
+  height: 26px;
+  display: flex;
+  align-items: center;
+}
+
+.pista::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-line);
+}
+
+.preenchido {
+  position: absolute;
+  left: var(--inicio);
+  right: calc(100% - var(--fim));
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-green);
+}
+
+/* os dois range ficam por cima, transparentes: só os punhos capturam evento */
+.entrada {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 26px;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+
+.entrada::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  border: 3px solid var(--color-forest);
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+  pointer-events: auto;
+}
+
+.entrada::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  border-color: var(--color-green);
+}
+
+.entrada::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  border: 3px solid var(--color-forest);
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+  pointer-events: auto;
+}
+
+.entrada:focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--ring-focus);
+}
+
+.entrada:focus-visible::-moz-range-thumb {
+  box-shadow: var(--ring-focus);
+}

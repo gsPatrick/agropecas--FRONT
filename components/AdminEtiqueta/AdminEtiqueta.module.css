@@ -1,0 +1,45 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ponto {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+.ok {
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+.alerta {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.perigo {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.neutro {
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+}
+
+.info {
+  background: var(--color-green-tint);
+  color: var(--color-ink-2);
+}

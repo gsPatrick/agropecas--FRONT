@@ -1,0 +1,350 @@
+.root {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+/* ── gatilho ──────────────────────────────────────────── */
+.gatilho {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: 5px 10px 5px 5px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  cursor: pointer;
+
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.gatilho:hover {
+  border-color: var(--color-line-strong);
+  background: var(--color-green-tint);
+}
+
+.gatilho[aria-expanded='true'] {
+  border-color: var(--color-forest);
+  background: var(--color-green-tint);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.identidade {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.nome {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+
+  max-width: 20ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.local {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.seta {
+  color: var(--color-ink-3);
+  rotate: 90deg;
+  transition: rotate var(--dur-fast) var(--ease-out);
+}
+
+.gatilho[aria-expanded='true'] .seta {
+  rotate: -90deg;
+}
+
+/* ── painel ───────────────────────────────────────────── */
+.painel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 70;
+
+  width: 268px;
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+
+  animation: surgir var(--dur-fast) var(--ease-out);
+  transform-origin: top right;
+}
+
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-green-tint);
+}
+
+.avatarGrande {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cabecalhoTexto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cabecalhoNome {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cabecalhoPerfil {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-forest);
+}
+
+.verificado {
+  display: grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: var(--color-green);
+  color: var(--color-white);
+}
+
+.verPerfil {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+
+  color: var(--color-forest);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.verPerfil:hover {
+  background: var(--color-green-tint);
+}
+
+/* ── itens ────────────────────────────────────────────── */
+.extras,
+.conta {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-2);
+  gap: 1px;
+}
+
+.conta {
+  border-top: 1px solid var(--color-line);
+}
+
+.grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-bottom: var(--space-2);
+}
+
+.grupoTitulo {
+  padding: var(--space-2) var(--space-3) 4px;
+
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.item,
+.sair {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+
+  padding: 10px var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+
+  color: var(--color-ink-2);
+  text-decoration: none;
+  text-align: left;
+
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.item:hover,
+.sair:hover {
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.itemAtivo {
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+  font-weight: 600;
+}
+
+.itemTexto {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contador {
+  flex: 0 0 auto;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--radius-full);
+
+  display: grid;
+  place-items: center;
+
+  background: var(--color-forest);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.sair {
+  color: var(--color-danger);
+}
+
+.sair:hover {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+/* ── computador: a sidebar já tem esses itens ─────────── */
+@media (min-width: 901px) {
+  .extras {
+    display: none;
+  }
+
+  .conta {
+    border-top: 0;
+  }
+}
+
+/* ── celular ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* o nome já está no título da tela; aqui basta o avatar */
+  .identidade,
+  .seta {
+    display: none;
+  }
+
+  .gatilho {
+    padding: 4px;
+    border-color: transparent;
+    background: transparent;
+  }
+
+  .avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .painel {
+    width: min(300px, calc(100vw - var(--space-8)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gatilho,
+  .seta,
+  .item,
+  .sair,
+  .verPerfil {
+    transition: none;
+  }
+
+  .painel {
+    animation: none;
+  }
+}

@@ -1,0 +1,616 @@
+.main {
+  background: var(--color-white);
+}
+
+.loading {
+  padding: 160px var(--gutter);
+  text-align: center;
+  color: var(--color-ink-3);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ── BARRA DE BUSCA ────────────────────────────────────── */
+/* mesmo tratamento das outras seções: halo verde sobre claro, em vez do
+   bloco cinza chapado */
+.top {
+  padding: clamp(24px, 3vw, 40px) 0 clamp(20px, 2.4vw, 30px);
+  background:
+    radial-gradient(70% 140% at 18% 0%, var(--color-green-tint) 0%, transparent 62%),
+    var(--color-bone);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.searchBar {
+  flex: 1;
+  max-width: 100%;
+  box-shadow: var(--shadow-md);
+}
+
+/* ── SEGMENTADO ────────────────────────────────────────── */
+.segmentado {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+  padding: 4px;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+
+.tipo {
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-ink-2);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.tipo:not(.tipoOn):hover {
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.tipoOn {
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+/* ── FILTROS APLICADOS ─────────────────────────────────── */
+.aplicados {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.aplicadosRotulo {
+  margin-right: var(--space-1);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+/* cada filtro ativo é removível no próprio lugar: obrigar a voltar na coluna
+   lateral para desfazer é o atrito clássico de busca com muitos filtros */
+.aplicado {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-white);
+  border: 1px solid var(--color-green-soft);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-forest);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.aplicado:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+  color: #9e2f28;
+}
+
+.aplicado svg:first-child {
+  color: var(--color-green);
+}
+
+.aplicado:hover svg {
+  color: inherit;
+}
+
+/* ── LAYOUT ────────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: 232px 1fr;
+  gap: clamp(24px, 3vw, 44px);
+  padding-top: clamp(28px, 3.5vw, 48px);
+  padding-bottom: clamp(48px, 6vw, 88px);
+}
+
+/* ── FILTROS ───────────────────────────────────────────── */
+/* a coluna rola por dentro: com preço, data, condição e localização ela passa
+   da altura da janela e ficaria com metade inalcançável */
+/* sem rolagem própria no desktop: a barra interna cortava a coluna com uma
+   faixa branca e a sidebar agora cabe na tela */
+.filters {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  align-self: start;
+}
+
+.filtersHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.headBtns {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* fechar só existe no painel do celular */
+.fechar {
+  display: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  color: var(--color-forest);
+}
+
+.fechar:hover {
+  background: var(--color-bone);
+}
+
+.filterTitleSub {
+  margin-top: var(--space-4);
+}
+
+/* ── ABERTURA NO CELULAR ───────────────────────────────── */
+.abrirFiltros {
+  display: none;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.abrirFiltros svg {
+  color: var(--color-green);
+}
+
+.veu {
+  display: none;
+}
+
+.filtersTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 15px;
+  color: var(--color-forest);
+}
+
+.contador {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-green);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+/* ── CHIPS ─────────────────────────────────────────────── */
+/* uma linha só: rola na horizontal em vez de quebrar e esticar a coluna */
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  mask-image: linear-gradient(90deg, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent);
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.chip:not(.chipOn):hover {
+  border-color: var(--color-green);
+  color: var(--color-forest);
+}
+
+.chipOn {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+/* ── FAIXA DE PREÇO ────────────────────────────────────── */
+.faixa {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.moeda {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+  height: 38px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  color: var(--color-ink-3);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.moeda:focus-within {
+  border-color: var(--color-green);
+}
+
+.moeda input {
+  width: 100%;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.ate {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.aplicar {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-forest);
+  color: var(--color-white);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.aplicar:hover {
+  background: var(--color-green);
+}
+
+/* ── LOCALIZAÇÃO ───────────────────────────────────────── */
+.cidadeAtiva {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  background: var(--color-green-soft);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.cidadeAtiva button {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  color: var(--color-forest);
+}
+
+.cidadeAtiva button:hover {
+  background: var(--color-white);
+}
+
+.cepForm {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.cepForm .city {
+  flex: 1;
+  min-width: 0;
+}
+
+.avisoCep {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-danger);
+}
+
+/* ── ORDENAÇÃO ─────────────────────────────────────────── */
+.ordenar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.ordenar select {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-forest);
+  cursor: pointer;
+}
+
+.filterBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.filterTitle {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+.filterList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.filterItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink-2);
+  text-align: left;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.filterItem:hover {
+  background: var(--color-bone);
+  color: var(--color-forest);
+}
+
+.filterItemOn {
+  background: var(--color-green-soft);
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.city {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+  color: var(--color-ink-3);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.city:focus-within {
+  border-color: var(--color-green);
+}
+
+.cityInput {
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  font-size: 14px;
+  color: var(--color-ink);
+}
+
+.cityInput:focus,
+.cityInput:focus-visible,
+.moeda input:focus,
+.moeda input:focus-visible {
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.clear {
+  align-self: flex-start;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink-3);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.clear:hover {
+  color: var(--color-danger);
+}
+
+/* ── RESULTADOS ────────────────────────────────────────── */
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: clamp(18px, 2.2vw, 28px);
+}
+
+.count {
+  display: block;
+  margin-top: 2px;
+}
+
+.title {
+  font-size: clamp(20px, 2.4vw, 28px);
+  color: var(--color-forest);
+}
+
+.title em {
+  font-style: normal;
+  color: var(--color-ink);
+}
+
+.count {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--color-ink-3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+  gap: clamp(16px, 1.8vw, 26px);
+}
+
+/* ── VAZIO ─────────────────────────────────────────────── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: clamp(48px, 8vw, 96px) var(--space-6);
+  text-align: center;
+  background: var(--color-bone);
+  border-radius: var(--radius-xl);
+}
+
+.emptyIcon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-full);
+  background: var(--color-white);
+  color: var(--color-forest);
+}
+
+.emptyTitle {
+  font-size: 22px;
+  color: var(--color-forest);
+}
+
+.emptyText {
+  max-width: 44ch;
+  font-size: 15px;
+  color: var(--color-ink-2);
+}
+
+/* ── RESPONSIVO ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .abrirFiltros {
+    display: inline-flex;
+  }
+
+  /* painel deslizante: a coluna fixa roubava metade da tela antes dos
+     resultados, que é o que a pessoa veio ver */
+  .filters {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 70;
+    width: min(360px, 88vw);
+    max-height: none;
+    padding: var(--space-5);
+    background: var(--color-white);
+    box-shadow: var(--shadow-lg);
+    transform: translateX(102%);
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+
+  .filtersAberto {
+    transform: translateX(0);
+  }
+
+  .fechar {
+    display: grid;
+  }
+
+  .veu {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 69;
+    background: rgba(6, 16, 8, 0.45);
+  }
+
+  .filterList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .filterItem {
+    width: auto;
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-full);
+  }
+}
+
+@media (max-width: 720px) {
+  .barra {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .segmentado {
+    align-self: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filters {
+    transition: none;
+  }
+}

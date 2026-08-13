@@ -1,0 +1,100 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* o item se dimensiona pelo conteúdo e a linha de ligação (::after) fica com o
+   espaço que sobra — com os itens em `flex: 1` a linha era espremida a zero
+   sempre que o rótulo era longo */
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.item:not(:last-child)::after {
+  content: '';
+  flex: 1 1 auto;
+  min-width: 14px;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: var(--color-line);
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+
+.item:last-child {
+  flex: 0 0 auto;
+}
+
+.done:not(:last-child)::after {
+  background: var(--color-green);
+}
+
+.marker {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-line-strong);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-ink-3);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.done .marker {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.now .marker {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-ink-3);
+}
+
+.now .label {
+  color: var(--color-forest);
+}
+
+.done .label {
+  color: var(--color-ink-2);
+}
+
+.counter {
+  font-size: 12px;
+  text-align: center;
+  color: var(--color-ink-3);
+}
+
+/* Em painel estreito só o passo atual mostra rótulo: os outros viram marcador,
+   senão os textos se atropelam e a trilha some. */
+@media (max-width: 1200px) {
+  .item:not(.now) .label {
+    display: none;
+  }
+}

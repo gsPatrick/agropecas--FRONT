@@ -1,0 +1,455 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin: 4px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* ── filtros ──────────────────────────────────────────── */
+.filtros {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.direita {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.campoTipo {
+  width: 190px;
+}
+
+.campoBusca {
+  width: 280px;
+}
+
+/* ── barra de lote ────────────────────────────────────── */
+/* aparece só com seleção: fixa, seria mais uma barra ocupando altura o dia
+   inteiro para uma ação que acontece poucas vezes */
+.lote {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-forest);
+  border-radius: var(--radius-lg);
+  background: var(--color-green-tint);
+}
+
+.loteTexto {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-forest);
+}
+
+.loteAcoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.loteBotao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.loteBotao:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.lotePerigo:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.loteLimpar {
+  border: 0;
+  background: transparent;
+  color: var(--color-ink-3);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+/* ── quadro ───────────────────────────────────────────── */
+.quadro {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.cabecalho,
+.linha {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 150px 90px 90px 130px 90px;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: 0 var(--space-4);
+}
+
+.cabecalho {
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-bone);
+}
+
+.cabecalho span {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-3);
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.linha {
+  padding-block: var(--space-2);
+  border-top: 1px solid var(--color-line);
+}
+
+.lista li:first-child {
+  border-top: 0;
+}
+
+.linha:hover {
+  background: var(--color-green-tint);
+}
+
+.marca,
+.marcaTodos {
+  display: flex;
+  align-items: center;
+}
+
+.marca input,
+.marcaTodos input {
+  accent-color: var(--color-forest);
+}
+
+/* ── pessoa ───────────────────────────────────────────── */
+.pessoa {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+
+  padding-block: var(--space-2);
+  text-decoration: none;
+  color: inherit;
+}
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pessoaTexto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.nome {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.verificado {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.contato {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── colunas ──────────────────────────────────────────── */
+.colTipo {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.colNumero {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+.denuncias {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.zero {
+  color: var(--color-line-strong);
+}
+
+.colAcoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.acaoIcone {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-3);
+  cursor: pointer;
+}
+
+.acaoIcone:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.colPessoa {}
+
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+.vazio {
+  margin: 0;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* ── respostas ────────────────────────────────────────── */
+@media (max-width: 1240px) {
+  .cabecalho,
+  .linha {
+    grid-template-columns: 40px minmax(0, 1fr) 90px 130px 90px;
+  }
+
+  /* perfil e denúncias saem da grade: o nome e a situação são o que decide se
+     vale abrir a ficha, e espremer sete colunas quebra o e-mail em três linhas */
+  .colTipo,
+  .cabecalho .colNumero:first-of-type {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .cabecalho {
+    display: none;
+  }
+
+  .linha {
+    grid-template-columns: 30px minmax(0, 1fr) auto;
+    row-gap: var(--space-2);
+    padding-block: var(--space-3);
+  }
+
+  .colNumero {
+    display: none;
+  }
+
+  .colSituacao {
+    grid-column: 2;
+  }
+
+  .colAcoes {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+
+  .direita {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .campoTipo,
+  .campoBusca {
+    flex: 1;
+    width: auto;
+  }
+}
+
+/* ── nota da conferência ──────────────────────────────── */
+.nota {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  margin-top: 2px;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-forest);
+}
+
+/* o que pede um segundo olhar não pode ter a mesma cor do que está limpo */
+.notaAlerta {
+  color: var(--color-warning);
+}
+
+/* ── aprovar ──────────────────────────────────────────── */
+/* botão com rótulo, e não ícone: é a decisão que a aba existe para tomar, e
+   um ícone a mais na fileira ficaria indistinguível dos outros */
+.aprovar {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 7px var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-forest);
+  color: var(--color-white);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.aprovar:hover {
+  background: var(--color-forest-deep);
+}
+
+.loteAprovar {
+  border-color: var(--color-forest);
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.loteAprovar:hover {
+  background: var(--color-forest-deep);
+  color: var(--color-white);
+}
+
+.acaoPerigo:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+/* ── modal de edição ──────────────────────────────────── */
+.campos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ocupa a largura toda: como item flex dentro do rodapé do Modal, que é
+   space-between, os botões ficariam encostados na borda esquerda */
+.rodapeModal {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  width: 100%;
+}

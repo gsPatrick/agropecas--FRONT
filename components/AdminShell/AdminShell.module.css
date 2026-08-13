@@ -1,0 +1,62 @@
+.root {
+  /* altura da barra inferior, lida por quem precisa desviar dela. Vive aqui
+     porque a barra e os rodapés fixos estão em módulos diferentes — com o
+     número copiado nos dois, mudar a barra esconderia algum botão sem
+     ninguém perceber */
+  --altura-barra-inferior: 56px;
+
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 100dvh;
+  background: var(--color-bone);
+}
+
+/* a barra lateral anima a largura e a coluna acompanha por ser 1fr. `pronto`
+   evita a animação no primeiro render, quando a preferência salva é aplicada
+   — animar ali pareceria falha de carregamento */
+.pronto .coluna {
+  transition: none;
+}
+
+.coluna {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.conteudo {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-5) var(--space-12);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* recolhida, o conteúdo ganha a largura de volta */
+.compacto .conteudo {
+  max-width: 1560px;
+}
+
+@media (max-width: 1000px) {
+  .root {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* espaço para a barra inferior: sem isto o último cartão fica sob ela */
+  .conteudo {
+    padding-bottom: calc(
+      var(--altura-barra-inferior) + env(safe-area-inset-bottom, 0px) + var(--space-6)
+    );
+  }
+}
+
+@media (max-width: 760px) {
+  .conteudo {
+    padding-inline: var(--space-4);
+    padding-top: var(--space-4);
+    gap: var(--space-3);
+  }
+}

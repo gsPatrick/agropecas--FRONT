@@ -1,0 +1,136 @@
+.root {
+  position: relative;
+  display: inline-flex;
+}
+
+/* o balão e a seta saem do mesmo atributo: sem elemento extra no DOM, e o
+   texto fica junto do controle que ele explica */
+.root::after,
+.root::before {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: opacity var(--dur-fast) var(--ease-out), translate var(--dur-fast) var(--ease-out);
+}
+
+.root::after {
+  content: attr(data-dica);
+
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+
+  background: var(--color-ink);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+
+  box-shadow: var(--shadow-md);
+
+  /* acima de qualquer cartão vizinho, e abaixo da barra do topo (50) e da
+     sidebar (55) — uma dica cobrindo a navegação seria pior que uma cortada */
+  z-index: 45;
+}
+
+.root::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  z-index: 46;
+}
+
+/* ── acima ────────────────────────────────────────────── */
+.cima::after {
+  bottom: calc(100% + 9px);
+}
+
+.cima::before {
+  bottom: calc(100% + 4px);
+  border-top-color: var(--color-ink);
+  border-bottom-width: 0;
+}
+
+/* alinhada à direita: usada onde o controle fica no fim da linha e o balão
+   centralizado sairia da tela */
+.fim::after {
+  left: auto;
+  right: 0;
+  translate: 0 0;
+}
+
+.fim::before {
+  left: auto;
+  right: 12px;
+  translate: 0 0;
+}
+
+.fim.cima::after {
+  bottom: calc(100% + 9px);
+}
+
+.fim.cima::before {
+  bottom: calc(100% + 4px);
+  border-top-color: var(--color-ink);
+  border-bottom-width: 0;
+}
+
+.fim:hover::after,
+.fim:focus-within::after {
+  translate: 0 -2px;
+}
+
+/* ── abaixo ───────────────────────────────────────────── */
+.baixo::after {
+  top: calc(100% + 9px);
+}
+
+.baixo::before {
+  top: calc(100% + 4px);
+  border-bottom-color: var(--color-ink);
+  border-top-width: 0;
+}
+
+/* aparece no ponteiro e no teclado. `:focus-within` cobre o caso comum de o
+   foco estar no botão que está DENTRO da dica */
+.root:hover::after,
+.root:hover::before,
+.root:focus-within::after,
+.root:focus-within::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cima:hover::after,
+.cima:focus-within::after {
+  translate: -50% -2px;
+}
+
+.baixo:hover::after,
+.baixo:focus-within::after {
+  translate: -50% 2px;
+}
+
+/* no celular não há ponteiro: a dica não aparece, e os botões mostram rótulo
+   de verdade. Balão que só abre no toque atrapalha em vez de ajudar */
+@media (hover: none) {
+  .root::after,
+  .root::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root::after,
+  .root::before {
+    transition: none;
+  }
+}

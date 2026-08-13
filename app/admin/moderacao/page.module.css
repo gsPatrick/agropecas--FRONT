@@ -1,0 +1,449 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin: 4px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.verTodos {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin-left: auto;
+  padding: 9px var(--space-4);
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.verTodos:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.filtroDenuncia {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 9px var(--space-4);
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.filtroDenuncia:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.filtroDenuncia[data-ativo] {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+/* ── carregando ───────────────────────────────────────── */
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ── lote ─────────────────────────────────────────────── */
+.lote {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+
+  padding: var(--space-3) var(--space-4);
+
+  border: 1px solid var(--color-forest);
+  border-radius: var(--radius-md);
+  background: var(--color-green-soft);
+}
+
+.loteTexto {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.loteAcoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.loteBotao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px var(--space-3);
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.loteBotao:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.loteLimpar {
+  border: 0;
+  background: none;
+  color: var(--color-ink-3);
+  cursor: pointer;
+  text-decoration: underline;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+}
+
+/* ── fila ─────────────────────────────────────────────── */
+.fila {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cartao {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+/* ── o porquê, antes do quê ───────────────────────────── */
+.alerta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 10px var(--space-4);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.corpo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+
+  padding: var(--space-4);
+}
+
+.marca {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+
+.fotos {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  width: 96px;
+  height: 96px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+  color: var(--color-line-strong);
+  overflow: hidden;
+}
+
+.fotos span {
+  font-family: var(--font-body);
+  font-size: 10px;
+}
+
+.capaImagem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dados {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.linhaTitulo {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.anuncioTitulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.preco {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.dono {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--color-forest);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.dono:hover {
+  text-decoration: underline;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.separador {
+  color: var(--color-line-strong);
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ── ações ────────────────────────────────────────────── */
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+  background: var(--color-bone);
+}
+
+.aprovar,
+.secundario,
+.reprovar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 9px var(--space-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* o caminho esperado é o único preenchido: três botões de mesmo peso fazem a
+   pessoa reler os rótulos a cada anúncio */
+.aprovar {
+  border: 0;
+  background: var(--color-forest);
+  color: var(--color-white);
+}
+
+.aprovar:hover {
+  background: var(--color-forest-deep);
+}
+
+.secundario {
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+}
+
+.secundario:hover {
+  border-color: var(--color-line-strong);
+}
+
+.reprovar {
+  border: 1px solid var(--color-line);
+  background: var(--color-white);
+  color: var(--color-danger);
+}
+
+.reprovar:hover {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+.detalhe {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  margin-left: auto;
+  color: var(--color-ink-3);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.detalhe:hover {
+  color: var(--color-forest);
+}
+
+/* ── vazio ────────────────────────────────────────────── */
+.vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  padding: var(--space-12) var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+}
+
+.vazioIcone {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: var(--space-3);
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+}
+
+.vazioTitulo {
+  margin: 0 0 var(--space-2);
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.vazioTexto {
+  max-width: 46ch;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+@media (max-width: 700px) {
+  .corpo {
+    flex-direction: column;
+  }
+
+  .fotos {
+    width: 100%;
+    height: 72px;
+    flex-direction: row;
+    gap: var(--space-2);
+  }
+
+  .acoes > * {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .detalhe {
+    margin-left: 0;
+    width: 100%;
+  }
+}

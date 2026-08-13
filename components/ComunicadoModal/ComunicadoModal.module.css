@@ -1,0 +1,19 @@
+.mensagem {
+  margin: 0 0 var(--space-4);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+  white-space: pre-wrap;
+}
+
+.link {
+  display: inline-block;
+  margin: 0 0 var(--space-4);
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-forest);
+}

@@ -1,0 +1,38 @@
+.root {
+  display: block;
+  width: var(--largura);
+  height: var(--altura);
+
+  border-radius: var(--raio, var(--radius-sm));
+  background: var(--color-bone);
+
+  /* o brilho corre da esquerda para a direita, no ritmo de uma leitura — mais
+     rápido que isso vira estroboscópio, mais lento parece travado */
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-white) 70%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+
+  animation: correr 1.35s var(--ease-out) infinite;
+}
+
+@keyframes correr {
+  from {
+    background-position: -120% 0;
+  }
+  to {
+    background-position: 220% 0;
+  }
+}
+
+/* quem pediu menos movimento fica com o bloco parado: o esqueleto continua
+   dizendo "está carregando" pela forma, sem a animação */
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    animation: none;
+  }
+}

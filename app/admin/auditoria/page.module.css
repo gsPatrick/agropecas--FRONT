@@ -1,0 +1,268 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin: 4px 0 0;
+  max-width: 60ch;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.topo > button {
+  margin-left: auto;
+}
+
+/* ── filtros ──────────────────────────────────────────── */
+.filtros {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.campoBusca {
+  width: 300px;
+  margin-left: auto;
+}
+
+.explicacao {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bone);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+/* ── quadro ───────────────────────────────────────────── */
+.quadro {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.cabecalho,
+.linha {
+  display: grid;
+  grid-template-columns: 96px 120px minmax(0, 1.4fr) minmax(0, 1.3fr) 110px;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+}
+
+.cabecalho {
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-bone);
+}
+
+.cabecalho span {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-3);
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.linha {
+  border-top: 1px solid var(--color-line);
+}
+
+.lista li:first-child {
+  border-top: 0;
+}
+
+.linha:hover {
+  background: var(--color-green-tint);
+}
+
+.quando {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.quem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  color: var(--color-ink-3);
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.acao {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.acaoTexto {
+  min-width: 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-2);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.acaoTexto strong {
+  color: var(--color-ink);
+}
+
+.motivo {
+  min-width: 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-ink-3);
+}
+
+.ip {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-line-strong);
+}
+
+.vazio {
+  margin: 0;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* ── paginação ────────────────────────────────────────── */
+.paginacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.paginaAtual {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.nota {
+  margin: 0;
+  max-width: 76ch;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-3);
+}
+
+/* ── respostas ────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .cabecalho,
+  .linha {
+    grid-template-columns: 90px minmax(0, 1.4fr) minmax(0, 1.2fr);
+  }
+
+  /* quem e origem saem: numa tela estreita, o que decide é o que foi feito e
+     por quê — o autor aparece na expansão do registro */
+  .quem,
+  .ip,
+  .cabecalho span:nth-child(2),
+  .cabecalho span:nth-child(5) {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .cabecalho {
+    display: none;
+  }
+
+  .linha {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 4px;
+  }
+
+  .acaoTexto {
+    white-space: normal;
+  }
+
+  .campoBusca {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .topo {
+    flex-wrap: wrap;
+  }
+
+  .topo > button {
+    width: 100%;
+    margin-left: 0;
+  }
+}

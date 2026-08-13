@@ -1,0 +1,507 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.titulo {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin: 4px 0 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* a busca desta tela filtra dentro das conversas de uma pessoa só */
+.campoBusca {
+  width: 260px;
+  margin-left: auto;
+}
+
+/* ── aviso de auditoria ───────────────────────────────── */
+/* onde não dá para não ver: um poder que não deixa rastro deixa de ser poder
+   e vira risco, e o rastro só disciplina quem sabe dele */
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bone);
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: var(--leading-body);
+  color: var(--color-ink-2);
+}
+
+/* ── grade ────────────────────────────────────────────── */
+.grade {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-4);
+}
+
+.quadro,
+.painel {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+/* ── lista ────────────────────────────────────────────── */
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  border-top: 1px solid var(--color-line);
+}
+
+.lista li:first-child {
+  border-top: 0;
+}
+
+.conversa {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.conversa:hover {
+  background: var(--color-green-tint);
+}
+
+.conversaAtiva {
+  background: var(--color-green-soft);
+}
+
+.pessoas {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.entre {
+  color: var(--color-line-strong);
+}
+
+.texto {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.nomes {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-ink);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sobre {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-forest);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rodapeItem {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.vazio {
+  margin: 0;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+/* ── leitura ──────────────────────────────────────────── */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-bone);
+}
+
+.cabecalhoTexto {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.cabecalhoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.cabecalhoTexto span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.cabecalhoTexto a {
+  color: var(--color-forest);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cabecalhoTexto a:hover {
+  text-decoration: underline;
+}
+
+.verAnuncio {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 7px var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.verAnuncio:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+/* ── fio ──────────────────────────────────────────────── */
+.fio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  padding: var(--space-5) var(--space-4);
+  background: var(--color-bone);
+}
+
+.balao {
+  align-self: flex-start;
+  max-width: min(80%, 520px);
+
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+}
+
+/* o dono do anúncio à direita: sem separar os dois lados, ler uma negociação
+   de golpe vira exercício de adivinhar quem prometeu o quê */
+.balaoDono {
+  align-self: flex-end;
+  background: var(--color-green-soft);
+  border-color: var(--color-green-soft);
+}
+
+.balaoAlerta {
+  border-color: var(--color-warning);
+}
+
+.quem {
+  display: block;
+  margin-bottom: 3px;
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-ink-3);
+}
+
+.mensagem {
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--color-ink);
+}
+
+.linhaBalao {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: 6px;
+}
+
+.hora {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.marcado {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.apagar {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-left: auto;
+
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-line-strong);
+  cursor: pointer;
+}
+
+.apagar:hover {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.removida {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--color-ink-3);
+}
+
+/* ── sem seleção ──────────────────────────────────────── */
+.semSelecao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  padding: var(--space-12) var(--space-5);
+}
+
+.semIcone {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  margin-bottom: var(--space-3);
+
+  border-radius: var(--radius-full);
+  background: var(--color-bone);
+  color: var(--color-line-strong);
+}
+
+.semTitulo {
+  margin: 0 0 4px;
+
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.semTexto {
+  max-width: 40ch;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+@media (max-width: 1100px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* a lista deixa de ser coluna e vira a primeira seção da página: sem limite
+     de altura, doze conversas empurrariam o chat para fora da tela */
+  .quadro .lista {
+    max-height: 46dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .campoBusca {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .topo {
+    flex-wrap: wrap;
+  }
+}
+
+/* ── identificação da pessoa ──────────────────────────── */
+.voltar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+}
+
+.voltar:hover {
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.avatarTopo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+
+  border-radius: var(--radius-full);
+  background: var(--color-green-soft);
+  color: var(--color-forest);
+
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.identidade {
+  flex: 1;
+  min-width: 0;
+}
+
+.atalhos {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.atalho {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-2);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.atalho:hover {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.papel {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-ink-3);
+}
+
+.buscaLinha {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-bone);
+}
+
+.buscaLinha .campoBusca {
+  width: 100%;
+  margin-left: 0;
+}

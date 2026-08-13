@@ -1,0 +1,24 @@
+.root {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.reserva {
+  /* mesma altura de uma linha de texto, sem conteúdo */
+  display: inline-block;
+  min-height: 1.6em;
+}
+
+.separador {
+  color: var(--color-line-strong);
+}
+
+.hora {
+  font-weight: 600;
+  color: var(--color-ink);
+
+  /* largura estável: sem isto a frase se mexe de 09:59 para 10:00 */
+  font-variant-numeric: tabular-nums;
+}

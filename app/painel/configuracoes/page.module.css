@@ -1,0 +1,129 @@
+.grade {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-4);
+}
+
+/* ── tópicos ──────────────────────────────────────────── */
+.topicos {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  padding: var(--space-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+
+  /* acompanha a rolagem: o tópico aberto pode ser longo, e voltar ao topo
+     para trocar de assunto é trabalho à toa */
+  position: sticky;
+  top: 84px;
+}
+
+.topico {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  padding: 10px var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.topico:hover {
+  background: var(--color-green-tint);
+}
+
+.topicoAtivo {
+  background: var(--color-green-soft);
+}
+
+.topicoIcone {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  color: var(--color-ink-3);
+}
+
+.topicoAtivo .topicoIcone {
+  color: var(--color-forest);
+}
+
+.topicoTexto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.topicoTexto strong {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink-2);
+}
+
+.topicoAtivo .topicoTexto strong {
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.topicoTexto span {
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--color-ink-3);
+}
+
+/* ── conteúdo ─────────────────────────────────────────── */
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* no celular a coluna vira tiras roláveis: uma lista lateral aqui comeria
+     metade da largura e sobraria pouco para o formulário */
+  .topicos {
+    position: static;
+
+    flex-direction: row;
+    gap: var(--space-2);
+
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    /* esconde a barra de rolagem sem impedir o arrasto: a tira é curta e a
+       barra atravessada some junto com metade do último item */
+    scrollbar-width: none;
+  }
+
+  .topicos::-webkit-scrollbar {
+    display: none;
+  }
+
+  .topico {
+    flex: none;
+  }
+
+  .topicoTexto span {
+    display: none;
+  }
+}

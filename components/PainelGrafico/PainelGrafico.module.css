@@ -1,0 +1,109 @@
+.root {
+  width: 100%;
+}
+
+.colunas {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+
+  height: 180px;
+}
+
+.coluna {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+
+  height: 100%;
+}
+
+/* ── a barra ──────────────────────────────────────────── */
+.barra {
+  position: relative;
+  width: 100%;
+  height: var(--altura);
+  min-height: 3px;
+
+  border-radius: 4px 4px 2px 2px;
+  background: var(--color-green-soft);
+
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.barra:hover {
+  background: var(--color-forest);
+}
+
+/* ── o valor exato ao passar o mouse ──────────────────── */
+/* mesmo desenho da Dica, mas preso à barra: um componente por coluna criaria
+   um elemento a mais em cada ponto do gráfico */
+.barra::after {
+  content: attr(data-dica);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  translate: -50% 4px;
+  z-index: 45;
+
+  padding: 5px 9px;
+  border-radius: var(--radius-sm);
+
+  background: var(--color-ink);
+  color: var(--color-white);
+
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: opacity var(--dur-fast) var(--ease-out), translate var(--dur-fast) var(--ease-out);
+}
+
+.barra:hover::after {
+  opacity: 1;
+  visibility: visible;
+  translate: -50% 0;
+}
+
+/* no toque não existe "passar o mouse": o balão ficaria preso aberto depois
+   do primeiro toque, cobrindo as barras vizinhas */
+@media (hover: none) {
+  .barra::after {
+    display: none;
+  }
+}
+
+/* ── eixo ─────────────────────────────────────────────── */
+.rotulo {
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--color-ink-3);
+  white-space: nowrap;
+}
+
+.rotuloOculto {
+  /* some sem sair do fluxo: removido, as colunas mudariam de altura entre um
+     rótulo e outro */
+  visibility: hidden;
+}
+
+@media (max-width: 620px) {
+  .colunas {
+    height: 140px;
+    gap: 3px;
+  }
+
+  .rotulo {
+    font-size: 9px;
+  }
+}
