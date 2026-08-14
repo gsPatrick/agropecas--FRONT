@@ -19,6 +19,7 @@ import PainelCartao from '@/components/PainelCartao/PainelCartao';
 import PainelBarraSalvar from '@/components/PainelBarraSalvar/PainelBarraSalvar';
 import Field from '@/components/Field/Field';
 import Input from '@/components/Input/Input';
+import CampoCidadeCep from '@/components/CampoCidadeCep/CampoCidadeCep';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
 import Dica from '@/components/Dica/Dica';
@@ -185,14 +186,11 @@ export default function PropriedadePage() {
             </div>
 
             <div className={styles.duplo}>
-              <Field label="Cidade e estado" htmlFor="cidade">
-                <Input
-                  id="cidade"
-                  value={dados.cidade}
-                  onChange={mudar('cidade')}
-                  iconLeft="pin"
-                />
-              </Field>
+              <CampoCidadeCep
+                id="cidade"
+                value={dados.cidade}
+                onChange={(texto) => setDados((atual) => ({ ...atual, cidade: texto }))}
+              />
 
               <Field
                 label="Telefone da sede"

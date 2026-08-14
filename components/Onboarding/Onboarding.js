@@ -1,30 +1,59 @@
 'use client';
 
 /**
- * Assistente de primeiro acesso — um fluxo por tipo de perfil, para que ao
- * chegar em `/painel/perfil` (ou `/conta`, para quem só compra) o perfil já
- * esteja preenchido.
+ * Assistente de primeiro acesso — um MODAL de tela cheia, obrigatório, que
+ * cobre o painel/conta até a pessoa terminar. Não é mais uma rota
+ * (`/painel/boas-vindas` e `/conta/boas-vindas` foram removidas): quem
+ * dispara é `PainelShell.js` (produtor/loja/prestador) e `app/conta/page.js`
+ * (cliente — mas na prática não dispara mais, ver abaixo), renderizando este
+ * componente por cima da tela atual em vez de navegar para outro lugar.
  *
- * NÃO é uma tela nova de edição: cada passo escreve nos MESMOS campos que as
- * telas completas já escrevem (`/painel/perfil`, `/painel/propriedade`,
- * `/painel/atendimento`, `/painel/servicos`, `/conta`), pelas MESMAS funções
- * de `lib/dados/*`. O assistente é só uma outra forma de chegar até eles —
- * sequencial em vez de um formulário só, com progresso salvo passo a passo.
+ * ─── por que "modal", e não "página" ───────────────────────────────────────
+ * O dono do produto pediu que não desse para sair no meio: sem navegação para
+ * fechar, sobra reaproveitar o padrão de overlay que `components/Modal/Modal.js`
+ * já usa no painel (fundo desfocado, portal no body, trava de rolagem) — mas
+ * SEM o botão de fechar, SEM fechar no Esc e SEM fechar clicando fora, porque
+ * `Modal.js` foi desenhado para ser fechável e aqui é o oposto. Em vez de
+ * complicar `Modal.js` com um prop que desliga metade do que ele faz, o
+ * overlay é montado aqui do zero, do mesmo jeito visual (mesmo z-index, mesmo
+ * fundo, mesmo portal em `document.body`).
  *
- * Cada "Continuar" SALVA de verdade (chama o `salvar*` de verdade), não
- * acumula em memória para gravar tudo no fim: se a pessoa fechar a aba no
- * meio, o que já preencheu não se perde — é o mesmo comportamento de
- * qualquer uma das telas completas.
+ * ─── por que os passos encolheram ──────────────────────────────────────────
+ * O cadastro (`SignupWizard.js`) já pergunta nome, documento, WhatsApp,
+ * telefone adicional, endereço completo (CEP → cidade/UF) e "sobre" para
+ * TODOS os perfis — e para produtor também pergunta o nome da propriedade.
+ * Perguntar de novo aqui seria repetir o cadastro. O que sobra, por tipo,
+ * depois de tirar tudo que o cadastro já resolve:
+ *  · comum a todos → só a foto (o único campo comum que o cadastro não pede)
+ *  · produtor  → área em hectares, culturas, máquinas
+ *    (nome da propriedade veio do cadastro; "cidade da sede" e "telefone da
+ *    sede" escrevem nos MESMOS campos que o endereço/telefone do cadastro já
+ *    preencheu — `perfil.municipio` e `perfil.telefoneSecundario`, ver
+ *    `lib/dados/exclusivas.js:paraPropriedade` — reperguntar seria mostrar
+ *    campo "vazio" que na verdade já tem valor salvo em outro lugar)
+ *  · loja      → razão social, nome fantasia, horário de funcionamento,
+ *    formas de entrega (endereço/telefone/WhatsApp do balcão são os MESMOS
+ *    campos do cadastro — `telefoneSecundario`, `whatsapp`, `municipio`, ver
+ *    `lib/dados/exclusivas.js:paraAtendimento`)
+ *  · prestador → formas de atendimento, base, raio de atendimento (serviços
+ *    já foram escolhidos no cadastro; a re-pergunta "mínimo 3" saiu)
+ *  · cliente   → nada sobrou de relevante depois do corte — o cadastro já
+ *    cobre 100% do que o assistente perguntava. Por isso `app/conta/page.js`
+ *    não dispara mais este componente.
  *
- * Os passos por tipo:
- *  · produtor  → básico · propriedade · culturas · maquinário (pulável)
- *  · loja      → básico · atendimento · horário · entrega
- *  · prestador → básico · serviços (mín. 3) · como atende
- *  · cliente   → só o básico — não tem seção exclusiva
+ * "Área em hectares" (produtor) e "razão social/nome fantasia" (loja) são os
+ * mesmos campos extras de `/painel/perfil` (`lib/dados/perfil-publico.js`),
+ * então usam `salvarPerfilPublico` — não `salvarPropriedade`/`salvarAtendimento`.
+ * Isso importa: mandar o objeto INTEIRO teria zerado campos como
+ * `propriedadeNome`/`contatoSede`/endereço que o cadastro já preencheu e que
+ * este assistente não edita mais — por isso os passos que usam
+ * `salvarPropriedade`/`salvarAtendimento`/`salvarServicos` sempre carregam o
+ * registro completo primeiro e só TROCAM os campos que o passo realmente
+ * mostra, preservando o resto como veio da API.
  */
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { createPortal } from 'react-dom';
 import PainelCartao from '@/components/PainelCartao/PainelCartao';
 import Field from '@/components/Field/Field';
 import Input from '@/components/Input/Input';
@@ -33,13 +62,7 @@ import Icon from '@/components/Icon/Icon';
 import PainelChave from '@/components/PainelChave/PainelChave';
 import Esqueleto from '@/components/Esqueleto/Esqueleto';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
-import {
-  carregarPerfilPublico,
-  salvarPerfilPublico,
-  enviarFotoPerfil,
-  LIMITE_SOBRE,
-} from '@/lib/dados/perfil-publico';
-import { carregarDadosPessoais, salvarDadosPessoais } from '@/lib/dados/conta';
+import { carregarPerfilPublico, salvarPerfilPublico, enviarFotoPerfil } from '@/lib/dados/perfil-publico';
 import {
   carregarPropriedade,
   salvarPropriedade,
@@ -48,29 +71,29 @@ import {
   salvarAtendimento,
   carregarServicos,
   salvarServicos,
-  carregarCatalogoServicos,
 } from '@/lib/dados/exclusivas';
 import { TIPOS_MAQUINA, DIAS, FORMAS_ENTREGA, FORMAS_ATENDIMENTO, RAIOS } from '@/lib/exclusivas-mock';
 import { marcarOnboardingDispensado } from '@/lib/onboarding';
 import styles from './Onboarding.module.css';
 
-/** um passo por tipo de perfil — a ordem AQUI é a ordem na tela */
+/** um passo por tipo de perfil — a ordem AQUI é a ordem na tela. `foto` é o
+    único passo comum: tudo o mais que o assistente pedia já vem do cadastro
+    (ver o comentário do topo do arquivo) */
 const PASSOS_POR_TIPO = {
-  produtor: ['basico', 'propriedade', 'culturas', 'maquinas'],
-  loja: ['basico', 'atendimento', 'horarios', 'entregas'],
-  prestador: ['basico', 'servicos', 'comoAtende'],
-  cliente: ['basico'],
+  produtor: ['foto', 'area', 'culturas', 'maquinas'],
+  loja: ['foto', 'identidade', 'horarios', 'entregas'],
+  prestador: ['foto', 'comoAtende'],
+  cliente: [],
 };
 
 const TITULO_PASSO = {
-  basico: 'Dados básicos',
-  propriedade: 'Sua propriedade',
+  foto: 'Foto de perfil',
+  area: 'Sua propriedade',
   culturas: 'O que você produz',
   maquinas: 'Seu maquinário',
-  atendimento: 'Atendimento',
+  identidade: 'Identidade da loja',
   horarios: 'Horário de funcionamento',
   entregas: 'Formas de entrega',
-  servicos: 'Serviços que você presta',
   comoAtende: 'Como você atende',
 };
 
@@ -78,7 +101,7 @@ const HORARIOS_VAZIOS = Object.fromEntries(
   DIAS.map((dia) => [dia.id, { aberto: false, de: '', ate: '' }])
 );
 
-const VAZIO_BASICO = { fotoUrl: '', sobre: '', telefone: '', whatsapp: '', cidade: '' };
+const VAZIO_BASICO = { fotoUrl: '', sobre: '', telefone: '', whatsapp: '', cidade: '', areaHectares: '', razaoSocial: '', nomeFantasia: '' };
 const VAZIO_PROPRIEDADE = {
   nome: '',
   inscricao: '',
@@ -111,44 +134,51 @@ const VAZIO_SERVICOS = {
   observacao: '',
 };
 
-export default function Onboarding({ tipoPerfil, perfil, usuario, rotaFinal }) {
-  const router = useRouter();
+/**
+ * @param onConcluir chamado quando a pessoa termina o último passo — quem
+ *   chama fecha o overlay (não navega: o modal só cobre a tela atual)
+ */
+export default function Onboarding({ tipoPerfil, perfil, usuario, onConcluir }) {
   const aviso = useAviso();
 
-  const passos = PASSOS_POR_TIPO[tipoPerfil] || PASSOS_POR_TIPO.cliente;
+  const passos = PASSOS_POR_TIPO[tipoPerfil] || [];
   const [indice, setIndice] = useState(0);
   const [pronto, setPronto] = useState(false);
   const [salvando, setSalvando] = useState(false);
+  const [montado, setMontado] = useState(false);
 
   const [basico, setBasico] = useState(VAZIO_BASICO);
-  const [basicoSalvo, setBasicoSalvo] = useState(VAZIO_BASICO);
   const [enviandoFoto, setEnviandoFoto] = useState(false);
 
   const [propriedade, setPropriedade] = useState(VAZIO_PROPRIEDADE);
   const [culturasDisponiveis, setCulturasDisponiveis] = useState([]);
 
   const [atendimento, setAtendimento] = useState(VAZIO_ATENDIMENTO);
+  const [atendimentoCidadeOriginal, setAtendimentoCidadeOriginal] = useState('');
 
   const [servicos, setServicos] = useState(VAZIO_SERVICOS);
-  const [catalogoServicos, setCatalogoServicos] = useState([]);
+  const [servicosBaseOriginal, setServicosBaseOriginal] = useState('');
 
-  const ehCliente = tipoPerfil === 'cliente';
+  /* portal no body, como Modal.js — sem isso o overlay herdaria o
+     empilhamento do painel e ficaria por baixo do conteúdo */
+  useEffect(() => setMontado(true), []);
 
-  /* carga inicial — o básico sempre, mais a seção exclusiva do tipo. Em
-     paralelo: são rotas independentes, encadear dobraria a espera */
+  /* trava a rolagem da página por trás enquanto o modal está aberto — igual
+     a Modal.js, mas SEM listener de Esc: este overlay não fecha por teclado */
+  useEffect(() => {
+    const anterior = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = anterior;
+    };
+  }, []);
+
+  /* carga inicial — o básico sempre (fotoUrl + o que o passo do tipo usa via
+     `salvarPerfilPublico`: área/razão social/fantasia), mais a seção
+     exclusiva do tipo quando existir passo para ela */
   useEffect(() => {
     if (!usuario) return undefined;
     let cancelado = false;
-
-    const cargaBasico = ehCliente
-      ? carregarDadosPessoais().then((dados) => ({
-          fotoUrl: '',
-          sobre: '',
-          telefone: dados.telefone,
-          whatsapp: dados.whatsapp,
-          cidade: dados.cidade,
-        }))
-      : carregarPerfilPublico();
 
     const cargaExtra =
       tipoPerfil === 'produtor'
@@ -156,15 +186,14 @@ export default function Onboarding({ tipoPerfil, perfil, usuario, rotaFinal }) {
         : tipoPerfil === 'loja'
         ? carregarAtendimento()
         : tipoPerfil === 'prestador'
-        ? Promise.all([carregarServicos(), carregarCatalogoServicos()])
+        ? carregarServicos()
         : Promise.resolve(null);
 
-    Promise.all([cargaBasico, cargaExtra])
+    Promise.all([carregarPerfilPublico(), cargaExtra])
       .then(([dadosBasico, extra]) => {
         if (cancelado) return;
 
         setBasico(dadosBasico);
-        setBasicoSalvo(dadosBasico);
 
         if (tipoPerfil === 'produtor') {
           const [dadosPropriedade, culturas] = extra;
@@ -172,10 +201,10 @@ export default function Onboarding({ tipoPerfil, perfil, usuario, rotaFinal }) {
           setCulturasDisponiveis(culturas);
         } else if (tipoPerfil === 'loja') {
           setAtendimento({ ...VAZIO_ATENDIMENTO, ...extra, horarios: { ...HORARIOS_VAZIOS, ...extra.horarios } });
+          setAtendimentoCidadeOriginal(extra.cidade);
         } else if (tipoPerfil === 'prestador') {
-          const [dadosServicos, catalogo] = extra;
-          setServicos(dadosServicos);
-          setCatalogoServicos(catalogo);
+          setServicos(extra);
+          setServicosBaseOriginal(extra.base);
         }
 
         setPronto(true);
@@ -190,12 +219,19 @@ export default function Onboarding({ tipoPerfil, perfil, usuario, rotaFinal }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario?.id, tipoPerfil]);
 
+  if (!montado || !passos.length) return null;
+
   if (!usuario || !pronto) {
-    return (
-      <div className={styles.carregando}>
-        <Esqueleto altura={28} largura={220} raio={8} />
-        <Esqueleto altura={220} raio={16} />
-      </div>
+    return createPortal(
+      <div className={styles.overlay}>
+        <div className={styles.modalPanel}>
+          <div className={styles.carregando}>
+            <Esqueleto altura={28} largura={220} raio={8} />
+            <Esqueleto altura={220} raio={16} />
+          </div>
+        </div>
+      </div>,
+      document.body
     );
   }
 
@@ -212,7 +248,7 @@ export default function Onboarding({ tipoPerfil, perfil, usuario, rotaFinal }) {
        insistir de novo no próximo login seria ignorar essa escolha */
     marcarOnboardingDispensado(usuario?.id);
     aviso.sucesso('Perfil pronto. Você já pode ajustar qualquer detalhe quando quiser.');
-    router.push(rotaFinal);
+    onConcluir?.();
   }
 
   async function avancar() {
@@ -228,44 +264,38 @@ export default function Onboarding({ tipoPerfil, perfil, usuario, rotaFinal }) {
     }
   }
 
-  function pular() {
+  /* pula só o passo ATUAL — usado apenas nos passos opcionais marcados
+     `skippable` (hoje, só "maquinas"). O modal em si não tem "pular tudo":
+     é obrigatório terminar a sequência */
+  function pularPasso() {
     if (ultimo) concluir();
     else irPara(indice + 1);
   }
 
   async function salvarPassoAtual() {
-    if (passoId === 'basico') {
-      if (ehCliente) {
-        const atual = await salvarDadosPessoais(
-          { nome: usuario.nome, telefone: basico.telefone, whatsapp: basico.whatsapp, cidade: basico.cidade },
-          { cidadeOriginal: basicoSalvo.cidade }
-        );
-        const proximo = { ...basico, telefone: atual.telefone, whatsapp: atual.whatsapp, cidade: atual.cidade };
-        setBasico(proximo);
-        setBasicoSalvo(proximo);
-      } else {
-        const atual = await salvarPerfilPublico(basico, tipoPerfil, { cidadeOriginal: basicoSalvo.cidade });
-        setBasico(atual);
-        setBasicoSalvo(atual);
-      }
+    if (passoId === 'foto' || passoId === 'area' || passoId === 'identidade') {
+      const atual = await salvarPerfilPublico(basico, tipoPerfil, { cidadeOriginal: basico.cidade });
+      setBasico(atual);
       return;
     }
 
-    if (passoId === 'propriedade' || passoId === 'culturas' || passoId === 'maquinas') {
+    if (passoId === 'culturas' || passoId === 'maquinas') {
       const atual = await salvarPropriedade(propriedade, { cidadeOriginal: propriedade.cidade });
       setPropriedade(atual);
       return;
     }
 
-    if (passoId === 'atendimento' || passoId === 'horarios' || passoId === 'entregas') {
-      const atual = await salvarAtendimento(atendimento, { cidadeOriginal: atendimento.cidade });
+    if (passoId === 'horarios' || passoId === 'entregas') {
+      const atual = await salvarAtendimento(atendimento, { cidadeOriginal: atendimentoCidadeOriginal });
       setAtendimento(atual);
+      setAtendimentoCidadeOriginal(atual.cidade);
       return;
     }
 
-    if (passoId === 'servicos' || passoId === 'comoAtende') {
-      const atual = await salvarServicos(servicos, { baseOriginal: servicos.base });
+    if (passoId === 'comoAtende') {
+      const atual = await salvarServicos(servicos, { baseOriginal: servicosBaseOriginal });
       setServicos(atual);
+      setServicosBaseOriginal(atual.base);
       return;
     }
   }
@@ -278,8 +308,7 @@ export default function Onboarding({ tipoPerfil, perfil, usuario, rotaFinal }) {
     setEnviandoFoto(true);
     try {
       const atual = await enviarFotoPerfil(arquivo);
-      setBasico(atual);
-      setBasicoSalvo(atual);
+      setBasico((anterior) => ({ ...anterior, fotoUrl: atual.fotoUrl }));
     } catch (erro) {
       aviso.erro(erro.message || 'Não foi possível enviar a foto.');
     } finally {
@@ -289,218 +318,144 @@ export default function Onboarding({ tipoPerfil, perfil, usuario, rotaFinal }) {
 
   const skippable = passoId === 'maquinas';
 
-  const podeAvancar = validarPasso(passoId, { basico, propriedade, servicos });
+  return createPortal(
+    <div className={styles.overlay}>
+      <div className={styles.modalPanel} role="dialog" aria-modal="true" aria-label="Assistente de primeiro acesso">
+        <div className={styles.root}>
+          <header className={styles.topo}>
+            <span className={styles.selo}>
+              <Icon name={perfil.icone} size={13} />
+              {perfil.rotulo}
+            </span>
 
-  function fazerDepois() {
-    marcarOnboardingDispensado(usuario?.id);
-    router.push(rotaFinal);
-  }
+            <h1 className={styles.titulo}>Vamos deixar seu perfil pronto</h1>
+            <p className={styles.subtitulo}>
+              Poucos passos — só o que o cadastro ainda não perguntou. O que você preencher fica salvo mesmo se sair
+              no meio.
+            </p>
 
-  return (
-    <div className={styles.root}>
-      <header className={styles.topo}>
-        <div className={styles.topoLinha}>
-          <span className={styles.selo}>
-            <Icon name={perfil.icone} size={13} />
-            {perfil.rotulo}
-          </span>
+            <div className={styles.progresso}>
+              <span className={styles.progressoTexto}>
+                Passo {indice + 1} de {passos.length} — {TITULO_PASSO[passoId]}
+              </span>
+              <span className={styles.trilho}>
+                <span
+                  className={styles.preenchimento}
+                  style={{ '--largura': `${((indice + 1) / passos.length) * 100}%` }}
+                />
+              </span>
+            </div>
+          </header>
 
-          <button type="button" className={styles.fazerDepois} onClick={fazerDepois}>
-            Fazer isso depois
-          </button>
-        </div>
+          <PainelCartao titulo={TITULO_PASSO[passoId]}>
+            {passoId === 'foto' ? (
+              <PassoFoto dados={basico} enviandoFoto={enviandoFoto} onEnviarFoto={enviarFoto} />
+            ) : null}
 
-        <h1 className={styles.titulo}>Vamos deixar seu perfil pronto</h1>
-        <p className={styles.subtitulo}>
-          Poucos passos, e o que você já preencher fica salvo mesmo se sair no meio.
-        </p>
+            {passoId === 'area' ? <PassoArea dados={basico} setDados={setBasico} /> : null}
 
-        <div className={styles.progresso}>
-          <span className={styles.progressoTexto}>
-            Passo {indice + 1} de {passos.length} — {TITULO_PASSO[passoId]}
-          </span>
-          <span className={styles.trilho}>
-            <span
-              className={styles.preenchimento}
-              style={{ '--largura': `${((indice + 1) / passos.length) * 100}%` }}
-            />
-          </span>
-        </div>
-      </header>
+            {passoId === 'culturas' ? (
+              <PassoCulturas dados={propriedade} setDados={setPropriedade} culturasDisponiveis={culturasDisponiveis} />
+            ) : null}
 
-      <PainelCartao titulo={TITULO_PASSO[passoId]}>
-        {passoId === 'basico' ? (
-          <PassoBasico
-            dados={basico}
-            setDados={setBasico}
-            ehCliente={ehCliente}
-            enviandoFoto={enviandoFoto}
-            onEnviarFoto={enviarFoto}
-          />
-        ) : null}
+            {passoId === 'maquinas' ? (
+              <PassoMaquinas dados={propriedade} setDados={setPropriedade} aviso={aviso} />
+            ) : null}
 
-        {passoId === 'propriedade' ? (
-          <PassoPropriedade dados={propriedade} setDados={setPropriedade} />
-        ) : null}
+            {passoId === 'identidade' ? <PassoIdentidade dados={basico} setDados={setBasico} /> : null}
 
-        {passoId === 'culturas' ? (
-          <PassoCulturas
-            dados={propriedade}
-            setDados={setPropriedade}
-            culturasDisponiveis={culturasDisponiveis}
-          />
-        ) : null}
+            {passoId === 'horarios' ? <PassoHorarios dados={atendimento} setDados={setAtendimento} /> : null}
 
-        {passoId === 'maquinas' ? (
-          <PassoMaquinas dados={propriedade} setDados={setPropriedade} aviso={aviso} />
-        ) : null}
+            {passoId === 'entregas' ? <PassoEntregas dados={atendimento} setDados={setAtendimento} /> : null}
 
-        {passoId === 'atendimento' ? (
-          <PassoAtendimento dados={atendimento} setDados={setAtendimento} />
-        ) : null}
+            {passoId === 'comoAtende' ? <PassoComoAtende dados={servicos} setDados={setServicos} /> : null}
+          </PainelCartao>
 
-        {passoId === 'horarios' ? (
-          <PassoHorarios dados={atendimento} setDados={setAtendimento} />
-        ) : null}
+          <div className={styles.acoes}>
+            <div className={styles.acoesEsquerda}>
+              {indice > 0 ? (
+                <Button type="button" variant="ghost" iconLeft="chevron-left" onClick={() => irPara(indice - 1)}>
+                  Voltar
+                </Button>
+              ) : (
+                <span />
+              )}
+            </div>
 
-        {passoId === 'entregas' ? (
-          <PassoEntregas dados={atendimento} setDados={setAtendimento} />
-        ) : null}
+            <div className={styles.acoesDireita}>
+              {skippable ? (
+                <button type="button" className={styles.pular} onClick={pularPasso}>
+                  Adicionar depois
+                </button>
+              ) : null}
 
-        {passoId === 'servicos' ? (
-          <PassoServicos dados={servicos} setDados={setServicos} catalogo={catalogoServicos} />
-        ) : null}
-
-        {passoId === 'comoAtende' ? (
-          <PassoComoAtende dados={servicos} setDados={setServicos} />
-        ) : null}
-      </PainelCartao>
-
-      <div className={styles.acoes}>
-        <div className={styles.acoesEsquerda}>
-          {indice > 0 ? (
-            <Button type="button" variant="ghost" iconLeft="chevron-left" onClick={() => irPara(indice - 1)}>
-              Voltar
-            </Button>
-          ) : (
-            <span />
-          )}
-        </div>
-
-        <div className={styles.acoesDireita}>
-          {skippable ? (
-            <button type="button" className={styles.pular} onClick={pular}>
-              Adicionar depois
-            </button>
-          ) : null}
-
-          <Button
-            type="button"
-            iconRight={ultimo ? 'check' : 'chevron-right'}
-            onClick={avancar}
-            disabled={salvando || !podeAvancar}
-          >
-            {salvando ? 'Salvando…' : ultimo ? 'Concluir' : 'Continuar'}
-          </Button>
+              <Button type="button" iconRight={ultimo ? 'check' : 'chevron-right'} onClick={avancar} disabled={salvando}>
+                {salvando ? 'Salvando…' : ultimo ? 'Concluir' : 'Continuar'}
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
-}
-
-/* ─── validação mínima por passo — só o que impede um "Continuar" vazio de
-   sentido; o resto fica a critério de quem preenche */
-function validarPasso(passoId, { basico, servicos }) {
-  if (passoId === 'basico') return Boolean(basico.cidade?.trim());
-  if (passoId === 'servicos') return servicos.servicos.length >= 3;
-  return true;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
    PASSOS
    ═══════════════════════════════════════════════════════════════════════ */
 
-function PassoBasico({ dados, setDados, ehCliente, enviandoFoto, onEnviarFoto }) {
+function PassoFoto({ dados, enviandoFoto, onEnviarFoto }) {
+  return (
+    <div className={styles.campos}>
+      <div className={styles.foto}>
+        <span className={styles.avatar}>
+          {dados.fotoUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={dados.fotoUrl} alt="" />
+          ) : (
+            <Icon name="user" size={20} />
+          )}
+        </span>
+
+        <div>
+          <Button as="label" type="button" variant="outline" size="sm" iconLeft="plus" disabled={enviandoFoto}>
+            {enviandoFoto ? 'Enviando…' : dados.fotoUrl ? 'Trocar foto' : 'Enviar foto'}
+            <input type="file" accept="image/*" className={styles.arquivoOculto} onChange={onEnviarFoto} />
+          </Button>
+          <p className={styles.dica}>Opcional, mas perfil com foto recebe mais contato.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PassoArea({ dados, setDados }) {
   const mudar = (chave) => (evento) => setDados((atual) => ({ ...atual, [chave]: evento.target.value }));
 
   return (
     <div className={styles.campos}>
-      {!ehCliente ? (
-        <div className={styles.foto}>
-          <span className={styles.avatar}>
-            {dados.fotoUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={dados.fotoUrl} alt="" />
-            ) : (
-              <Icon name="user" size={20} />
-            )}
-          </span>
-
-          <div>
-            <Button as="label" type="button" variant="outline" size="sm" iconLeft="plus" disabled={enviandoFoto}>
-              {enviandoFoto ? 'Enviando…' : dados.fotoUrl ? 'Trocar foto' : 'Enviar foto'}
-              <input type="file" accept="image/*" className={styles.arquivoOculto} onChange={onEnviarFoto} />
-            </Button>
-            <p className={styles.dica}>Opcional, mas perfil com foto recebe mais contato.</p>
-          </div>
-        </div>
-      ) : null}
-
-      {!ehCliente ? (
-        <Field
-          label="Sobre o seu negócio"
-          htmlFor="sobre"
-          hint={`${dados.sobre.length}/${LIMITE_SOBRE} — conte o que você faz e como atende`}
-        >
-          <Input as="textarea" id="sobre" rows={4} maxLength={LIMITE_SOBRE} value={dados.sobre} onChange={mudar('sobre')} />
-        </Field>
-      ) : null}
-
-      <div className={styles.duplo}>
-        <Field label="Telefone" htmlFor="telefone">
-          <Input id="telefone" value={dados.telefone} onChange={mudar('telefone')} placeholder="(65) 90000-0000" />
-        </Field>
-
-        <Field label="WhatsApp" htmlFor="whatsapp" hint="Onde a maioria vai te chamar">
-          <Input id="whatsapp" value={dados.whatsapp} onChange={mudar('whatsapp')} placeholder="(65) 90000-0000" />
-        </Field>
-      </div>
-
-      <Field label="Cidade e estado" htmlFor="cidade" required hint="Define em quais buscas você aparece primeiro">
-        <Input id="cidade" value={dados.cidade} onChange={mudar('cidade')} placeholder="Sorriso · MT" iconLeft="pin" />
+      <Field label="Área total" htmlFor="areaHectares" hint="Em hectares — opcional">
+        <Input id="areaHectares" value={dados.areaHectares} onChange={mudar('areaHectares')} placeholder="1.400" inputMode="numeric" />
       </Field>
     </div>
   );
 }
 
-function PassoPropriedade({ dados, setDados }) {
+function PassoIdentidade({ dados, setDados }) {
   const mudar = (chave) => (evento) => setDados((atual) => ({ ...atual, [chave]: evento.target.value }));
 
   return (
     <div className={styles.campos}>
       <div className={styles.duplo}>
-        <Field label="Nome da propriedade" htmlFor="nome">
-          <Input id="nome" value={dados.nome} onChange={mudar('nome')} />
+        <Field label="Razão social" htmlFor="razaoSocial" hint="Opcional">
+          <Input id="razaoSocial" value={dados.razaoSocial} onChange={mudar('razaoSocial')} />
         </Field>
 
-        <Field label="Área total" htmlFor="area" hint="Em hectares — opcional">
-          <Input id="area" value={dados.area} onChange={mudar('area')} placeholder="1.400" />
-        </Field>
-      </div>
-
-      <div className={styles.duplo}>
-        <Field label="Cidade e estado" htmlFor="cidadeSede">
-          <Input id="cidadeSede" value={dados.cidade} onChange={mudar('cidade')} iconLeft="pin" />
-        </Field>
-
-        <Field label="Telefone da sede" htmlFor="contatoSede" hint="Quem atende no portão nem sempre é quem anuncia">
-          <Input id="contatoSede" value={dados.contatoSede} onChange={mudar('contatoSede')} placeholder="(65) 3000-0000" />
+        <Field label="Nome fantasia" htmlFor="nomeFantasia" hint="Opcional">
+          <Input id="nomeFantasia" value={dados.nomeFantasia} onChange={mudar('nomeFantasia')} />
         </Field>
       </div>
-
-      <Field label="Ponto de referência" htmlFor="referencia" hint="Ajuda quem vai entregar peça ou prestar serviço a chegar">
-        <Input as="textarea" id="referencia" rows={2} value={dados.referencia} onChange={mudar('referencia')} />
-      </Field>
     </div>
   );
 }
@@ -612,32 +567,6 @@ function PassoMaquinas({ dados, setDados, aviso }) {
   );
 }
 
-function PassoAtendimento({ dados, setDados }) {
-  const mudar = (chave) => (evento) => setDados((atual) => ({ ...atual, [chave]: evento.target.value }));
-
-  return (
-    <div className={styles.campos}>
-      <Field label="Endereço da loja" htmlFor="endereco">
-        <Input id="endereco" value={dados.endereco} onChange={mudar('endereco')} iconLeft="pin" />
-      </Field>
-
-      <div className={styles.duplo}>
-        <Field label="Cidade e estado" htmlFor="cidadeLoja">
-          <Input id="cidadeLoja" value={dados.cidade} onChange={mudar('cidade')} />
-        </Field>
-
-        <Field label="Telefone fixo" htmlFor="telefoneLoja">
-          <Input id="telefoneLoja" value={dados.telefone} onChange={mudar('telefone')} />
-        </Field>
-      </div>
-
-      <Field label="WhatsApp do balcão" htmlFor="whatsappLoja" hint="É por onde a maioria dos pedidos chega">
-        <Input id="whatsappLoja" value={dados.whatsapp} onChange={mudar('whatsapp')} placeholder="(65) 90000-0000" />
-      </Field>
-    </div>
-  );
-}
-
 function PassoHorarios({ dados, setDados }) {
   function mudarHorario(diaId, campo, valor) {
     setDados((atual) => ({
@@ -718,70 +647,6 @@ function PassoEntregas({ dados, setDados }) {
           </Field>
         </div>
       ) : null}
-    </div>
-  );
-}
-
-const semAcento = (texto) => texto.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-
-function PassoServicos({ dados, setDados, catalogo }) {
-  const [busca, setBusca] = useState('');
-  const termo = semAcento(busca.trim());
-
-  const grupos = catalogo
-    .map((grupo) => ({ ...grupo, itens: termo ? grupo.itens.filter((item) => semAcento(item).includes(termo)) : grupo.itens }))
-    .filter((grupo) => grupo.itens.length);
-
-  function alternar(servico) {
-    setDados((atual) => ({
-      ...atual,
-      servicos: atual.servicos.includes(servico)
-        ? atual.servicos.filter((item) => item !== servico)
-        : [...atual.servicos, servico],
-    }));
-  }
-
-  return (
-    <div>
-      <p className={styles.dica}>{dados.servicos.length}/3 selecionados no mínimo — são eles que colocam você na busca.</p>
-
-      <Input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Buscar serviço" iconLeft="search" className={styles.busca} />
-
-      {dados.servicos.length ? (
-        <div className={styles.selecionados}>
-          {dados.servicos.map((servico) => (
-            <button key={servico} type="button" className={styles.selecionado} onClick={() => alternar(servico)}>
-              {servico}
-              <Icon name="close" size={12} />
-            </button>
-          ))}
-        </div>
-      ) : null}
-
-      <div className={styles.grupos}>
-        {grupos.map((grupo) => (
-          <div key={grupo.grupo} className={styles.grupo}>
-            <h3 className={styles.grupoNome}>{grupo.grupo}</h3>
-            <div className={styles.fichas}>
-              {grupo.itens.map((item) => {
-                const marcado = dados.servicos.includes(item);
-                return (
-                  <button
-                    key={item}
-                    type="button"
-                    className={`${styles.ficha} ${marcado ? styles.fichaAtiva : ''}`}
-                    onClick={() => alternar(item)}
-                    aria-pressed={marcado}
-                  >
-                    {marcado ? <Icon name="check" size={12} /> : null}
-                    {item}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

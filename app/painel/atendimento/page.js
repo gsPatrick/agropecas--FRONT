@@ -19,6 +19,7 @@ import PainelCartao from '@/components/PainelCartao/PainelCartao';
 import PainelBarraSalvar from '@/components/PainelBarraSalvar/PainelBarraSalvar';
 import Field from '@/components/Field/Field';
 import Input from '@/components/Input/Input';
+import CampoCidadeCep from '@/components/CampoCidadeCep/CampoCidadeCep';
 import Icon from '@/components/Icon/Icon';
 import PainelChave from '@/components/PainelChave/PainelChave';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
@@ -168,9 +169,11 @@ export default function AtendimentoPage() {
             </Field>
 
             <div className={styles.duplo}>
-              <Field label="Cidade e estado" htmlFor="cidade">
-                <Input id="cidade" value={dados.cidade} onChange={mudar('cidade')} />
-              </Field>
+              <CampoCidadeCep
+                id="cidade"
+                value={dados.cidade}
+                onChange={(texto) => setDados((atual) => ({ ...atual, cidade: texto }))}
+              />
 
               <Field label="Telefone fixo" htmlFor="telefone">
                 <Input id="telefone" value={dados.telefone} onChange={mudar('telefone')} />

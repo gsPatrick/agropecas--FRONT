@@ -26,6 +26,7 @@ import PainelSegmentos from '@/components/PainelSegmentos/PainelSegmentos';
 import PainelBarraSalvar from '@/components/PainelBarraSalvar/PainelBarraSalvar';
 import Field from '@/components/Field/Field';
 import Input from '@/components/Input/Input';
+import CampoCidadeCep from '@/components/CampoCidadeCep/CampoCidadeCep';
 import Icon from '@/components/Icon/Icon';
 import Dica from '@/components/Dica/Dica';
 import Esqueleto from '@/components/Esqueleto/Esqueleto';
@@ -38,8 +39,6 @@ import {
   listarFavoritos,
   removerFavorito,
 } from '@/lib/dados/conta';
-import { carregarPerfilPublico, completudeDoPerfil } from '@/lib/dados/perfil-publico';
-import { onboardingFoiDispensado, precisaDeOnboarding } from '@/lib/onboarding';
 import styles from './page.module.css';
 
 const ABAS = [
@@ -61,29 +60,12 @@ export default function ContaPage() {
     else if (tipoPerfil !== 'cliente') router.replace('/painel');
   }, [carregando, autenticado, tipoPerfil, router]);
 
-  /* checkpoint de primeiro acesso do cliente — equivalente ao de
-     `PainelShell` para quem vende, mas mora aqui porque `/conta` não usa
-     aquele layout (ver `lib/onboarding.js` para o porquê da completude como
-     sinal em vez de "primeiro login") */
-  useEffect(() => {
-    if (carregando || !autenticado || tipoPerfil !== 'cliente') return;
-    if (onboardingFoiDispensado(usuario?.id)) return;
-
-    let cancelado = false;
-
-    carregarPerfilPublico()
-      .then((dados) => {
-        if (cancelado) return;
-        const { porcentagem } = completudeDoPerfil(dados, 'cliente');
-        if (precisaDeOnboarding(porcentagem)) router.replace('/conta/boas-vindas');
-      })
-      .catch(() => {});
-
-    return () => {
-      cancelado = true;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [carregando, autenticado, tipoPerfil, usuario?.id]);
+  /* NÃO tem assistente de primeiro acesso para `cliente`: o cadastro
+     (`SignupWizard.js`) já pergunta nome, documento, WhatsApp, telefone
+     adicional, endereço completo e "sobre" — os únicos campos que a conta de
+     quem só compra tem. Depois de tirar o que o cadastro cobre não sobra
+     nada que justifique um modal obrigatório (ver o comentário no topo de
+     `components/Onboarding/Onboarding.js`). */
 
   const [aba, setAba] = useState('dados');
 
@@ -191,11 +173,6 @@ function AbaDados({ usuario, aviso }) {
 
   return (
     <form onSubmit={salvar}>
-      <Link href="/conta/boas-vindas" className={styles.completarLink}>
-        <Icon name="chevron-right" size={14} />
-        Completar meu perfil pelo assistente guiado
-      </Link>
-
       <PainelCartao titulo="Meus dados" icone="user">
         <div className={styles.campos}>
           <Field label="Nome" htmlFor="nome">
@@ -230,19 +207,12 @@ function AbaDados({ usuario, aviso }) {
             </Field>
           </div>
 
-          <Field
-            label="Cidade e estado"
-            htmlFor="cidade"
+          <CampoCidadeCep
+            id="cidade"
             hint="Ajuda a mostrar anúncios perto de você"
-          >
-            <Input
-              id="cidade"
-              value={dados.cidade}
-              onChange={mudar('cidade')}
-              placeholder="Sorriso · MT"
-              iconLeft="pin"
-            />
-          </Field>
+            value={dados.cidade}
+            onChange={(texto) => setDados((atual) => ({ ...atual, cidade: texto }))}
+          />
         </div>
       </PainelCartao>
 

@@ -23,6 +23,7 @@ import PainelTopo from '@/components/PainelTopo/PainelTopo';
 import PainelCartao from '@/components/PainelCartao/PainelCartao';
 import Field from '@/components/Field/Field';
 import Input from '@/components/Input/Input';
+import CampoCidadeCep from '@/components/CampoCidadeCep/CampoCidadeCep';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
 import Dica from '@/components/Dica/Dica';
@@ -173,14 +174,6 @@ export default function PerfilPage() {
                 </li>
               ))}
             </ul>
-
-            {/* reabre o assistente guiado — para quem dispensou (ou nunca
-                chegou a ver, se cadastrou antes desta tela existir) e quer
-                retomar de onde parou, em vez de caçar cada campo aqui */}
-            <Link href="/painel/boas-vindas" className={styles.completarLink}>
-              <Icon name="chevron-right" size={14} />
-              Completar meu perfil pelo assistente guiado
-            </Link>
           </>
         ) : null}
       </section>
@@ -277,15 +270,12 @@ export default function PerfilPage() {
               </Field>
               </div>
 
-              <Field label="Cidade e estado" htmlFor="cidade" hint="Define em quais buscas você aparece primeiro">
-                <Input
-                  id="cidade"
-                  value={dados.cidade}
-                  onChange={mudar('cidade')}
-                  placeholder="Sorriso · MT"
-                  iconLeft="pin"
-                />
-              </Field>
+              <CampoCidadeCep
+                id="cidade"
+                hint="Define em quais buscas você aparece primeiro"
+                value={dados.cidade}
+                onChange={(texto) => setDados((atual) => ({ ...atual, cidade: texto }))}
+              />
             </div>
           </PainelCartao>
 

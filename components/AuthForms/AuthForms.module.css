@@ -38,6 +38,41 @@
   gap: clamp(12px, 2vh, 22px);
 }
 
+/* ── senha com botão de mostrar/ocultar ───────────────── */
+.senhaWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.senhaInput {
+  flex: 1;
+  min-width: 0;
+}
+
+.senhaInput input {
+  padding-right: var(--space-12);
+}
+
+.senhaToggle {
+  position: absolute;
+  right: var(--space-3);
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  color: var(--color-ink-3);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.senhaToggle:hover {
+  color: var(--color-forest);
+  background: var(--color-green-tint);
+}
+
 .inlineLink {
   align-self: flex-end;
   font-size: 13px;

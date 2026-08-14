@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from 'react';
 import Button from '@/components/Button/Button';
 import Field from '@/components/Field/Field';
 import Input from '@/components/Input/Input';
+import Icon from '@/components/Icon/Icon';
 import PasswordField, { scorePassword } from '@/components/PasswordField/PasswordField';
 import * as auth from '@/lib/dados/auth';
 import styles from './AuthForms.module.css';
@@ -44,6 +45,7 @@ function Head({ eyebrow, title, text }) {
 export function LoginForm({ onForgot, onSwitch, onSubmit }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [senhaVisivel, setSenhaVisivel] = useState(false);
   const [erros, setErros] = useState({});
   const [enviando, setEnviando] = useState(false);
 
@@ -88,15 +90,28 @@ export function LoginForm({ onForgot, onSwitch, onSubmit }) {
         </Field>
 
         <Field label="Senha" htmlFor="login-senha" error={erros.senha} required>
-          <Input
-            id="login-senha"
-            type="password"
-            placeholder="••••••••"
-            autoComplete="current-password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            invalid={Boolean(erros.senha)}
-          />
+          <div className={styles.senhaWrap}>
+            <Input
+              id="login-senha"
+              type={senhaVisivel ? 'text' : 'password'}
+              placeholder="••••••••"
+              autoComplete="current-password"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              invalid={Boolean(erros.senha)}
+              className={styles.senhaInput}
+            />
+
+            <button
+              type="button"
+              className={styles.senhaToggle}
+              onClick={() => setSenhaVisivel((atual) => !atual)}
+              aria-label={senhaVisivel ? 'Ocultar senha' : 'Mostrar senha'}
+              tabIndex={-1}
+            >
+              <Icon name={senhaVisivel ? 'eye-off' : 'eye'} size={18} />
+            </button>
+          </div>
         </Field>
 
         <button type="button" className={styles.inlineLink} onClick={onForgot}>

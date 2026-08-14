@@ -1,3 +1,60 @@
+/* ── overlay do modal obrigatório ─────────────────────────
+   mesmo padrão visual de Modal.module.css (fundo desfocado, portal no body,
+   mesmo z-index) — mas sem afordância de fechar: sem botão X, sem clique no
+   fundo, sem Esc. A trava de rolagem do body é feita em Onboarding.js, como
+   Modal.js já faz. */
+@keyframes onboardingFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes onboardingPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  overflow-y: auto;
+  background: rgba(6, 16, 8, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: onboardingFadeIn 0.2s var(--ease-out) both;
+}
+
+.modalPanel {
+  width: 100%;
+  max-width: 760px;
+  max-height: min(720px, 92dvh);
+  overflow-y: auto;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  animation: onboardingPanelIn 0.32s var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .modalPanel {
+    animation: none;
+  }
+}
+
 .root {
   display: flex;
   flex-direction: column;
@@ -5,7 +62,7 @@
 
   max-width: 720px;
   margin: 0 auto;
-  padding: var(--space-6) 0 var(--space-8);
+  padding: var(--space-6) var(--space-6) var(--space-8);
 }
 
 .carregando {

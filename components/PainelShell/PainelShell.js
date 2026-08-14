@@ -16,6 +16,7 @@ import PainelSidebar from '@/components/PainelSidebar/PainelSidebar';
 import PainelBarraTopo from '@/components/PainelBarraTopo/PainelBarraTopo';
 import PainelTabBar from '@/components/PainelTabBar/PainelTabBar';
 import PerfilChaveta from '@/components/PerfilChaveta/PerfilChaveta';
+import Onboarding from '@/components/Onboarding/Onboarding';
 import { useSessao, rotaDaConta } from '@/lib/sessao';
 import { useChat } from '@/components/ChatProvider/ChatProvider';
 import { carregarPerfilPublico, completudeDoPerfil } from '@/lib/dados/perfil-publico';
@@ -23,7 +24,6 @@ import { onboardingFoiDispensado, precisaDeOnboarding } from '@/lib/onboarding';
 import styles from './PainelShell.module.css';
 
 const CHAVE_RECOLHIDA = 'agropecas:painel-recolhido';
-const ROTA_ONBOARDING = '/painel/boas-vindas';
 
 export default function PainelShell({ children }) {
   const { perfil, tipoPerfil, trocarPerfil, usuario, sair, autenticado, carregando } = useSessao();
@@ -50,12 +50,16 @@ export default function PainelShell({ children }) {
   }, [carregando, autenticado, tipoPerfil, router]);
 
   /* gatilho do assistente de primeiro acesso — só para quem vende (produtor,
-     loja, prestador; `cliente` já foi mandado para `/conta` acima, onde tem o
-     próprio checkpoint em `app/conta/page.js`). Ver `lib/onboarding.js` para
-     o motivo de usar completude em vez de um sinal de "primeiro login". */
+     loja, prestador; `cliente` já foi mandado para `/conta` acima, e não tem
+     mais assistente — ver o comentário no topo de `Onboarding.js`). Ver
+     `lib/onboarding.js` para o motivo de usar completude em vez de um sinal
+     de "primeiro login".
+     Não é mais navegação: `mostrarOnboarding` liga o MODAL por cima da tela
+     atual (ver render abaixo), a pessoa não sai de onde estava. */
+  const [mostrarOnboarding, setMostrarOnboarding] = useState(false);
+
   useEffect(() => {
     if (carregando || !autenticado || tipoPerfil === 'cliente') return;
-    if (caminho === ROTA_ONBOARDING) return;
     if (onboardingFoiDispensado(usuario?.id)) return;
 
     let cancelado = false;
@@ -64,19 +68,19 @@ export default function PainelShell({ children }) {
       .then((dados) => {
         if (cancelado) return;
         const { porcentagem } = completudeDoPerfil(dados, tipoPerfil);
-        if (precisaDeOnboarding(porcentagem)) router.replace(ROTA_ONBOARDING);
+        if (precisaDeOnboarding(porcentagem)) setMostrarOnboarding(true);
       })
       .catch(() => {
-        /* API fora do ar não pode travar o painel num redirecionamento —
-           melhor deixar a pessoa seguir do que insistir num assistente que
-           não vai conseguir carregar dado nenhum */
+        /* API fora do ar não pode travar o painel — melhor deixar a pessoa
+           seguir do que insistir num assistente que não vai conseguir
+           carregar dado nenhum */
       });
 
     return () => {
       cancelado = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [carregando, autenticado, tipoPerfil, caminho, usuario?.id]);
+  }, [carregando, autenticado, tipoPerfil, usuario?.id]);
 
   const [recolhida, setRecolhida] = useState(false);
   const [pronto, setPronto] = useState(false);
@@ -160,6 +164,15 @@ export default function PainelShell({ children }) {
       </div>
 
       <PainelTabBar perfil={perfil} contadores={contadores} />
+
+      {mostrarOnboarding ? (
+        <Onboarding
+          tipoPerfil={tipoPerfil}
+          perfil={perfil}
+          usuario={usuario}
+          onConcluir={() => setMostrarOnboarding(false)}
+        />
+      ) : null}
     </div>
   );
 }
