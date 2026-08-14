@@ -9,11 +9,12 @@
  * dados, favoritos, mensagens — por isso uma página só, com abas, em vez do
  * `PainelShell` inteiro que os vendedores usam.
  *
- * Três seções, três origens de dado — todas API real agora:
+ * Duas seções, duas origens de dado — todas API real:
  *  · Dados pessoais → `/perfis/meu`
  *  · Favoritos       → `/favoritos`
- *  · Mensagens       → resumo do `ChatProvider` (`/conversas`), o mesmo
- *    estado que alimenta `/mensagens` e o balão
+ * Mensagens não tem aba própria aqui: o ícone de correio do `AppHeader` já
+ * leva para `/mensagens`, e repetir a mesma caixa de entrada como aba era
+ * redundante.
  */
 
 import { useEffect, useState } from 'react';
@@ -32,7 +33,6 @@ import Dica from '@/components/Dica/Dica';
 import Esqueleto from '@/components/Esqueleto/Esqueleto';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
 import { useSessao } from '@/lib/sessao';
-import { useChat } from '@/components/ChatProvider/ChatProvider';
 import {
   carregarDadosPessoais,
   salvarDadosPessoais,
@@ -41,10 +41,12 @@ import {
 } from '@/lib/dados/conta';
 import styles from './page.module.css';
 
+/* "Mensagens" saiu daqui: o ícone de correio no cabeçalho (AppHeader) já
+   leva para a mesma caixa de entrada — repetir a rota como aba era
+   redundante */
 const ABAS = [
   { id: 'dados', rotulo: 'Meus dados' },
   { id: 'favoritos', rotulo: 'Favoritos' },
-  { id: 'mensagens', rotulo: 'Mensagens' },
 ];
 
 export default function ContaPage() {
@@ -92,7 +94,6 @@ export default function ContaPage() {
 
           {aba === 'dados' ? <AbaDados usuario={usuario} aviso={aviso} /> : null}
           {aba === 'favoritos' ? <AbaFavoritos aviso={aviso} /> : null}
-          {aba === 'mensagens' ? <AbaMensagens /> : null}
         </div>
       </main>
 
@@ -342,49 +343,3 @@ function AbaFavoritos({ aviso }) {
   );
 }
 
-/* ── mensagens ─────────────────────────────────────────────────── */
-
-function AbaMensagens() {
-  const { conversas, naoLidas } = useChat();
-  const recentes = conversas.slice(0, 5);
-
-  return (
-    <PainelCartao
-      titulo="Mensagens"
-      descricao={naoLidas > 0 ? `${naoLidas} não lida(s)` : 'Tudo em dia'}
-      icone="mail"
-      acao={{ href: '/mensagens', rotulo: 'Abrir caixa de entrada' }}
-      semPadding
-    >
-      {recentes.length ? (
-        <ul className={styles.lista}>
-          {recentes.map((conversa) => (
-            <li key={conversa.id} className={styles.item}>
-              <Link href="/mensagens" className={styles.itemLink}>
-                <span className={styles.itemFoto}>
-                  <Icon name="user" size={18} />
-                </span>
-
-                <span className={styles.itemTexto}>
-                  <strong>{conversa.pessoa}</strong>
-                  <span>{conversa.anuncio?.titulo}</span>
-                </span>
-
-                {conversa.naoLidas > 0 ? (
-                  <span className={styles.itemContador}>{conversa.naoLidas}</span>
-                ) : null}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className={styles.vazio}>
-          <p className={styles.vazioTitulo}>Nenhuma conversa ainda</p>
-          <p className={styles.vazioTexto}>
-            Quando você chamar um vendedor, a conversa aparece aqui.
-          </p>
-        </div>
-      )}
-    </PainelCartao>
-  );
-}

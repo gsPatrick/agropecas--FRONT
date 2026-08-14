@@ -29,7 +29,7 @@ export default function CampoCidadeCep({
   required = false,
   value,
   onChange,
-  placeholder = 'Sorriso · MT, ou o CEP',
+  placeholder = 'Sorriso · MT — ou digite o CEP',
   className,
 }) {
   const [status, setStatus] = useState('idle');
