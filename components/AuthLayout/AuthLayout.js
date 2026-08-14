@@ -52,7 +52,7 @@ export default function AuthLayout({
           </Link>
 
           <p className={styles.claim}>
-            Encontre peças agrícolas, lojas e prestadores próximos de você em poucos minutos.
+            Sua máquina parou? Encontre a peça ou o serviço que precisa.
           </p>
         </div>
 

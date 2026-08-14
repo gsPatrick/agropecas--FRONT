@@ -23,7 +23,7 @@ export default function AuthGate({ onChoose }) {
         <span className={styles.eyebrow}>Acesso</span>
         <h1 className={styles.title}>Bem-vindo</h1>
         <p className={styles.text}>
-          Encontre peças agrícolas, lojas e prestadores próximos de você em poucos minutos.
+          Sua máquina parou? Encontre a peça ou o serviço que precisa.
         </p>
       </header>
 

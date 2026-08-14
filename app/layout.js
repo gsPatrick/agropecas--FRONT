@@ -21,8 +21,7 @@ const inter = Inter({
 
 export const metadata = {
   title: 'AgroPeças MT — O campo não pode parar.',
-  description:
-    'Encontre peças agrícolas, lojas e prestadores próximos de você em poucos minutos.',
+  description: 'Sua máquina parou? Encontre a peça ou o serviço que precisa.',
 };
 
 export default function RootLayout({ children }) {

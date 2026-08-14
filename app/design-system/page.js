@@ -48,7 +48,7 @@ const typeScale = [
   { role: 'Herói', token: '--text-hero', size: 'clamp(40px, 7vw, 76px)', weight: 800, sample: 'O campo não pode parar', className: 'hero' },
   { role: 'Título de seção', token: '--text-h2', size: 'clamp(26px, 3.4vw, 40px)', weight: 700, sample: 'Peças mais procuradas hoje', className: 'h2' },
   { role: 'Título de cartão', token: '--text-h3', size: 'clamp(18px, 1.6vw, 22px)', weight: 700, sample: 'Produtor Rural', className: 'h3' },
-  { role: 'Corpo', token: '--text-body', size: '16px', weight: 400, sample: 'Encontre peças agrícolas, lojas e prestadores próximos de você em poucos minutos.', className: 'body' },
+  { role: 'Corpo', token: '--text-body', size: '16px', weight: 400, sample: 'Sua máquina parou? Encontre a peça ou o serviço que precisa.', className: 'body' },
   { role: 'Corpo pequeno', token: '--text-sm', size: '14px', weight: 400, sample: 'Busque pela peça que precisa ou pela máquina.', className: 'small' },
   { role: 'Rótulo', token: '--text-label', size: '12px · 0.08em', weight: 600, sample: 'VERSÕES DO LOGO', className: 'label' },
 ];
