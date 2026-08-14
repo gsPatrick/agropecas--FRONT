@@ -164,14 +164,24 @@ export default function PerfilPage() {
         </span>
 
         {completude.faltando.length ? (
-          <ul className={styles.faltando}>
-            {completude.faltando.map((item) => (
-              <li key={item.id} className={styles.falta}>
-                <Icon name="plus" size={12} />
-                {item.rotulo}
-              </li>
-            ))}
-          </ul>
+          <>
+            <ul className={styles.faltando}>
+              {completude.faltando.map((item) => (
+                <li key={item.id} className={styles.falta}>
+                  <Icon name="plus" size={12} />
+                  {item.rotulo}
+                </li>
+              ))}
+            </ul>
+
+            {/* reabre o assistente guiado — para quem dispensou (ou nunca
+                chegou a ver, se cadastrou antes desta tela existir) e quer
+                retomar de onde parou, em vez de caçar cada campo aqui */}
+            <Link href="/painel/boas-vindas" className={styles.completarLink}>
+              <Icon name="chevron-right" size={14} />
+              Completar meu perfil pelo assistente guiado
+            </Link>
+          </>
         ) : null}
       </section>
 

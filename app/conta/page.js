@@ -38,6 +38,8 @@ import {
   listarFavoritos,
   removerFavorito,
 } from '@/lib/dados/conta';
+import { carregarPerfilPublico, completudeDoPerfil } from '@/lib/dados/perfil-publico';
+import { onboardingFoiDispensado, precisaDeOnboarding } from '@/lib/onboarding';
 import styles from './page.module.css';
 
 const ABAS = [
@@ -58,6 +60,30 @@ export default function ContaPage() {
     if (!autenticado) router.replace('/entrar?retorno=/conta');
     else if (tipoPerfil !== 'cliente') router.replace('/painel');
   }, [carregando, autenticado, tipoPerfil, router]);
+
+  /* checkpoint de primeiro acesso do cliente — equivalente ao de
+     `PainelShell` para quem vende, mas mora aqui porque `/conta` não usa
+     aquele layout (ver `lib/onboarding.js` para o porquê da completude como
+     sinal em vez de "primeiro login") */
+  useEffect(() => {
+    if (carregando || !autenticado || tipoPerfil !== 'cliente') return;
+    if (onboardingFoiDispensado(usuario?.id)) return;
+
+    let cancelado = false;
+
+    carregarPerfilPublico()
+      .then((dados) => {
+        if (cancelado) return;
+        const { porcentagem } = completudeDoPerfil(dados, 'cliente');
+        if (precisaDeOnboarding(porcentagem)) router.replace('/conta/boas-vindas');
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelado = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carregando, autenticado, tipoPerfil, usuario?.id]);
 
   const [aba, setAba] = useState('dados');
 
@@ -165,6 +191,11 @@ function AbaDados({ usuario, aviso }) {
 
   return (
     <form onSubmit={salvar}>
+      <Link href="/conta/boas-vindas" className={styles.completarLink}>
+        <Icon name="chevron-right" size={14} />
+        Completar meu perfil pelo assistente guiado
+      </Link>
+
       <PainelCartao titulo="Meus dados" icone="user">
         <div className={styles.campos}>
           <Field label="Nome" htmlFor="nome">

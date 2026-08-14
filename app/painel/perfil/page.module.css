@@ -112,6 +112,24 @@
   color: var(--color-ink-3);
 }
 
+.completarLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  margin-top: var(--space-3);
+  color: var(--color-forest);
+  text-decoration: none;
+
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.completarLink:hover {
+  text-decoration: underline;
+}
+
 /* ── grade ────────────────────────────────────────────── */
 .grade {
   display: grid;
