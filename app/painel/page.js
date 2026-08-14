@@ -68,7 +68,7 @@ export default function PainelPage() {
 
     return () => controle.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [usuario, tipoPerfil, periodo]);
+  }, [usuario?.id, tipoPerfil, periodo]);
 
   if (!usuario) return null;
 
