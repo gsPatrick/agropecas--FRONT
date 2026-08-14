@@ -60,8 +60,7 @@ export default function Hero({ onSearch, onSearchByMachine }) {
               </p>
 
               <p className={styles.lead}>
-                Encontre peças agrícolas, lojas e prestadores próximos de você
-                em poucos minutos.
+                Sua máquina parou? Encontre a peça ou o serviço que precisa.
               </p>
             </div>
 
