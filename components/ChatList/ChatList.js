@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Icon from '@/components/Icon/Icon';
 import { iniciais } from '@/lib/anuncios';
 import styles from './ChatList.module.css';
@@ -9,6 +10,25 @@ import styles from './ChatList.module.css';
  * O mesmo componente serve ao balão e à página; só muda a densidade.
  */
 export default function ChatList({ conversas, ativa, onSelecionar, compacto = false }) {
+  if (!conversas.length) {
+    return (
+      <div className={`${styles.vazio} ${compacto ? styles.vazioCompacto : ''}`}>
+        <span className={styles.vazioIcone}>
+          <Icon name="mail" size={compacto ? 22 : 28} />
+        </span>
+        <p className={styles.vazioTitulo}>Nenhuma mensagem ainda</p>
+        <p className={styles.vazioTexto}>
+          Encontre uma peça, serviço ou máquina e chame o vendedor — a
+          conversa aparece aqui.
+        </p>
+        <Link href="/anuncios" className={styles.vazioAcao}>
+          <Icon name="grid" size={15} />
+          Ver anúncios
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <ul className={`${styles.root} ${compacto ? styles.compacto : ''}`}>
       {conversas.map((conversa) => {
