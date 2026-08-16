@@ -194,7 +194,7 @@ export default function AnunciosPage() {
                   </div>
                 ))}
               </div>
-            ) : lista.length === 0 ? (
+            ) : itens.length === 0 ? (
               <p className={styles.empty}>
                 Nenhum anúncio nesta categoria ainda. Que tal{' '}
                 <Link href="/entrar" className={styles.helperLink}>
@@ -214,7 +214,7 @@ export default function AnunciosPage() {
 
                 <Pagination
                   pagina={paginaValida}
-                  total={lista.length}
+                  total={total}
                   porPagina={porPagina}
                   onPagina={setPagina}
                   onPorPagina={(valor) => {
