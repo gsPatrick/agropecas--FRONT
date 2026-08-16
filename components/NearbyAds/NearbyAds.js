@@ -12,8 +12,8 @@ import NearbyHeader from '@/components/NearbyHeader/NearbyHeader';
 import Carousel from '@/components/Carousel/Carousel';
 import AdCard from '@/components/AdCard/AdCard';
 import Button from '@/components/Button/Button';
+import Icon from '@/components/Icon/Icon';
 import Esqueleto from '@/components/Esqueleto/Esqueleto';
-import { ANUNCIOS } from '@/lib/anuncios';
 import { buscarAnunciosDaVitrine } from '@/lib/dados/home';
 import styles from './NearbyAds.module.css';
 
@@ -52,11 +52,12 @@ export default function NearbyAds() {
       uf: local?.uf,
       sinal: controle.signal,
     })
-      /* vitrine vazia na API ainda é vitrine: cai no conteúdo de exemplo em
-         vez de deixar a seção sem nada para mostrar */
-      .then((dados) => setAnuncios(dados.length ? dados : ANUNCIOS))
+      .then(setAnuncios)
       .catch((erro) => {
-        if (erro.name !== 'AbortError') setAnuncios(ANUNCIOS);
+        /* vazio de verdade continua sendo `[]`, nunca dado inventado — uma
+           vitrine com anúncio de mentira é pior que uma vitrine curta: quem
+           clica cai numa página que não existe */
+        if (erro.name !== 'AbortError') setAnuncios([]);
       });
 
     return () => controle.abort();
@@ -92,15 +93,30 @@ export default function NearbyAds() {
           }
         />
 
-        <Carousel label="Anúncios disponíveis" className={styles.carousel}>
-          {anuncios
-            ? lista.map((anuncio) => <AdCard key={anuncio.id} ad={anuncio} />)
-            : Array.from({ length: FANTASMAS }, (_, indice) => (
-                /* o fantasma tem a altura do cartão inteiro (mídia 4/3 +
-                   corpo + rodapé) para o trilho não encolher na troca */
-                <Esqueleto key={indice} altura={392} raio="var(--radius-xl)" />
-              ))}
-        </Carousel>
+        {anuncios && lista.length === 0 ? (
+          <div className={styles.vazio}>
+            <span className={styles.vazioIcone}>
+              <Icon name="grid" size={26} />
+            </span>
+            <p className={styles.vazioTitulo}>Nenhum anúncio por aqui ainda</p>
+            <p className={styles.vazioTexto}>
+              Seja a primeira loja, produtor ou prestador a anunciar na sua região.
+            </p>
+            <Button as={Link} href="/entrar" iconRight="arrow-right">
+              Anunciar gratuitamente
+            </Button>
+          </div>
+        ) : (
+          <Carousel label="Anúncios disponíveis" className={styles.carousel}>
+            {anuncios
+              ? lista.map((anuncio) => <AdCard key={anuncio.id} ad={anuncio} />)
+              : Array.from({ length: FANTASMAS }, (_, indice) => (
+                  /* o fantasma tem a altura do cartão inteiro (mídia 4/3 +
+                     corpo + rodapé) para o trilho não encolher na troca */
+                  <Esqueleto key={indice} altura={392} raio="var(--radius-xl)" />
+                ))}
+          </Carousel>
+        )}
 
         <div className={styles.more}>
           <Button as={Link} href="/anuncios" variant="outline" iconRight="arrow-right">
