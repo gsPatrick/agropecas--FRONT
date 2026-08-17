@@ -26,12 +26,7 @@ import Carousel from '@/components/Carousel/Carousel';
 import RequerContaModal from '@/components/RequerContaModal/RequerContaModal';
 import { useChat } from '@/components/ChatProvider/ChatProvider';
 import { useSessao } from '@/lib/sessao';
-import {
-  buscarAnuncio,
-  buscarParecidos,
-  revelarWhatsapp,
-  registrarContato,
-} from '@/lib/dados/anuncio';
+import { buscarAnuncio, buscarParecidos, revelarWhatsapp } from '@/lib/dados/anuncio';
 import styles from './page.module.css';
 
 export default function AnuncioPage({ params }) {
@@ -92,8 +87,12 @@ export default function AnuncioPage({ params }) {
       return;
     }
 
-    /* métrica de intenção; erro aqui não pode atrapalhar a conversa */
-    registrarContato(anuncio.id, 'chat').catch(() => {});
+    /* ⚠️ NÃO registra contato aqui. Clicar em "Conversar" só abre o balão —
+       se a pessoa fechar sem escrever nada, não houve contato nenhum. O
+       registro acontece quando a primeira mensagem é REALMENTE enviada
+       (`ChatProvider.enviar`, no momento em que o rascunho vira conversa) —
+       era aqui antes, e por isso "Últimos contatos" listava gente que nunca
+       mandou mensagem: o clique já contava como contato. */
 
     /* o balão só existe para quem é cliente (ver `ChatWidget`) — quem vende
        tem a própria caixa de entrada em `/painel/mensagens`. Abrir o balão

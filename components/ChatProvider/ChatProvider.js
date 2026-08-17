@@ -55,6 +55,7 @@ import {
   iniciarConversa,
   paraMensagem,
 } from '@/lib/dados/mensagens';
+import { registrarContato } from '@/lib/dados/anuncio';
 
 const ChatContext = createContext(null);
 
@@ -307,6 +308,12 @@ export default function ChatProvider({ children }) {
           setConversas((atual) => [nova, ...atual.filter((item) => item.id !== nova.id)]);
           setAtiva(nova.id);
           setRascunho(null);
+
+          /* o contato do chat conta AQUI — só quando a mensagem sai de
+             verdade, não quando o botão "Conversar" é clicado. Clicar só abre
+             o balão; fechar sem escrever nada nunca foi um contato. Erro aqui
+             não pode desfazer o envio, que já aconteceu */
+          registrarContato(rascunho.anuncioId, 'chat').catch(() => {});
         } catch {
           aviso.erro('Não foi possível enviar a mensagem. Tente de novo.');
         }
