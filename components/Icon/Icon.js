@@ -1,10 +1,22 @@
-import { SiWhatsapp } from 'react-icons/si';
+import { SiWhatsapp, SiGooglechrome, SiFirefoxbrowser, SiSafari, SiMacos } from 'react-icons/si';
+import { FaWindows, FaEdge, FaApple, FaLinux, FaAndroid } from 'react-icons/fa';
 import styles from './Icon.module.css';
 
-// Marcas registradas vêm da biblioteca oficial (Simple Icons via react-icons):
-// o glifo do WhatsApp é forma cheia e não pode ser redesenhado em contorno.
+// Marcas registradas vêm da biblioteca oficial (Simple Icons/Font Awesome via
+// react-icons): o glifo de cada uma é forma cheia e não pode ser redesenhado
+// em contorno. Microsoft não publica Windows/Edge no conjunto Simple Icons —
+// por isso os dois vêm do Font Awesome, os demais do Simple Icons.
 const brands = {
   whatsapp: SiWhatsapp,
+  chrome: SiGooglechrome,
+  firefox: SiFirefoxbrowser,
+  safari: SiSafari,
+  edge: FaEdge,
+  macos: SiMacos,
+  windows: FaWindows,
+  linux: FaLinux,
+  apple: FaApple,
+  android: FaAndroid,
 };
 
 const GEAR_TEETH = Array.from({ length: 8 }, (_, i) => i * 45);

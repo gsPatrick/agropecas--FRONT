@@ -45,6 +45,24 @@ function haTempo(iso) {
   return `há ${Math.round(diff / DIA)} dias`;
 }
 
+/* `dispositivo` chega como "Chrome · macOS" (ver `auth.sessao.service.js`,
+   API) — a metade depois do "·" é o sistema, a identidade mais reconhecível
+   de uma sessão à primeira vista (o logo da Apple bate mais rápido que ler
+   "macOS"). Ícone genérico de pessoa só para o que a API não identificou
+   (user_agent de origem que não é navegador nenhum). */
+const ICONE_POR_SISTEMA = {
+  macos: 'macos',
+  ios: 'apple',
+  windows: 'windows',
+  android: 'android',
+  linux: 'linux',
+};
+
+function iconeDoDispositivo(dispositivo) {
+  const sistema = (dispositivo || '').split('·')[1]?.trim().toLowerCase().replace(/\s+/g, '');
+  return ICONE_POR_SISTEMA[sistema] || null;
+}
+
 export default function ConfigSeguranca() {
   const aviso = useAviso();
 
@@ -166,10 +184,16 @@ export default function ConfigSeguranca() {
         ) : (
           <>
             <ul className={styles.sessoes}>
-              {sessoes.map((sessao) => (
+              {sessoes.map((sessao) => {
+                const iconeSistema = iconeDoDispositivo(sessao.dispositivo);
+
+                return (
                 <li key={sessao.id} className={styles.sessao}>
                   <span className={styles.icone}>
-                    <Icon name={sessao.atual ? 'check' : 'user'} size={16} />
+                    <Icon
+                      name={sessao.atual ? 'check' : iconeSistema || 'user'}
+                      size={sessao.atual || !iconeSistema ? 16 : 18}
+                    />
                   </span>
 
                   <div className={styles.sessaoTexto}>
@@ -189,7 +213,8 @@ export default function ConfigSeguranca() {
                     </button>
                   )}
                 </li>
-              ))}
+                );
+              })}
             </ul>
 
             {outras.length ? (
