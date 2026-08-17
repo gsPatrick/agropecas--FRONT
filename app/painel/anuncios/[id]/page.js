@@ -21,6 +21,7 @@ import PainelMetrica from '@/components/PainelMetrica/PainelMetrica';
 import Modal from '@/components/Modal/Modal';
 import Dica from '@/components/Dica/Dica';
 import Icon from '@/components/Icon/Icon';
+import LocationMap from '@/components/LocationMap/LocationMap';
 import Esqueleto from '@/components/Esqueleto/Esqueleto';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
 import { useSessao } from '@/lib/sessao';
@@ -448,6 +449,8 @@ export default function DetalheAnuncioPage() {
             </dl>
 
             <p className={styles.descricao}>{anuncio.descricao}</p>
+
+            {anuncio.local ? <LocationMap local={anuncio.local} /> : null}
           </PainelCartao>
         </div>
 
