@@ -38,8 +38,13 @@ import {
 } from '@/lib/dados/meus-anuncios';
 import styles from './page.module.css';
 
+/* data + hora, não só data: "expira em 15 de out." não diz SE ainda dá tempo
+   de renovar hoje ou se já virou meia-noite — o minuto exato é o que permite
+   confiar no prazo em vez de arredondar de cabeça */
 const data = (valor) =>
-  valor ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium' }).format(valor) : '—';
+  valor
+    ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'medium', timeStyle: 'short' }).format(valor)
+    : '—';
 
 /* altura das barras em degraus de 10%: o valor exato exigiria estilo inline,
    que o projeto não usa. Onze degraus são indistinguíveis a olho num gráfico
