@@ -30,7 +30,7 @@ import { useAviso } from '@/components/Aviso/AvisoProvider';
 import { useSessao, PERFIS } from '@/lib/sessao';
 import { useFavoritos } from '@/lib/favoritos';
 import { useChat } from '@/components/ChatProvider/ChatProvider';
-import { ABAS_MENSAGENS } from '@/lib/mensagens-mock';
+import { ABAS_MENSAGENS } from '@/lib/mensagens-abas';
 import styles from './page.module.css';
 
 /**

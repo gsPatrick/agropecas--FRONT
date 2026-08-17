@@ -72,7 +72,7 @@ import {
   carregarServicos,
   salvarServicos,
 } from '@/lib/dados/exclusivas';
-import { TIPOS_MAQUINA, DIAS, FORMAS_ENTREGA, FORMAS_ATENDIMENTO, RAIOS } from '@/lib/exclusivas-mock';
+import { TIPOS_MAQUINA, DIAS, FORMAS_ENTREGA, FORMAS_ATENDIMENTO, RAIOS } from '@/lib/vocabulario-exclusivas';
 import { marcarOnboardingDispensado } from '@/lib/onboarding';
 import styles from './Onboarding.module.css';
 

@@ -26,8 +26,7 @@ import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
 import Esqueleto from '@/components/Esqueleto/Esqueleto';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
-import { PUBLICOS } from '@/lib/admin-catalogo-mock';
-import { enviarComunicado, listarHistoricoComunicados } from '@/lib/dados/admin-comunicados';
+import { enviarComunicado, listarHistoricoComunicados, PUBLICOS } from '@/lib/dados/admin-comunicados';
 import styles from './page.module.css';
 
 /**

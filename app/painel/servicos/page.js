@@ -22,7 +22,7 @@ import Input from '@/components/Input/Input';
 import Icon from '@/components/Icon/Icon';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
 import { useSessao } from '@/lib/sessao';
-import { RAIOS, FORMAS_ATENDIMENTO, pendenciasExclusivas } from '@/lib/exclusivas-mock';
+import { RAIOS, FORMAS_ATENDIMENTO, pendenciasExclusivas } from '@/lib/vocabulario-exclusivas';
 import {
   carregarServicos,
   salvarServicos,

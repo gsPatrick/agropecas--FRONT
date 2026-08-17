@@ -25,7 +25,7 @@ import Icon from '@/components/Icon/Icon';
 import Dica from '@/components/Dica/Dica';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
 import { useSessao } from '@/lib/sessao';
-import { TIPOS_MAQUINA, pendenciasExclusivas } from '@/lib/exclusivas-mock';
+import { TIPOS_MAQUINA, pendenciasExclusivas } from '@/lib/vocabulario-exclusivas';
 import {
   carregarPropriedade,
   salvarPropriedade,

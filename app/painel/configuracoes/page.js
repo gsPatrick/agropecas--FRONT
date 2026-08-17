@@ -27,7 +27,7 @@ import ConfigPrivacidade from '@/components/Configuracoes/ConfigPrivacidade/Conf
 import ConfigDados from '@/components/Configuracoes/ConfigDados/ConfigDados';
 import ConfigPlano from '@/components/Configuracoes/ConfigPlano/ConfigPlano';
 import { useSessao } from '@/lib/sessao';
-import { SECOES } from '@/lib/configuracoes-mock';
+import { SECOES } from '@/lib/configuracoes-secoes';
 import styles from './page.module.css';
 
 const TELAS = {

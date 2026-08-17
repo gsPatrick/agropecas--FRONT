@@ -3,7 +3,7 @@
 /**
  * Administração → dados de perfil de um usuário.
  *
- * ⚠️ Reduzida em relação ao mock (`lib/exclusivas-mock.js`): a API do Admin
+ * ⚠️ Reduzida em relação ao mock (`lib/vocabulario-exclusivas.js`): a API do Admin
  * não tem endpoint de leitura nem de escrita para propriedade/maquinário
  * (produtor), atendimento/horários/entrega (loja) ou serviços/raio
  * (prestador) — esses dados moram em tabelas próprias que só o dono edita

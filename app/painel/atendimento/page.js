@@ -24,7 +24,7 @@ import Icon from '@/components/Icon/Icon';
 import PainelChave from '@/components/PainelChave/PainelChave';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
 import { useSessao } from '@/lib/sessao';
-import { DIAS, FORMAS_ENTREGA, pendenciasExclusivas } from '@/lib/exclusivas-mock';
+import { DIAS, FORMAS_ENTREGA, pendenciasExclusivas } from '@/lib/vocabulario-exclusivas';
 import { carregarAtendimento, salvarAtendimento } from '@/lib/dados/exclusivas';
 import styles from './page.module.css';
 
