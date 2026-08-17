@@ -128,6 +128,14 @@ export default function AnuncioPage({ params }) {
     : '';
   const zap = whatsapp ? `https://wa.me/${whatsapp}?text=${mensagem}` : '#';
 
+  /* preferência de contato do anunciante (Configurações → Privacidade). A API
+     já manda os dois campos prontos — o bug era o front nunca ler nenhum dos
+     dois e mostrar os dois botões sempre, mesmo quando o vendedor escolheu
+     "só pelo chat" ou "nenhum contato direto" */
+  const podeWhatsapp = Boolean(anuncio?.exibirWhatsapp);
+  const podeChat = Boolean(anuncio?.aceitaChat);
+  const semContatoDireto = !podeWhatsapp && !podeChat;
+
   /**
    * O número não vem no detalhe: ele sai do endpoint de revelação, que exige
    * login (401 para visitante) — a mesma regra que a tela já tinha.
@@ -270,35 +278,51 @@ export default function AnuncioPage({ params }) {
                   {anuncio.preco || <span className={styles.priceAsk}>Consultar valor</span>}
                 </p>
 
-                <div className={styles.actions}>
-                  <Button
-                    as="a"
-                    href={zap}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    size="lg"
-                    fullWidth
-                    iconLeft="whatsapp"
-                    onClick={abrirWhatsapp}
-                  >
-                    Falar no WhatsApp
-                  </Button>
+                {semContatoDireto ? (
+                  <p className={styles.channels}>
+                    Este anunciante não disponibilizou WhatsApp nem chat no momento — tente ver
+                    o perfil para outras formas de contato.
+                  </p>
+                ) : (
+                  <>
+                    <div className={styles.actions}>
+                      {podeWhatsapp ? (
+                        <Button
+                          as="a"
+                          href={zap}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          size="lg"
+                          fullWidth
+                          iconLeft="whatsapp"
+                          onClick={abrirWhatsapp}
+                        >
+                          Falar no WhatsApp
+                        </Button>
+                      ) : null}
 
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    fullWidth
-                    iconLeft="mail"
-                    onClick={abrirChat}
-                  >
-                    Conversar pelo sistema
-                  </Button>
-                </div>
+                      {podeChat ? (
+                        <Button
+                          variant={podeWhatsapp ? 'outline' : 'primary'}
+                          size="lg"
+                          fullWidth
+                          iconLeft="mail"
+                          onClick={abrirChat}
+                        >
+                          Conversar pelo sistema
+                        </Button>
+                      ) : null}
+                    </div>
 
-                <p className={styles.channels}>
-                  Escolha por onde falar: o WhatsApp abre a conversa no seu celular; o chat
-                  guarda o histórico aqui na plataforma.
-                </p>
+                    <p className={styles.channels}>
+                      {podeWhatsapp && podeChat
+                        ? 'Escolha por onde falar: o WhatsApp abre a conversa no seu celular; o chat guarda o histórico aqui na plataforma.'
+                        : podeWhatsapp
+                          ? 'Este anunciante prefere ser chamado pelo WhatsApp.'
+                          : 'Este anunciante atende só pelo chat da plataforma.'}
+                    </p>
+                  </>
+                )}
 
                 <div className={styles.seller}>
                   <Link
@@ -360,22 +384,29 @@ export default function AnuncioPage({ params }) {
         </div>
 
         {/* barra fixa no celular: o contato não pode depender de rolagem */}
-        <div className={styles.mobileBar}>
-          <span className={styles.mobilePrice}>{anuncio.preco || 'Consultar'}</span>
-          <div className={styles.mobileActions}>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={abrirChat}
-              aria-label="Conversar pelo sistema"
-            >
-              <Icon name="mail" size={17} />
-            </Button>
-            <Button as="a" href={zap} target="_blank" rel="noopener noreferrer" size="sm" iconLeft="whatsapp" onClick={abrirWhatsapp}>
-              WhatsApp
-            </Button>
+        {!semContatoDireto ? (
+          <div className={styles.mobileBar}>
+            <span className={styles.mobilePrice}>{anuncio.preco || 'Consultar'}</span>
+            <div className={styles.mobileActions}>
+              {podeChat ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={abrirChat}
+                  aria-label="Conversar pelo sistema"
+                >
+                  <Icon name="mail" size={17} />
+                </Button>
+              ) : null}
+
+              {podeWhatsapp ? (
+                <Button as="a" href={zap} target="_blank" rel="noopener noreferrer" size="sm" iconLeft="whatsapp" onClick={abrirWhatsapp}>
+                  WhatsApp
+                </Button>
+              ) : null}
+            </div>
           </div>
-        </div>
+        ) : null}
       </main>
 
       <AppFooter />
