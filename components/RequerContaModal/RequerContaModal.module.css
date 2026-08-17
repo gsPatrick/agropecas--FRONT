@@ -1,0 +1,8 @@
+/* ocupa a largura toda: como item flex dentro do rodapé do Modal, que é
+   space-between, os botões ficariam encostados na borda esquerda */
+.rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  width: 100%;
+}

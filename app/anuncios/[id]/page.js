@@ -23,6 +23,7 @@ import Icon from '@/components/Icon/Icon';
 import Esqueleto from '@/components/Esqueleto/Esqueleto';
 import LocationMap from '@/components/LocationMap/LocationMap';
 import Carousel from '@/components/Carousel/Carousel';
+import RequerContaModal from '@/components/RequerContaModal/RequerContaModal';
 import { useChat } from '@/components/ChatProvider/ChatProvider';
 import { useSessao } from '@/lib/sessao';
 import {
@@ -36,7 +37,7 @@ import styles from './page.module.css';
 export default function AnuncioPage({ params }) {
   const router = useRouter();
   const { conversas, abrirConversa, setAberto } = useChat();
-  const { tipoPerfil } = useSessao();
+  const { autenticado, tipoPerfil } = useSessao();
 
   const [anuncio, setAnuncio] = useState(null);
   const [relacionados, setRelacionados] = useState([]);
@@ -45,6 +46,9 @@ export default function AnuncioPage({ params }) {
   /* guardado depois do primeiro clique: revelar tem cota por usuário, então
      repetir a chamada a cada clique gastaria o limite de quem já viu o número */
   const [whatsapp, setWhatsapp] = useState(null);
+  /* texto de "para X, crie uma conta" — null fecha o modal; string abre com
+     a frase certa para a ação que o visitante tentou fazer */
+  const [pedidoDeConta, setPedidoDeConta] = useState(null);
 
   useEffect(() => {
     const controle = new AbortController();
@@ -81,6 +85,13 @@ export default function AnuncioPage({ params }) {
      primeira mensagem é enviada (`POST /conversas` faz as duas coisas numa
      chamada só) */
   function abrirChat() {
+    /* visitante sem conta: antes era um redirecionamento direto e sem aviso
+       para /entrar — agora explica o motivo primeiro */
+    if (!autenticado) {
+      setPedidoDeConta('conversar com o anunciante');
+      return;
+    }
+
     /* métrica de intenção; erro aqui não pode atrapalhar a conversa */
     registrarContato(anuncio.id, 'chat').catch(() => {});
 
@@ -129,6 +140,13 @@ export default function AnuncioPage({ params }) {
 
     evento.preventDefault();
 
+    /* sem conta o pedido nem sai: evita abrir e ter que fechar a aba em
+       branco, e mostra o motivo antes de qualquer coisa */
+    if (!autenticado) {
+      setPedidoDeConta('ver o WhatsApp do anunciante');
+      return;
+    }
+
     const aba = window.open('', '_blank', 'noopener,noreferrer');
 
     try {
@@ -149,9 +167,10 @@ export default function AnuncioPage({ params }) {
     } catch (erro) {
       aba?.close();
 
-      /* 401 é a regra de produto, não uma falha: manda entrar e volta pra cá */
+      /* 401 aqui só aconteceria por sessão vencida entre o clique e a
+         resposta — caso raro, mesmo aviso do caminho comum acima */
       if (erro.status === 401) {
-        router.push(`/entrar?retorno=${encodeURIComponent(`/anuncios/${params.id}`)}`);
+        setPedidoDeConta('ver o WhatsApp do anunciante');
       }
     }
   }
@@ -360,6 +379,13 @@ export default function AnuncioPage({ params }) {
       </main>
 
       <AppFooter />
+
+      <RequerContaModal
+        open={Boolean(pedidoDeConta)}
+        onClose={() => setPedidoDeConta(null)}
+        acao={pedidoDeConta}
+        retorno={`/anuncios/${params.id}`}
+      />
     </>
   );
 }
