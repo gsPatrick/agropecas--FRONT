@@ -35,7 +35,7 @@ const AUDIENCES = [
   },
 ];
 
-export default function Audience({ onSelect }) {
+export default function Audience() {
   return (
     <section className={styles.root} id="publicos">
       <div className={styles.inner}>
@@ -48,7 +48,7 @@ export default function Audience({ onSelect }) {
                 icon={audience.icon}
                 title={audience.title}
                 text={audience.text}
-                onAction={() => onSelect && onSelect(audience.id)}
+                href="/entrar"
               />
             </Reveal>
           ))}

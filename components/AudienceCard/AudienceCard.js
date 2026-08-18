@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Icon from '@/components/Icon/Icon';
 import Button from '@/components/Button/Button';
 import styles from './AudienceCard.module.css';
@@ -7,7 +8,7 @@ export default function AudienceCard({
   title,
   text,
   actionLabel = 'Acessar',
-  onAction,
+  href = '/entrar',
 }) {
   return (
     <article className={styles.root}>
@@ -18,7 +19,7 @@ export default function AudienceCard({
       <h3 className={styles.title}>{title}</h3>
       <p className={styles.text}>{text}</p>
 
-      <Button variant="forest" size="sm" className={styles.action} onClick={onAction}>
+      <Button as={Link} href={href} variant="forest" size="sm" className={styles.action}>
         {actionLabel}
       </Button>
     </article>
