@@ -16,9 +16,8 @@ const NAV = [
   { label: 'Início', href: '#topo' },
   { label: 'Como funciona', href: '#como-funciona' },
   { label: 'Peças', href: '#pecas' },
-  { label: 'Para Lojas', href: '#para-lojas' },
-  { label: 'Para Prestadores', href: '#para-prestadores' },
-  { label: 'Blog', href: '#blog' },
+  { label: 'Para Lojas', href: '#publicos' },
+  { label: 'Para Prestadores', href: '#publicos' },
   { label: 'Termos de uso', href: '/termos' },
 ];
 

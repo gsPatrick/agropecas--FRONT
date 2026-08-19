@@ -33,7 +33,12 @@ export default function AppFooter() {
           ))}
         </nav>
 
-        <p className={styles.legal}>© 2026 AgroPeças MT</p>
+        <div className={styles.legal}>
+          <span>© 2026 AgroPeças MT</span>
+          <a href="https://codebypatrick.dev/" target="_blank" rel="noopener noreferrer" className={styles.credit}>
+            Desenvolvido por Patrick.Developer
+          </a>
+        </div>
       </div>
     </footer>
   );
