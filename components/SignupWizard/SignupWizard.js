@@ -511,6 +511,10 @@ export default function SignupWizard({ onSwitch, onFinish }) {
                   <Link href="/termos" className={styles.consentLink} target="_blank">
                     Termos de Uso
                   </Link>{' '}
+                  e a{' '}
+                  <Link href="/privacidade" className={styles.consentLink} target="_blank">
+                    Política de Privacidade
+                  </Link>{' '}
                   da AgroPeças MT.
                 </span>
               </label>
