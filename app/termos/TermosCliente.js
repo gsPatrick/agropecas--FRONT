@@ -39,99 +39,194 @@ import styles from './page.module.css';
 
 export const SECTIONS_TERMOS = [
   {
-    id: 'objeto',
-    title: '1. O que é a AgroPeças MT',
+    id: 'definicoes',
+    title: '1. Definições',
     blocks: [
-      'A AgroPeças MT é uma plataforma de conexão e divulgação. Ela aproxima produtores rurais, lojas de peças e prestadores de serviços do agronegócio, permitindo que publiquem anúncios e encontrem quem procuram.',
-      'A plataforma não vende, não intermedeia e não participa das negociações. Não há pagamento processado pelo site, carrinho de compras, frete, garantia de produto ou custódia de valores. Encontrado o anúncio, o contato e toda a negociação acontecem diretamente entre as partes, preferencialmente por WhatsApp.',
+      'AgroPeças: plataforma digital que facilita a conexão entre usuários interessados em peças, produtos e serviços relacionados ao setor agropecuário.',
+      'Usuário: qualquer pessoa física ou jurídica que acesse, cadastre-se ou utilize a plataforma.',
+      'Produtor Rural: usuário que produz, explora ou desenvolve atividade agropecuária e utiliza a plataforma para localizar peças, produtos ou serviços.',
+      'Loja de Peças: pessoa física ou jurídica que utiliza a plataforma para divulgar peças, componentes, produtos ou itens relacionados a máquinas, veículos e equipamentos.',
+      'Prestador de Serviços: pessoa física ou jurídica que divulga serviços relacionados ao setor agropecuário, máquinas, equipamentos, manutenção, transporte ou atividades semelhantes.',
+      'Anúncio/Cadastro: informação disponibilizada pelo usuário na plataforma sobre uma peça, produto, serviço ou oportunidade de negociação.',
     ],
   },
   {
-    id: 'cadastro',
-    title: '2. Cadastro e conta',
+    id: 'objetivo',
+    title: '2. Objetivo da plataforma',
     blocks: [
-      'Para publicar anúncios é necessário criar uma conta informando dados verdadeiros, completos e atualizados. Cada usuário escolhe seu perfil no cadastro: Produtor Rural, Loja de Peças ou Prestador de Serviços.',
-      'O usuário é o único responsável por sua senha e por tudo o que for feito na sua conta. Ao identificar uso indevido, deve comunicar a plataforma imediatamente.',
-      'É proibido criar contas com dados de terceiros, usar identidade falsa ou manter mais de uma conta com a intenção de burlar restrições.',
+      'O AgroPeças tem como objetivo facilitar o contato entre pessoas e empresas do setor agropecuário, especialmente em situações nas quais exista necessidade de localizar peças, componentes, produtos ou serviços com maior rapidez.',
+      'A plataforma funciona como um ambiente de conexão e divulgação. O AgroPeças não realiza, necessariamente, a venda dos produtos anunciados, não adquire as peças para revenda e não atua como proprietário dos produtos cadastrados por terceiros.',
+      'As negociações realizadas entre os usuários são de responsabilidade exclusiva das partes envolvidas.',
     ],
   },
   {
-    id: 'anuncios',
-    title: '3. Anúncios e conteúdo do usuário',
+    id: 'cadastro-usuario',
+    title: '3. Cadastro do usuário',
     blocks: [
-      'O conteúdo de cada anúncio — textos, fotos, preços, condições e dados de contato — é de responsabilidade exclusiva de quem o publica. A AgroPeças MT não confere, não valida e não garante a veracidade, a procedência, a qualidade ou a legalidade do que é anunciado.',
-      'Ao publicar, o usuário declara que tem direito sobre o item ou serviço anunciado e sobre as imagens enviadas, e autoriza a exibição desse conteúdo na plataforma.',
+      'Para utilizar determinadas funcionalidades da plataforma, poderá ser necessário realizar cadastro. O usuário compromete-se a fornecer informações verdadeiras, completas e atualizadas, e é responsável pela segurança de suas credenciais de acesso e por todas as atividades realizadas em sua conta.',
+      'O usuário não poderá utilizar dados falsos, identidade de terceiros ou informações destinadas a induzir outros usuários a erro. Caso o AgroPeças identifique informações aparentemente falsas, fraudulentas ou incompatíveis com a finalidade da plataforma, poderá solicitar comprovação, restringir funcionalidades ou suspender o cadastro.',
+    ],
+  },
+  {
+    id: 'cadastro-anuncio',
+    title: '4. Cadastro e divulgação de peças e serviços',
+    blocks: [
+      'O usuário que cadastrar uma peça, produto ou serviço é responsável pela veracidade das informações fornecidas e deve mantê-las atualizadas. Sempre que possível, o cadastro deverá conter informações suficientes para identificação do item, incluindo, quando aplicável:',
     ],
     list: {
-      intro: 'É proibido anunciar:',
+      intro: '',
       items: [
-        'itens de origem ilícita, furtados, receptados ou com numeração adulterada;',
-        'produtos falsificados ou que violem marca, patente ou direito autoral;',
-        'armas, munições, agrotóxicos de uso restrito e demais itens de comércio proibido ou controlado sem a devida autorização;',
-        'conteúdo falso, enganoso, ofensivo, discriminatório ou que exponha terceiros;',
-        'anúncios repetidos em massa, propaganda de terceiros ou qualquer forma de spam.',
+        'descrição da peça ou produto;',
+        'marca, modelo, código ou referência;',
+        'condição de uso e compatibilidade;',
+        'quantidade disponível e localização;',
+        'preço ou condição de negociação;',
+        'fotografias e informações relevantes sobre conservação ou funcionamento.',
       ],
     },
   },
   {
-    id: 'contato',
-    title: '4. Contato entre usuários',
+    id: 'negociacoes',
+    title: '5. Negociações entre usuários',
     blocks: [
-      'Ao publicar um anúncio, o usuário autoriza a exibição do seu número de WhatsApp e demais contatos informados, para que interessados possam procurá-lo. Essa exibição é a finalidade central da plataforma.',
-      'O contato deve ser respeitoso e restrito ao assunto do anúncio. É vedado usar os contatos obtidos para envio de propaganda não solicitada, cobrança indevida, assédio ou qualquer forma de abuso.',
+      'O AgroPeças facilita o contato entre os usuários, mas não participa necessariamente da negociação realizada entre eles, e não garante que uma negociação será concluída. Cabe exclusivamente aos usuários verificar, antes da conclusão de qualquer negócio:',
+    ],
+    list: {
+      intro: '',
+      items: [
+        'identidade e legitimidade da outra parte;',
+        'existência, disponibilidade e procedência da peça;',
+        'estado de conservação e compatibilidade;',
+        'preço, condições de pagamento, prazo e forma de entrega;',
+        'garantias eventualmente oferecidas e documentação necessária.',
+      ],
+    },
+  },
+  {
+    id: 'responsabilidade-usuarios',
+    title: '6. Responsabilidade dos usuários',
+    blocks: [
+      'Cada usuário é integralmente responsável pelos conteúdos, informações, fotografias, preços, descrições e demais dados que inserir na plataforma. É proibido utilizar a plataforma para:',
+    ],
+    list: {
+      intro: '',
+      items: [
+        'aplicar golpes ou fraudes, ou divulgar informações falsas ou enganosas;',
+        'anunciar produto inexistente ou utilizar identidade falsa;',
+        'comercializar produtos de origem ilícita ou divulgar conteúdo ilegal;',
+        'violar direitos de terceiros ou praticar discriminação, ameaça, assédio ou qualquer forma de abuso;',
+        'tentar obter acesso indevido a contas, sistemas ou informações de outros usuários;',
+        'inserir códigos maliciosos ou prejudicar o funcionamento da plataforma.',
+      ],
+    },
+  },
+  {
+    id: 'pecas-usadas',
+    title: '7. Peças usadas e produtos de terceiros',
+    blocks: [
+      'O AgroPeças poderá permitir a divulgação de peças novas, usadas, recondicionadas ou de outras condições, desde que legalmente permitidas, cabendo ao responsável pelo cadastro informar a condição do produto. O usuário interessado deve avaliar as condições do produto antes da negociação — o AgroPeças não realiza, salvo quando expressamente informado, inspeção física, perícia, certificação ou avaliação técnica dos produtos anunciados.',
     ],
   },
   {
-    id: 'moderacao',
-    title: '5. Moderação',
+    id: 'pagamentos',
+    title: '8. Pagamentos',
     blocks: [
-      'A administração da plataforma pode, a qualquer momento e a seu critério, editar, ocultar ou excluir anúncios, bem como advertir, bloquear ou excluir contas que violem estes termos, prejudiquem outros usuários ou comprometam a segurança do serviço.',
-      'A administração também pode intervir em cadastros e anúncios para correção de dados, organização de categorias e manutenção da plataforma. Toda intervenção fica registrada.',
+      'O AgroPeças não se responsabiliza pelos pagamentos realizados diretamente entre usuários. Quando a negociação ocorrer fora da plataforma, o pagamento deve ser feito diretamente entre comprador e vendedor, nas condições acordadas entre as partes.',
+      'O AgroPeças não solicita pagamento em nome de terceiros, salvo quando alguma funcionalidade expressamente indicar o contrário. Desconfie de solicitações de pagamento feitas por quem se apresente como representante do AgroPeças sem confirmação pelos canais oficiais.',
     ],
   },
   {
-    id: 'responsabilidade',
-    title: '6. Limitação de responsabilidade',
+    id: 'responsabilidade-plataforma',
+    title: '9. Responsabilidade do AgroPeças',
     blocks: [
-      'A AgroPeças MT não é parte nos negócios celebrados entre usuários e não responde por eles. Não respondemos por prejuízo decorrente de negociação frustrada, produto com defeito, peça incompatível, serviço mal executado, atraso, inadimplemento ou informação incorreta prestada por qualquer usuário.',
-      'A plataforma é oferecida no estado em que se encontra. Não garantimos disponibilidade ininterrupta e podemos suspender o serviço para manutenção ou por motivo técnico.',
-      'Recomendamos conferir a procedência do item, a compatibilidade da peça e a idoneidade da outra parte antes de fechar qualquer negócio, preferindo negociações presenciais e documentadas.',
+      'O AgroPeças empregará esforços razoáveis para manter a plataforma disponível e funcional, mas pode apresentar indisponibilidades temporárias por manutenção, atualizações, falhas técnicas ou fatores fora do seu controle razoável.',
+      'O AgroPeças não garante que produtos procurados estejam disponíveis, que usuários respondam aos contatos, que uma negociação seja concluída, que as informações fornecidas por terceiros sejam verdadeiras ou que os produtos anunciados sejam originais, adequados ou compatíveis.',
+      'O AgroPeças não será responsável por prejuízos decorrentes exclusivamente de negociações realizadas entre usuários, ressalvadas as hipóteses em que a legislação aplicável determine responsabilidade diferente.',
     ],
   },
   {
-    id: 'dados',
-    title: '7. Dados pessoais',
+    id: 'conteudo-usuario',
+    title: '10. Conteúdo inserido pelos usuários',
     blocks: [
-      'Os dados informados no cadastro são usados para identificar o usuário, viabilizar a publicação dos anúncios e permitir o contato entre as partes, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018).',
-      'Dados de contato marcados para exibição ficam visíveis publicamente nos anúncios — é isso que permite que alguém entre em contato. O usuário pode, a qualquer momento, editar seus dados, ocultar seus anúncios ou solicitar a exclusão da conta.',
-      'Não vendemos dados pessoais a terceiros.',
+      'O usuário mantém a responsabilidade pelo conteúdo que publicar e declara possuir os direitos necessários sobre fotografias, descrições, logotipos ou outros materiais inseridos na plataforma.',
+      'O usuário autoriza o AgroPeças, de forma não exclusiva e durante o período de disponibilização do conteúdo, a utilizar o material exclusivamente para funcionamento, divulgação e apresentação da plataforma e dos respectivos cadastros. O AgroPeças poderá retirar conteúdo que viole estes Termos, a legislação aplicável ou direitos de terceiros.',
     ],
   },
   {
-    id: 'gratuidade',
-    title: '8. Uso gratuito',
+    id: 'propriedade-intelectual',
+    title: '11. Propriedade intelectual',
     blocks: [
-      'Nesta fase, o cadastro e a publicação de anúncios são gratuitos. Não há mensalidade nem comissão sobre negócios fechados.',
-      'Eventuais planos ou serviços pagos que venham a existir serão comunicados com antecedência e não afetarão retroativamente o que já foi publicado.',
+      'A marca AgroPeças, seu nome, identidade visual, logotipo, layout, elementos gráficos, textos institucionais, funcionalidades e demais elementos próprios da plataforma são protegidos pela legislação aplicável. É proibida a reprodução, cópia, modificação, distribuição ou exploração comercial não autorizada desses elementos. O uso da plataforma não concede ao usuário qualquer direito de propriedade sobre a marca ou os elementos pertencentes ao AgroPeças.',
+    ],
+  },
+  {
+    id: 'privacidade',
+    title: '12. Privacidade e proteção de dados',
+    blocks: [
+      'O tratamento de dados pessoais realizado pelo AgroPeças observa a legislação brasileira aplicável, especialmente a Lei nº 13.709/2018 (LGPD). Os dados poderão ser tratados para finalidades relacionadas ao cadastro, funcionamento da plataforma, comunicação entre usuários, segurança, prevenção de fraudes, atendimento e cumprimento de obrigações legais.',
+      'Consulte a Política de Privacidade do AgroPeças, que complementa estes Termos de Uso e apresenta informações específicas sobre coleta, utilização, armazenamento e compartilhamento de dados pessoais.',
+    ],
+  },
+  {
+    id: 'comunicacoes',
+    title: '13. Comunicações entre usuários',
+    blocks: [
+      'O AgroPeças poderá disponibilizar ferramentas para facilitar o contato entre usuários. As comunicações realizadas entre usuários são de responsabilidade das partes. É proibido utilizar os canais da plataforma para spam, ameaças, golpes, assédio, conteúdo ilegal ou qualquer finalidade incompatível com estes Termos. O AgroPeças poderá adotar medidas de segurança e moderação quando houver indícios de abuso ou violação destes Termos.',
+    ],
+  },
+  {
+    id: 'suspensao',
+    title: '14. Suspensão e encerramento de contas',
+    blocks: [
+      'O AgroPeças poderá suspender, restringir ou encerrar contas quando houver indícios de fraude, utilização de identidade falsa, publicação de informações falsas, violação destes Termos, prática de atividade ilegal, tentativa de prejudicar a plataforma ou outros usuários, ou utilização abusiva da plataforma.',
+      'Sempre que possível e adequado, o usuário será comunicado sobre a medida adotada. O encerramento da conta não elimina obrigações que, por sua natureza, devam permanecer após o encerramento.',
+    ],
+  },
+  {
+    id: 'denuncias',
+    title: '15. Denúncias',
+    blocks: [
+      'Usuários poderão comunicar ao AgroPeças anúncios, perfis ou comportamentos que aparentem violar estes Termos ou a legislação. O AgroPeças poderá analisar a denúncia e adotar as medidas que considerar adequadas, incluindo solicitação de informações, retirada de conteúdo ou suspensão de conta. A realização de uma denúncia não garante a remoção imediata de determinado conteúdo, cabendo ao AgroPeças avaliar cada situação de acordo com as informações disponíveis e a legislação aplicável.',
+    ],
+  },
+  {
+    id: 'links-terceiros',
+    title: '16. Links e serviços de terceiros',
+    blocks: [
+      'A plataforma poderá apresentar links ou direcionamentos para sites, aplicativos ou serviços de terceiros. O AgroPeças não controla necessariamente esses serviços e não se responsabiliza por seus conteúdos, políticas, funcionamento ou práticas.',
     ],
   },
   {
     id: 'alteracoes',
-    title: '9. Alterações destes termos',
+    title: '17. Alterações dos termos',
     blocks: [
-      'Estes termos podem ser atualizados a qualquer momento. A versão vigente é sempre a publicada nesta página, com a data de atualização indicada. O uso da plataforma após a alteração significa concordância com a nova versão.',
+      'O AgroPeças poderá atualizar estes Termos de Uso sempre que necessário para adequá-los à evolução da plataforma, alterações legais ou novas funcionalidades. A versão vigente é sempre a disponibilizada na plataforma. A continuidade de utilização da plataforma após a publicação de alterações poderá representar a concordância do usuário com os novos Termos, respeitados os direitos previstos na legislação aplicável.',
+    ],
+  },
+  {
+    id: 'disposicoes-gerais',
+    title: '18. Disposições gerais',
+    blocks: [
+      'Caso alguma disposição destes Termos seja considerada inválida ou inexigível, as demais disposições permanecerão válidas na medida permitida pela legislação. A eventual tolerância do AgroPeças quanto ao descumprimento de qualquer disposição não constituirá renúncia ao direito de exigir seu cumprimento posteriormente. Estes Termos devem ser interpretados em conjunto com a Política de Privacidade e demais regras específicas eventualmente disponibilizadas na plataforma.',
     ],
   },
   {
     id: 'foro',
-    title: '10. Foro',
+    title: '19. Legislação aplicável',
     blocks: [
-      'Aplica-se a legislação brasileira. Fica eleito o foro da comarca de Tangará da Serra, Mato Grosso, para dirimir questões decorrentes destes termos, ressalvado o direito do consumidor de acionar o foro de seu domicílio.',
+      'Estes Termos serão regidos pelas leis da República Federativa do Brasil. As relações estabelecidas por meio da plataforma observarão a legislação brasileira aplicável, inclusive as normas de proteção de dados e, quando aplicável, as normas de defesa do consumidor. Eventuais conflitos deverão ser solucionados preferencialmente por meio de negociação entre as partes e, quando necessário, perante o foro competente nos termos da legislação aplicável.',
+    ],
+  },
+  {
+    id: 'aceite',
+    title: '20. Aceite',
+    blocks: [
+      'Ao criar uma conta, acessar ou utilizar funcionalidades que dependam de concordância com estes Termos, o usuário declara que leu estes Termos de Uso, compreendeu suas disposições, concorda com as regras aqui estabelecidas e compromete-se a utilizar a plataforma de forma lícita e responsável.',
     ],
   },
 ];
 
-const ATUALIZACAO_PADRAO = '10 de agosto de 2026';
+const ATUALIZACAO_PADRAO = '24 de agosto de 2026';
 
 /* o fallback estático usa outro formato (blocks + list); normalizar aqui deixa
    um único renderizador para os dois caminhos — dois renderizadores acabariam
