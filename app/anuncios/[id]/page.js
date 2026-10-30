@@ -27,12 +27,13 @@ import RequerContaModal from '@/components/RequerContaModal/RequerContaModal';
 import { useChat } from '@/components/ChatProvider/ChatProvider';
 import { useSessao } from '@/lib/sessao';
 import { buscarAnuncio, buscarParecidos, revelarWhatsapp } from '@/lib/dados/anuncio';
+import { iniciarCheckout } from '@/lib/dados/pedidos';
 import styles from './page.module.css';
 
 export default function AnuncioPage({ params }) {
   const router = useRouter();
   const { conversas, abrirConversa, setAberto } = useChat();
-  const { autenticado, tipoPerfil } = useSessao();
+  const { autenticado, tipoPerfil, usuario } = useSessao();
 
   const [anuncio, setAnuncio] = useState(null);
   const [relacionados, setRelacionados] = useState([]);
@@ -44,6 +45,8 @@ export default function AnuncioPage({ params }) {
   /* texto de "para X, crie uma conta" — null fecha o modal; string abre com
      a frase certa para a ação que o visitante tentou fazer */
   const [pedidoDeConta, setPedidoDeConta] = useState(null);
+  const [comprando, setComprando] = useState(false);
+  const [erroCompra, setErroCompra] = useState('');
 
   useEffect(() => {
     const controle = new AbortController();
@@ -182,6 +185,36 @@ export default function AnuncioPage({ params }) {
     }
   }
 
+  /**
+   * "Comprar agora" — cria o pedido (a API reserva a peça) e leva ao
+   * Checkout Pro do Mercado Pago. Navegação na MESMA aba: o MP devolve o
+   * comprador para `/checkout/sucesso|erro|pendente` deste site.
+   */
+  async function comprar() {
+    if (!autenticado) {
+      setPedidoDeConta('comprar esta peça');
+      return;
+    }
+
+    setErroCompra('');
+    setComprando(true);
+    try {
+      const { checkoutUrl } = await iniciarCheckout(anuncio.id);
+      window.location.href = checkoutUrl;
+    } catch (erro) {
+      setComprando(false);
+      if (erro.status === 401) {
+        setPedidoDeConta('comprar esta peça');
+        return;
+      }
+      setErroCompra(erro.message || 'Não foi possível iniciar a compra. Tente novamente.');
+    }
+  }
+
+  /* o próprio anúncio não mostra o botão — a API também recusa, mas o dono
+     vendo "Comprar" no que é dele só confunde */
+  const podeComprar = Boolean(anuncio?.compravel) && usuario?.slug !== anuncio?.autorSlug;
+
   if (carregando || !anuncio) return <AnuncioEsqueleto />;
 
   return (
@@ -262,11 +295,19 @@ export default function AnuncioPage({ params }) {
 
               <aside className={styles.warning}>
                 <Icon name="gear" size={18} />
-                <p>
-                  A AgroPeças MT conecta as partes, mas não participa da negociação.
-                  Combine valores e entrega direto com o anunciante e confira a peça antes
-                  de fechar negócio.
-                </p>
+                {anuncio.compravel ? (
+                  <p>
+                    Comprando pela plataforma, o pagamento fica guardado pela AgroPeças MT e
+                    só é repassado ao vendedor depois que você confirmar o recebimento da
+                    peça. Frete e retirada são combinados direto com o vendedor.
+                  </p>
+                ) : (
+                  <p>
+                    A AgroPeças MT conecta as partes, mas não participa da negociação.
+                    Combine valores e entrega direto com o anunciante e confira a peça antes
+                    de fechar negócio.
+                  </p>
+                )}
               </aside>
             </div>
 
@@ -276,6 +317,24 @@ export default function AnuncioPage({ params }) {
                 <p className={styles.price}>
                   {anuncio.preco || <span className={styles.priceAsk}>Consultar valor</span>}
                 </p>
+
+                {podeComprar ? (
+                  <div className={styles.buy}>
+                    <Button size="lg" fullWidth iconLeft="check" onClick={comprar} disabled={comprando}>
+                      {comprando ? 'Abrindo pagamento…' : 'Comprar agora'}
+                    </Button>
+                    <p className={styles.buyNote}>
+                      Pix ou cartão pelo Mercado Pago · Frete a combinar com o vendedor / retirada
+                    </p>
+                    {erroCompra ? (
+                      <p className={styles.buyError} role="alert">
+                        {erroCompra}
+                      </p>
+                    ) : null}
+                  </div>
+                ) : anuncio.esgotado ? (
+                  <p className={styles.buyNote}>Esta peça está sem estoque no momento.</p>
+                ) : null}
 
                 {semContatoDireto ? (
                   <p className={styles.channels}>
@@ -293,6 +352,7 @@ export default function AnuncioPage({ params }) {
                           rel="noopener noreferrer"
                           size="lg"
                           fullWidth
+                          variant={podeComprar ? 'outline' : 'primary'}
                           iconLeft="whatsapp"
                           onClick={abrirWhatsapp}
                         >
@@ -302,7 +362,7 @@ export default function AnuncioPage({ params }) {
 
                       {podeChat ? (
                         <Button
-                          variant={podeWhatsapp ? 'outline' : 'primary'}
+                          variant={podeWhatsapp || podeComprar ? 'outline' : 'primary'}
                           size="lg"
                           fullWidth
                           iconLeft="mail"
@@ -383,7 +443,7 @@ export default function AnuncioPage({ params }) {
         </div>
 
         {/* barra fixa no celular: o contato não pode depender de rolagem */}
-        {!semContatoDireto ? (
+        {!semContatoDireto || podeComprar ? (
           <div className={styles.mobileBar}>
             <span className={styles.mobilePrice}>{anuncio.preco || 'Consultar'}</span>
             <div className={styles.mobileActions}>
@@ -399,8 +459,24 @@ export default function AnuncioPage({ params }) {
               ) : null}
 
               {podeWhatsapp ? (
-                <Button as="a" href={zap} target="_blank" rel="noopener noreferrer" size="sm" iconLeft="whatsapp" onClick={abrirWhatsapp}>
-                  WhatsApp
+                <Button
+                  as="a"
+                  href={zap}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="sm"
+                  variant={podeComprar ? 'outline' : 'primary'}
+                  iconLeft="whatsapp"
+                  onClick={abrirWhatsapp}
+                  aria-label={podeComprar ? 'WhatsApp' : undefined}
+                >
+                  {podeComprar ? null : 'WhatsApp'}
+                </Button>
+              ) : null}
+
+              {podeComprar ? (
+                <Button size="sm" onClick={comprar} disabled={comprando}>
+                  {comprando ? 'Abrindo…' : 'Comprar'}
                 </Button>
               ) : null}
             </div>

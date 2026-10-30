@@ -1,0 +1,149 @@
+.root {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.root:first-child {
+  border-top: 0;
+}
+
+.capa {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-green-tint);
+  color: var(--color-forest);
+}
+
+.capa img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.corpo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.linhaTopo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.codigo {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-3);
+}
+
+.titulo {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  font-size: 13px;
+  color: var(--color-ink-2);
+}
+
+.meta a {
+  color: var(--color-forest);
+  font-weight: 600;
+}
+
+.total {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.valores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+}
+
+.valores div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.valores dt {
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+.valores dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.liquido dd {
+  color: var(--color-forest);
+}
+
+.dica {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-ink-2);
+  background: var(--color-info-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+}
+
+.dica svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+.dicaAlerta {
+  background: var(--color-warning-soft);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.acoes:empty {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .root {
+    gap: var(--space-3);
+    padding: var(--space-3);
+  }
+
+  .capa {
+    width: 48px;
+    height: 48px;
+  }
+}

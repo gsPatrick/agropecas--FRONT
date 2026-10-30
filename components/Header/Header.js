@@ -19,11 +19,10 @@ import Button from '@/components/Button/Button';
 import styles from './Header.module.css';
 
 const LINKS = [
-  { label: 'Home', href: '#topo' },
-  { label: 'Como funciona', href: '#como-funciona' },
-  { label: 'Para Lojas', href: '#para-lojas' },
-  { label: 'Para Prestadores', href: '#para-prestadores' },
-  { label: 'Blog', href: '#blog' },
+  { label: 'Home', href: '/#topo' },
+  { label: 'Como funciona', href: '/#como-funciona' },
+  { label: 'Para Lojas', href: '/#publicos' },
+  { label: 'Para Prestadores', href: '/#publicos' },
 ];
 
 /**

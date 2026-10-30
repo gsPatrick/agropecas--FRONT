@@ -1,0 +1,115 @@
+.main {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-12) 16px;
+  background: var(--color-bone);
+}
+
+.cartao {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.carregando {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.selo {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+}
+
+.sucesso .selo {
+  color: var(--color-success);
+  background: var(--color-success-soft);
+}
+
+.pendente .selo {
+  color: var(--color-warning);
+  background: var(--color-warning-soft);
+}
+
+.erro .selo {
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+.titulo {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+.texto {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-ink-2);
+}
+
+.resumo {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  text-align: left;
+}
+
+.resumo div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.resumo div:first-child {
+  border-top: 0;
+}
+
+.resumo dt {
+  font-size: 13px;
+  color: var(--color-ink-3);
+}
+
+.resumo dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.falha {
+  font-size: 13px;
+  color: var(--color-danger);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}

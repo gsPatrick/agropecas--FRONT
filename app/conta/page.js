@@ -31,6 +31,7 @@ import CampoCidadeCep from '@/components/CampoCidadeCep/CampoCidadeCep';
 import Icon from '@/components/Icon/Icon';
 import Dica from '@/components/Dica/Dica';
 import Esqueleto from '@/components/Esqueleto/Esqueleto';
+import MinhasCompras from '@/components/MinhasCompras/MinhasCompras';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
 import { useSessao } from '@/lib/sessao';
 import {
@@ -47,6 +48,7 @@ import styles from './page.module.css';
 const ABAS = [
   { id: 'dados', rotulo: 'Meus dados' },
   { id: 'favoritos', rotulo: 'Favoritos' },
+  { id: 'compras', rotulo: 'Compras' },
 ];
 
 export default function ContaPage() {
@@ -71,6 +73,12 @@ export default function ContaPage() {
 
   const [aba, setAba] = useState('dados');
 
+  /* `?aba=compras` — a volta do checkout cai direto na lista de compras */
+  useEffect(() => {
+    const pedida = new URLSearchParams(window.location.search).get('aba');
+    if (ABAS.some((item) => item.id === pedida)) setAba(pedida);
+  }, []);
+
   if (!autenticado || tipoPerfil !== 'cliente') return null;
 
   return (
@@ -94,6 +102,7 @@ export default function ContaPage() {
 
           {aba === 'dados' ? <AbaDados usuario={usuario} aviso={aviso} /> : null}
           {aba === 'favoritos' ? <AbaFavoritos aviso={aviso} /> : null}
+          {aba === 'compras' ? <MinhasCompras /> : null}
         </div>
       </main>
 

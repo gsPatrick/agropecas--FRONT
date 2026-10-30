@@ -1,0 +1,226 @@
+/* ── topo ─────────────────────────────────────────────── */
+.topo {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.titulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+}
+
+.descricao {
+  margin: 4px 0 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--space-4);
+}
+
+/* ── filtros ──────────────────────────────────────────── */
+.filtros {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.campoBusca {
+  width: 300px;
+  max-width: 100%;
+  margin-left: auto;
+}
+
+.totalRepasse {
+  margin-left: auto;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+/* ── quadro ───────────────────────────────────────────── */
+.quadro {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.rolagem {
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.tabela th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink-3);
+  background: var(--color-bone);
+  border-bottom: 1px solid var(--color-line);
+  white-space: nowrap;
+}
+
+.tabela td {
+  padding: var(--space-3) var(--space-4);
+  vertical-align: top;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-ink);
+}
+
+.tabela tbody tr:first-child td {
+  border-top: 0;
+}
+
+.tabela td > span,
+.tabela td > strong {
+  display: block;
+}
+
+.num {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.lucro {
+  color: var(--color-forest) !important;
+  font-weight: 700;
+}
+
+.codigo {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-ink-3);
+}
+
+.subAlerta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-danger);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* ── repasses ─────────────────────────────────────────── */
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.repasse {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 130px 190px 150px;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-line);
+}
+
+.repasse:first-child {
+  border-top: 0;
+}
+
+.repasseTexto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: var(--text-sm);
+}
+
+.pix {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-forest);
+  overflow-wrap: anywhere;
+}
+
+.repasseValor {
+  text-align: right;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.repasseStatus {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.vazio {
+  padding: var(--space-10) var(--space-4);
+  text-align: center;
+  color: var(--color-ink-3);
+}
+
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+.rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+@media (max-width: 760px) {
+  .campoBusca,
+  .totalRepasse {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .repasse {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .repasseStatus,
+  .repasse .acoes {
+    grid-column: 1 / -1;
+  }
+
+  .repasse .acoes {
+    justify-content: flex-start;
+  }
+}

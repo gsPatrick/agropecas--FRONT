@@ -1,0 +1,47 @@
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.pilha {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.pix {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.pix > :first-child {
+  flex: 0 1 180px;
+}
+
+.pixChave {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.carregando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.vazio {
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  color: var(--color-ink-3);
+}
+
+@media (max-width: 520px) {
+  .pix > * {
+    flex: 1 1 100%;
+  }
+}
