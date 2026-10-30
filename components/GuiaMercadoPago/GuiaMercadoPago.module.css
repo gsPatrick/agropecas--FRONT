@@ -1,0 +1,282 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  min-width: 0;
+}
+
+.topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.titulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+}
+
+.sub {
+  margin: 4px 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-3);
+}
+
+.progresso {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.barra {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-line);
+  overflow: hidden;
+}
+
+.barra span {
+  display: block;
+  height: 100%;
+  background: var(--color-forest-soft);
+  transition: width 0.25s ease;
+}
+
+.progressoTexto {
+  font-size: 12px;
+  color: var(--color-ink-3);
+  white-space: nowrap;
+}
+
+.link {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 12px;
+  color: var(--color-forest);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.passos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.passo {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.passo.aberto {
+  border-color: var(--color-forest-soft);
+  box-shadow: 0 0 0 3px var(--color-success-soft);
+}
+
+.passo.feito:not(.aberto) {
+  background: var(--color-bone);
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  background: none;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.numero {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-bone);
+  border: 1px solid var(--color-line-strong);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-ink-2);
+}
+
+.feito .numero {
+  background: var(--color-forest);
+  border-color: var(--color-forest);
+  color: var(--color-white);
+}
+
+.passoTitulo {
+  flex: 1;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+}
+
+.selo {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-forest);
+}
+
+.corpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: 0 var(--space-4) var(--space-4) calc(var(--space-4) + 26px + var(--space-3));
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  line-height: 1.55;
+}
+
+.corpo p {
+  margin: 0;
+}
+
+.corpo code {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--color-bone);
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.externo {
+  align-self: flex-start;
+  font-weight: 600;
+  color: var(--color-forest);
+}
+
+.copiar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  padding: var(--space-3);
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+}
+
+.copiar span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink-3);
+}
+
+.copiar code {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  padding: 0;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.tabela th,
+.tabela td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-line);
+  vertical-align: top;
+}
+
+.tabela th {
+  color: var(--color-ink-3);
+  font-weight: 600;
+}
+
+.dica {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-info-soft);
+  color: var(--color-ink-2);
+  font-size: 13px;
+}
+
+.acoesPasso {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.faq {
+  border-top: 1px solid var(--color-line);
+  padding-top: var(--space-4);
+}
+
+.faqTitulo {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+}
+
+.pergunta {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.perguntaBotao {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.resposta {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--color-ink-2);
+}
+
+.rodape {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
+
+@media (max-width: 640px) {
+  .root {
+    padding: var(--space-4);
+  }
+
+  .corpo {
+    padding-left: var(--space-4);
+  }
+}

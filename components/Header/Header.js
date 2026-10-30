@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import BrandMark from '@/components/BrandMark/BrandMark';
 import Button from '@/components/Button/Button';
+import { useSessao, rotaDaConta } from '@/lib/sessao';
 import styles from './Header.module.css';
 
 const LINKS = [
@@ -32,6 +33,8 @@ const LINKS = [
 export default function Header({ theme = 'over', onLogin, onRegister }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { autenticado, carregando, tipoPerfil, ehAdmin } = useSessao();
+  const minhaConta = rotaDaConta(tipoPerfil);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -75,20 +78,30 @@ export default function Header({ theme = 'over', onLogin, onRegister }) {
           </ul>
         </nav>
 
+        {/* enquanto a sessão carrega não se mostra nenhum dos dois: "Entrar"
+            piscando para quem já está logado é exatamente o bug que isto evita */}
         <div className={styles.actions}>
-          <Button
-            as={Link}
-            href="/entrar"
-            variant="outline"
-            size="sm"
-            className={styles.login}
-            onClick={onLogin}
-          >
-            Entrar
-          </Button>
-          <Button as={Link} href="/entrar" variant="forest" size="sm" onClick={onRegister}>
-            Cadastrar
-          </Button>
+          {carregando ? null : autenticado ? (
+            <>
+              {ehAdmin ? (
+                <Button as={Link} href="/admin" variant="outline" size="sm" className={styles.login}>
+                  Admin
+                </Button>
+              ) : null}
+              <Button as={Link} href={minhaConta} variant="forest" size="sm">
+                Meu painel
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button as={Link} href="/entrar" variant="outline" size="sm" className={styles.login} onClick={onLogin}>
+                Entrar
+              </Button>
+              <Button as={Link} href="/entrar" variant="forest" size="sm" onClick={onRegister}>
+                Cadastrar
+              </Button>
+            </>
+          )}
         </div>
 
         <button
@@ -121,12 +134,27 @@ export default function Header({ theme = 'over', onLogin, onRegister }) {
         </ul>
 
         <div className={styles.popupActions}>
-          <Button as={Link} href="/entrar" variant="outline" fullWidth onClick={() => setOpen(false)}>
-            Entrar
-          </Button>
-          <Button as={Link} href="/entrar" variant="forest" fullWidth onClick={() => setOpen(false)}>
-            Cadastrar
-          </Button>
+          {carregando ? null : autenticado ? (
+            <>
+              {ehAdmin ? (
+                <Button as={Link} href="/admin" variant="outline" fullWidth onClick={() => setOpen(false)}>
+                  Admin
+                </Button>
+              ) : null}
+              <Button as={Link} href={minhaConta} variant="forest" fullWidth onClick={() => setOpen(false)}>
+                Meu painel
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button as={Link} href="/entrar" variant="outline" fullWidth onClick={() => setOpen(false)}>
+                Entrar
+              </Button>
+              <Button as={Link} href="/entrar" variant="forest" fullWidth onClick={() => setOpen(false)}>
+                Cadastrar
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>
