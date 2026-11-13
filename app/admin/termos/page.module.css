@@ -166,6 +166,12 @@
 }
 
 .verNoSite {
+  /* também serve de botão ("Ler texto em vigor") */
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -439,4 +445,11 @@
     flex: 1;
     justify-content: center;
   }
+}
+
+/* leitura do texto em vigor: documento longo rola dentro do modal */
+.leituraTexto {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 4px;
 }

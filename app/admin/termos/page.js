@@ -38,6 +38,7 @@ import PainelBarraSalvar from '@/components/PainelBarraSalvar/PainelBarraSalvar'
 import Field from '@/components/Field/Field';
 import Input from '@/components/Input/Input';
 import Button from '@/components/Button/Button';
+import Modal from '@/components/Modal/Modal';
 import Icon from '@/components/Icon/Icon';
 import Esqueleto from '@/components/Esqueleto/Esqueleto';
 import { useAviso } from '@/components/Aviso/AvisoProvider';
@@ -125,6 +126,8 @@ export default function AdminTermosPage() {
   const [original, setOriginal] = useState('');
   const [acao, setAcao] = useState(null);
   const [publicando, setPublicando] = useState(false);
+  /* leitura do texto em vigor: { linha, texto } — `texto` nulo enquanto carrega */
+  const [leitura, setLeitura] = useState(null);
 
   const carregar = useCallback(async (sinal) => {
     setCarregando(true);
@@ -224,6 +227,22 @@ export default function AdminTermosPage() {
       aviso.erro('Não foi possível carregar o texto em vigor. Comece pelo texto novo.');
     } finally {
       setCarregandoTexto(false);
+    }
+  }
+
+  /**
+   * Só leitura: mostra o texto que está no ar, do jeito que o site o desenha.
+   * Separado de `editar` de propósito — ler não abre rascunho nem arrisca
+   * publicar versão nova de documento legal por engano.
+   */
+  async function ler(linha) {
+    setLeitura({ linha, texto: null });
+    try {
+      const documento = await api.get(`/lgpd/documentos/${linha.id}`);
+      setLeitura((atual) => (atual?.linha.id === linha.id ? { linha, texto: documento?.conteudo || '' } : atual));
+    } catch {
+      setLeitura(null);
+      aviso.erro('Não foi possível carregar o texto em vigor.');
     }
   }
 
@@ -372,6 +391,13 @@ export default function AdminTermosPage() {
                 )}
 
                 <span className={styles.documentoAcoes}>
+                  {linha.vigente ? (
+                    <button type="button" className={styles.verNoSite} onClick={() => ler(linha)}>
+                      <Icon name="eye" size={14} />
+                      Ler texto em vigor
+                    </button>
+                  ) : null}
+
                   {linha.caminho ? (
                     <Link
                       href={linha.caminho}
@@ -398,6 +424,59 @@ export default function AdminTermosPage() {
           </ul>
         )}
       </PainelCartao>
+
+      <Modal
+        open={Boolean(leitura)}
+        onClose={() => setLeitura(null)}
+        title={leitura ? `${leitura.linha.rotulo} — versão ${leitura.linha.vigente?.versao}` : ''}
+        description={
+          leitura?.linha.vigente
+            ? `Texto em vigor desde ${formatarData(leitura.linha.vigente.vigenteDe)}. Somente leitura.`
+            : undefined
+        }
+        footer={
+          <>
+            <Button variant="ghost" onClick={() => setLeitura(null)}>
+              Fechar
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                const linha = leitura.linha;
+                setLeitura(null);
+                editar(linha);
+              }}
+            >
+              Criar nova versão a partir deste texto
+            </Button>
+          </>
+        }
+      >
+        {leitura?.texto === null ? (
+          <ListaEsqueleto />
+        ) : leitura ? (
+          <div className={`${styles.previa} ${styles.leituraTexto}`}>
+            {converterConteudo(leitura.texto).map((secao) => (
+              <section className={styles.previaSecao} key={secao.id}>
+                {secao.title ? <h4 className={styles.previaSecaoTitulo}>{secao.title}</h4> : null}
+                {secao.blocos.map((bloco, indice) =>
+                  bloco.tipo === 'lista' ? (
+                    <ul className={styles.previaLista} key={`lista-${indice}`}>
+                      {bloco.itens.map((item, posicao) => (
+                        <li key={`${posicao}-${item.slice(0, 24)}`}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className={styles.previaParagrafo} key={`p-${indice}`}>
+                      {bloco.texto}
+                    </p>
+                  )
+                )}
+              </section>
+            ))}
+          </div>
+        ) : null}
+      </Modal>
 
       {/* ── editor + prévia ──────────────────────────────── */}
       {emEdicao ? (
