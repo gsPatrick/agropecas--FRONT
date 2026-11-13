@@ -28,7 +28,7 @@ import {
   ConfirmEmailForm,
 } from '@/components/AuthForms/AuthForms';
 import SignupWizard from '@/components/SignupWizard/SignupWizard';
-import { rotaDaConta, destinoAposLogin } from '@/lib/sessao';
+import { rotaDaConta, destinoAposLogin, useSessao } from '@/lib/sessao';
 import styles from './page.module.css';
 
 const SPLITS = {
@@ -46,6 +46,9 @@ const SPLITS = {
 };
 
 export default function EntrarPage() {
+  /* `entrar` entrega a sessão ao store NA HORA do login. Sem isso o store
+     segue como "visitante" e o painel, ao abrir, te devolve para /entrar */
+  const { entrar: iniciarSessao } = useSessao();
   const [step, setStep] = useState('gate');
   /* a recuperação de senha é UMA operação em três telas: o e-mail digitado em
      "esqueci" e o código conferido no OTP só são gastos na última chamada,
@@ -117,6 +120,7 @@ export default function EntrarPage() {
             onForgot={() => go('esqueci')}
             onSwitch={() => go('cadastro')}
             onSubmit={(sessao) => {
+              iniciarSessao(sessao);
               setDestino(destinoAposLogin(sessao));
               go('sucesso');
             }}
@@ -127,6 +131,7 @@ export default function EntrarPage() {
           <SignupWizard
             onSwitch={() => go('login')}
             onFinish={(sessao) => {
+              iniciarSessao(sessao);
               setEmailCadastrado(sessao?.usuario?.email || '');
               setDestino(rotaDaConta(sessao?.perfil?.tipo));
 
