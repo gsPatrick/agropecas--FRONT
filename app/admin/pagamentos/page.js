@@ -158,26 +158,44 @@ export default function AdminPagamentosPage() {
         </Button>
       </header>
 
-      <div className={`${styles.situacao} ${ativa || meta.usandoReserva ? styles.ok : styles.alerta}`} role="status">
-        {ativa ? (
-          <>
-            <strong>Recebendo em:</strong> {ativa.apelido} ({rotuloDe(TIPOS_PESSOA, ativa.tipoPessoa)} ·{' '}
-            {rotuloDe(MODOS, ativa.modo)}
-            {ativa.mpEmail ? ` · ${ativa.mpEmail}` : ''})
-          </>
+      <section
+        className={`${styles.situacao} ${ativa || meta.usandoReserva ? styles.ok : styles.alerta}`}
+        role="status"
+        aria-live="polite"
+      >
+        <span className={styles.situacaoPonto} aria-hidden="true" />
+        {contas === null ? (
+          <div className={styles.situacaoTexto}>
+            <strong>Verificando conta conectada…</strong>
+          </div>
+        ) : ativa ? (
+          <div className={styles.situacaoTexto}>
+            <strong>Conta conectada: {ativa.apelido}</strong>
+            <span>
+              {rotuloDe(TIPOS_PESSOA, ativa.tipoPessoa)} · {rotuloDe(MODOS, ativa.modo)}
+              {ativa.mpEmail ? ` · ${ativa.mpEmail}` : ''}
+              {ativa.mpUserId ? ` · ID ${ativa.mpUserId}` : ''}
+            </span>
+            <span>
+              {contas.length > 1 ? `${contas.length} contas cadastradas · ` : ''}
+              {ativa.temWebhookSecret ? 'Webhook assinado' : 'Sem assinatura do webhook'} · conferida em{' '}
+              {dataCurta(ativa.verificadaEm)}
+            </span>
+          </div>
         ) : meta.usandoReserva ? (
-          <>
-            <strong>Recebendo em:</strong> credenciais configuradas no servidor (.env). Cadastre uma conta abaixo para
-            passar a gerenciá-la por aqui.
-          </>
-        ) : contas ? (
-          <>
-            <strong>Nenhuma conta ativa.</strong> O botão de compra fica indisponível no site até você ativar uma conta.
-          </>
+          <div className={styles.situacaoTexto}>
+            <strong>Conta conectada pelas credenciais do servidor (.env)</strong>
+            <span>
+              Ela ainda não está cadastrada aqui. Reinicie a API para importá-la, ou cadastre uma conta abaixo.
+            </span>
+          </div>
         ) : (
-          'Carregando…'
+          <div className={styles.situacaoTexto}>
+            <strong>Nenhuma conta conectada</strong>
+            <span>O botão de compra fica indisponível no site até você cadastrar e ativar uma conta.</span>
+          </div>
         )}
-      </div>
+      </section>
 
       <div className={styles.quadro}>
         {contas === null ? (

@@ -24,18 +24,55 @@
 }
 
 .situacao {
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  font-size: var(--text-sm);
-  color: var(--color-ink-2);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
 }
 
 .situacao.ok {
+  border-color: var(--color-success);
   background: var(--color-success-soft);
 }
 
 .situacao.alerta {
+  border-color: var(--color-warning);
   background: var(--color-warning-soft);
+}
+
+.situacaoPonto {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--color-ink-3);
+}
+
+.ok .situacaoPonto {
+  background: var(--color-success);
+}
+
+.alerta .situacaoPonto {
+  background: var(--color-warning);
+}
+
+.situacaoTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  overflow-wrap: anywhere;
+}
+
+.situacaoTexto strong {
+  font-size: var(--text-base);
+  color: var(--color-ink);
 }
 
 .quadro {
