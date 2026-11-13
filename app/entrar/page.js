@@ -28,7 +28,7 @@ import {
   ConfirmEmailForm,
 } from '@/components/AuthForms/AuthForms';
 import SignupWizard from '@/components/SignupWizard/SignupWizard';
-import { rotaDaConta } from '@/lib/sessao';
+import { rotaDaConta, destinoAposLogin } from '@/lib/sessao';
 import styles from './page.module.css';
 
 const SPLITS = {
@@ -117,7 +117,7 @@ export default function EntrarPage() {
             onForgot={() => go('esqueci')}
             onSwitch={() => go('cadastro')}
             onSubmit={(sessao) => {
-              setDestino(rotaDaConta(sessao?.perfil?.tipo));
+              setDestino(destinoAposLogin(sessao));
               go('sucesso');
             }}
           />
