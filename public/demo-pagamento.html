@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgroPeças MT — Teste de pagamento</title>
+<style>
+  :root { --verde:#2f6b3a; --verde-claro:#e8f3ea; --texto:#1f2a22; --suave:#5d6b61; --borda:#d9e2da; --aviso:#fff6e0; --aviso-borda:#e5c46a; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; color:var(--texto); background:#f6f8f6; line-height:1.55; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2 { font-size: 1.15rem; margin: 32px 0 12px; }
+  .sub { color: var(--suave); margin: 0 0 24px; }
+  .cartao { background:#fff; border:1px solid var(--borda); border-radius:12px; padding:20px; }
+  .passos { list-style:none; padding:0; margin:0; display:grid; gap:12px; }
+  .passos li { background:#fff; border:1px solid var(--borda); border-radius:12px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start; }
+  .n { flex:none; width:28px; height:28px; border-radius:50%; background:var(--verde); color:#fff; display:grid; place-items:center; font-weight:700; font-size:.9rem; }
+  table { width:100%; border-collapse:collapse; }
+  td { padding:10px 4px; border-bottom:1px solid var(--borda); }
+  td:last-child { text-align:right; font-variant-numeric: tabular-nums; font-weight:600; }
+  tr.total td { border-bottom:0; font-size:1.05rem; }
+  tr.destaque td { color:var(--verde); }
+  .selo { display:inline-block; font-size:.78rem; font-weight:700; padding:2px 8px; border-radius:99px; background:var(--verde-claro); color:var(--verde); }
+  .aviso { background:var(--aviso); border:1px solid var(--aviso-borda); border-radius:12px; padding:14px 16px; }
+  .botao { display:inline-block; background:var(--verde); color:#fff; text-decoration:none; padding:12px 18px; border-radius:10px; font-weight:600; }
+  code { background:#eef2ee; padding:1px 6px; border-radius:6px; font-size:.9em; word-break:break-all; }
+  .grade { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+  @media (max-width:560px){ .grade{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+<main>
+  <h1>Teste do pagamento — AgroPeças MT</h1>
+  <p class="sub">16/11/2026 · ambiente de teste do Mercado Pago (nenhum dinheiro real foi movimentado)</p>
+
+  <h2>Como a comissão de 3% funciona</h2>
+  <div class="cartao">
+    <p style="margin-top:0">Exemplo: um comprador paga <strong>R$ 150,00</strong> por uma peça. O valor entra na conta do Mercado Pago da plataforma, e a comissão de 3% é separada do repasse ao vendedor.</p>
+    <table>
+      <tr><td>Valor pago pelo comprador</td><td>R$ 150,00</td></tr>
+      <tr class="destaque"><td>Comissão da plataforma (3%)</td><td>R$ 4,50</td></tr>
+      <tr class="total"><td>Repasse ao vendedor</td><td>R$ 145,50</td></tr>
+    </table>
+    <p style="color:var(--suave);font-size:.92rem;margin-bottom:0">Conta feita pelo próprio código do sistema (<code>pedido.calculo.js</code>), em centavos, sem arredondamento solto: 15000 − 450 = 14550. A taxa do Mercado Pago é custo da plataforma e não é descontada do vendedor.</p>
+  </div>
+
+  <h2>O caminho do dinheiro</h2>
+  <ol class="passos">
+    <li><span class="n">1</span><div><strong>Comprador paga no site</strong><br>Cartão ou Pix, na tela segura do Mercado Pago.</div></li>
+    <li><span class="n">2</span><div><strong>Dinheiro fica retido na plataforma</strong><br>O sistema é avisado pelo Mercado Pago, confere o pagamento e marca o pedido como pago.</div></li>
+    <li><span class="n">3</span><div><strong>Comprador confirma o recebimento</strong><br>Ou, sem confirmação, o repasse é liberado em 7 dias.</div></li>
+    <li><span class="n">4</span><div><strong>Repasse ao vendedor por Pix</strong><br>Valor da peça menos os 3% da plataforma.</div></li>
+  </ol>
+
+  <h2>O que foi testado agora</h2>
+  <div class="cartao">
+    <div class="grade">
+      <div><span class="selo">OK</span><p><strong>Conta de teste conectada</strong><br>Credenciais do Mercado Pago aceitas pela API.</p></div>
+      <div><span class="selo">OK</span><p><strong>Cálculo com 3%</strong><br>R$ 150,00 → comissão R$ 4,50 → vendedor R$ 145,50.</p></div>
+      <div><span class="selo">OK</span><p><strong>Cobrança criada no Checkout Pro</strong><br>O Mercado Pago devolveu o link de pagamento (abaixo).</p></div>
+      <div><span class="selo">OK</span><p><strong>Cartão de teste aceito para tokenização</strong><br>Cartão Mastercard de teste gerou o token com sucesso.</p></div>
+    </div>
+  </div>
+
+  <h2>Link de pagamento gerado</h2>
+  <div class="cartao">
+    <p style="margin-top:0">Peça de exemplo: <strong>Jogo de rolamentos (TESTE)</strong> — R$ 150,00</p>
+    <p><a class="botao" href="https://sandbox.mercadopago.com.br/checkout/v1/redirect?pref_id=3778443896-5b592f51-6cd1-43c8-b2c7-3ca461f347a9" target="_blank" rel="noopener">Abrir o checkout de teste</a></p>
+    <p style="color:var(--suave);font-size:.92rem;margin-bottom:0">ID da cobrança: <code>3778443896-5b592f51-6cd1-43c8-b2c7-3ca461f347a9</code></p>
+  </div>
+
+  <h2>O que ainda não foi concluído</h2>
+  <div class="aviso">
+    <p style="margin-top:0"><strong>A aprovação do pagamento não foi simulada por API.</strong> Ao tentar cobrar o cartão de teste, o Mercado Pago respondeu <code>401 — Unauthorized use of live credentials</code> mesmo com um comprador de teste. Ou seja, a cobrança nasce certa, mas o passo "pagamento aprovado" ainda não foi visto funcionando.</p>
+    <p style="margin-bottom:0">Para fechar o teste: abrir o checkout acima, entrar com uma conta de comprador de teste do painel do Mercado Pago e pagar com o cartão de teste (nome do titular <code>APRO</code> aprova). Depois conferimos se o pedido aparece como pago no painel admin.</p>
+  </div>
+
+  <h2>Para a comissão valer em produção</h2>
+  <div class="cartao">
+    <p style="margin:0">Hoje o sistema usa 10% por padrão. Para aplicar os 3%, é preciso definir a variável <code>PLATFORM_COMMISSION_PERCENTAGE=3</code> no servidor (Easypanel) e reiniciar a API. Pedidos já criados mantêm a comissão com que foram feitos.</p>
+  </div>
+</main>
+</body>
+</html>
