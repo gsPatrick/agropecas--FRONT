@@ -60,7 +60,7 @@
       <div><span class="selo">OK</span><p><strong>Conta de teste conectada</strong><br>Credenciais do Mercado Pago aceitas pela API.</p></div>
       <div><span class="selo">OK</span><p><strong>Cálculo com 3%</strong><br>R$ 150,00 → comissão R$ 4,50 → vendedor R$ 145,50.</p></div>
       <div><span class="selo">OK</span><p><strong>Cobrança criada no Checkout Pro</strong><br>O Mercado Pago devolveu o link de pagamento (abaixo).</p></div>
-      <div><span class="selo">OK</span><p><strong>Cartão de teste aceito para tokenização</strong><br>Cartão Mastercard de teste gerou o token com sucesso.</p></div>
+      <div><span class="selo">OK</span><p><strong>Pagamento aprovado no Checkout Pro</strong><br>Cartão Visa de teste, R$ 150,00, status <code>approved</code>, pagamento nº 189931918608.</p></div>
     </div>
   </div>
 
@@ -71,10 +71,21 @@
     <p style="color:var(--suave);font-size:.92rem;margin-bottom:0">ID da cobrança: <code>3778443896-5b592f51-6cd1-43c8-b2c7-3ca461f347a9</code></p>
   </div>
 
-  <h2>O que ainda não foi concluído</h2>
+  <h2>Resultado do pagamento de teste</h2>
+  <div class="cartao">
+    <table>
+      <tr><td>Status no Mercado Pago</td><td>Aprovado</td></tr>
+      <tr><td>Forma de pagamento</td><td>Cartão de crédito (Visa)</td></tr>
+      <tr><td>Valor cobrado</td><td>R$ 150,00</td></tr>
+      <tr><td>Taxa do Mercado Pago (paga pela plataforma)</td><td>R$ 3,74</td></tr>
+      <tr class="total"><td>Valor líquido recebido pela plataforma</td><td>R$ 142,52</td></tr>
+    </table>
+    <p style="color:var(--suave);font-size:.92rem;margin-bottom:0">Valores lidos da própria API do Mercado Pago.</p>
+  </div>
+
+  <h2>Ponto de atenção sobre a comissão</h2>
   <div class="aviso">
-    <p style="margin-top:0"><strong>A aprovação do pagamento não foi simulada por API.</strong> Ao tentar cobrar o cartão de teste, o Mercado Pago respondeu <code>401 — Unauthorized use of live credentials</code> mesmo com um comprador de teste. Ou seja, a cobrança nasce certa, mas o passo "pagamento aprovado" ainda não foi visto funcionando.</p>
-    <p style="margin-bottom:0">Para fechar o teste: abrir o checkout acima, entrar com uma conta de comprador de teste do painel do Mercado Pago e pagar com o cartão de teste (nome do titular <code>APRO</code> aprova). Depois conferimos se o pedido aparece como pago no painel admin.</p>
+    <p style="margin:0">Neste teste, dos R$ 150,00 a plataforma recebeu líquidos R$ 142,52 (as taxas do Mercado Pago somaram R$ 7,48). O repasse ao vendedor, com 3% de comissão, seria R$ 145,50, mais do que a plataforma recebeu. Com pagamento no cartão e liberação imediata, 3% não cobre as taxas. Vale decidir se a comissão sobe, se as taxas passam a ser descontadas do vendedor ou se o Pix (taxa menor) é incentivado.</p>
   </div>
 
   <h2>Para a comissão valer em produção</h2>
